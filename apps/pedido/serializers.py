@@ -5,7 +5,7 @@ from .models import Pedido, OrderProduct
 class PedidoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pedido
-        fields = ('id', 'factura', 'recibo', 'fecha', 'tiempo', 'completado')
+        fields = ('id', 'factura', 'recibo', 'fecha', 'tiempo', 'completado', 'cliente')
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:

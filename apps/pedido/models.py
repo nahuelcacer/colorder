@@ -1,8 +1,10 @@
 from django.db import models
 from apps.producto.models import Producto
+from apps.cliente.models import Cliente
 # Create your models here.
 
 class Pedido(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     factura = models.BooleanField(null=True)
     recibo = models.BooleanField(null=True)
     fecha = models.DateField(auto_now_add=True)

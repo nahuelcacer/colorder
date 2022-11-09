@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from apps.pedido import views
+from apps.cliente.views import ClienteView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'pedidos', views.PedidoView, 'pedido')
 router.register(r'orderproducts', views.OrderProductView, 'orderproducts' )
+router.register(r'clientes', ClienteView, 'clientes' )
 
 urlpatterns = [
     path('admin/', admin.site.urls),

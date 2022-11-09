@@ -20,18 +20,33 @@ function Pedidos(){
   
     return (
     <div className="App">
-       <div>
+       <div className="container">
+        <table className="table">
+          <tr>
+            <th>Id</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Factura</th>
+            <th>Recibo</th>
+            <th>Completado</th>
+          </tr>
+          
             {listPedidos.map(e=>{
-                return(
-                    <div>
-                        <p>{e.id}</p>
-                        <p>{e.fecha}</p>
-                        <p>{e.tiempo}</p>
-                        <p>{e.recibo}</p>
-                        <p>{e.completado}</p>
-                    </div>
+              return(
+                <tr>
+                  
+                    <td>{e.id}</td>
+                    <td>{e.fecha}</td>
+                    <td>{e.tiempo}</td>
+                    <td>{e.factura}</td>
+                    <td>{e.recibo}</td>
+                    <td>{e.completado}</td>
+                  
+                </tr>
+                
                 )
-            })}
+              })}
+          </table> 
        </div>
     </div>
   );
