@@ -5,8 +5,8 @@ from apps.cliente.models import Cliente
 
 class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    factura = models.BooleanField(null=True)
-    recibo = models.BooleanField(null=True)
+    factura = models.BooleanField(null=False)
+    recibo = models.BooleanField(null=False)
     fecha = models.DateField(auto_now_add=True)
     tiempo = models.TimeField(auto_now_add=True)
     completado = models.BooleanField(default=False)

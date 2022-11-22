@@ -1,6 +1,12 @@
-import { createStore } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
+import clienteSlice  from '../features/clientes/clienteSlice'
+import pedidoSlice  from '../features/clientes/pedidoSlice'
+import productoSlice from '../features/clientes/productoSlice'
 
-const store = createStore({
-  reducer: {}
+export const store = configureStore({
+  reducer: {
+      clientes:clienteSlice,
+      pedido:pedidoSlice,
+      productos:productoSlice
+  },
 })
-export default store

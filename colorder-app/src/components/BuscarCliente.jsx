@@ -1,20 +1,40 @@
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {fecthClientes} from '../features/clientes/clienteSlice.js'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { useState } from 'react'
+import {selectCliente} from '../redux/actions/clientes-action.js';
 
-function BuscarCliente(){
-    const [criterioBusqueda, setCriterioBusqueda] = useState([]);
-    return (
-        <>
-            <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={criterioBusqueda}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Movie" />}
-            
-            />
-        </>
+
+
+const BuscarCliente = () => {
+    const [value,setValue] = useState("")
+    const clientes = useSelector(state=>state.clientes)
+    const dispatch = useDispatch()
+    useEffect(()=>{
+
+        dispatch(fecthClientes())
+        
+    },[])
+    return(
+        <div className='container'>
+        <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={clientes.clientes}
+        getOptionLabel={(option) => option.nombre  }
+        sx={{ width: 700, mt:3 }}
+        renderOption={(props, option) => {
+          return (
+            <li {...props} key={option.identificacion}>
+              {option.nombre}
+            </li>
+          );
+        }}
+        onChange={(event, newValue) => {dispatch(selectCliente(newValue))}}
+        renderInput={(params) => <TextField  {...params} label="Seleccionar cliente" />}
+        />
+        </div>
     )
 }
-export default BuscarCliente
+export default BuscarCliente;
