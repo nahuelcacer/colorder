@@ -11,15 +11,10 @@ const ClienteSeleccionado = (props) => {
     if(pedido.cliente === null){
         return(
             <div className="container">
-                <Card sx={{ 
-                    minWidth: 275,
-                    boxShadow: 1
-                     
-                    }}>
+                <Card sx={{ width: 300, mt:4, boxShadow:4, borderRadius:2 }}>
                     <CardContent>
-                        <div className='row'>
-                            <div className='col-12'>Seleccione un cliente</div>
-                        </div>
+                        <Typography><PersonOutlineOutlinedIcon sx={{mr:1}}/>...</Typography>
+                        <Typography><Fingerprint sx={{mr:1}} />...</Typography>
                     </CardContent>
                 </Card>
             </div>

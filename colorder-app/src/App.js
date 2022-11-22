@@ -3,6 +3,11 @@ import ClienteSeleccionado from './components/seleccionCliente.jsx';
 import AgregarProductos from './components/agregarProductos';
 import MostrarPedido from './components/mostrarPedido.jsx';
 import Imprimir from './components/imprimir.jsx';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+} from "react-router-dom";
 
 function App() {
   
@@ -19,13 +24,7 @@ function App() {
       <div className='container mt-4'>
       <Imprimir></Imprimir>
       </div>
-
-     
-      
-      
     </>
-   
-  
   )
 }
 
