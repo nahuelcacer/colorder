@@ -3,20 +3,22 @@ import { Card, Table, TableContainer, TableBody, TableHead, TableRow,TableCell, 
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { eliminarItem } from '../redux/actions/clientes-action';
-
+import { useState } from 'react';
 const MostrarPedido = () => {
     const pedido = useSelector(state=>state.pedido)
     const dispatch = useDispatch()
+    const [total,setTotal] = useState([0])
+    
     return (
         <>
-                <TableContainer component={Paper}>
-
+                <TableContainer sx = {{boxShadow:4, borderRadius:2}} component={Paper}>
+                    
                     <Typography variant="h6" component="h2" sx ={{
-                        m:2,
+                        ml:2, mt:1
                     }}>Pedido</Typography>
                     <Typography
                     sx = {{
-                        m:2,
+                        ml:2,
                         color: 'text.secondary'
                     }}
                     >({pedido.carrito.length} items)
@@ -43,7 +45,7 @@ const MostrarPedido = () => {
                                     </TableCell>
                                     <TableCell align="right">${item.producto.precio}</TableCell>
                                     <TableCell align="right">{item.cantidad}</TableCell>
-                                    <TableCell align="right">${item.cantidad*item.producto.precio}</TableCell>
+                                    <TableCell align="right">${item.total}</TableCell>
                                     <TableCell align="right">
                                         <IconButton color="error" aria-label="delete" onClick={(e)=>{dispatch(eliminarItem(index))}}>
                                             <DeleteIcon />
@@ -53,6 +55,10 @@ const MostrarPedido = () => {
 
                                 )
                             })}
+                            <TableRow>
+                                <TableCell colSpan={2}>Total</TableCell>
+                                <TableCell align="right">{total}</TableCell>
+                            </TableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>

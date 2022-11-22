@@ -54,7 +54,7 @@ const AgregarProductos = () => {
                 sx = {{
                     p:1
                 }}
-                onClick={(e)=>{dispatch(agregarItem({producto:product, cantidad:quantity}))}}
+                onClick={(e)=>{dispatch(agregarItem({producto:product, cantidad:quantity, total:product.precio*quantity}))}}
                 >
                 Agregar
             </Button>
