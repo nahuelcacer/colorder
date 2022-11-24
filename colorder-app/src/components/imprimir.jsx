@@ -1,12 +1,14 @@
 import { Button } from "@mui/material"
 import Alert from '@mui/material/Alert';
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { fecthPedidos } from "../features/pedidos/pedidoshowSlice";
 
 const Imprimir = () => {
     const pedido = useSelector(state=>state.pedido)
     const [alert, setAlert] = useState(false)
+    const dispatch = useDispatch()
     const addPedido = () => {
         axios({
             method:'POST',
@@ -17,8 +19,7 @@ const Imprimir = () => {
                 recibo:pedido.cobrado
             }
         }).then((res)=>{
-            // SI SE CREO
-            
+            dispatch(fecthPedidos())
             if(res.status == 201){
                 setAlert(true)
                 setTimeout(()=>(setAlert(false)), 3000)

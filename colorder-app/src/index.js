@@ -11,23 +11,20 @@ import {
 import Cobranza from './Cobranza';
 const router = createBrowserRouter([{
   path:"/",
-  element:
-        <Provider store={store}>
-          <App />
-        </Provider>
+  element:<App />
 },
 {
   path:"/cobranza",
-  element:
-      <Provider store={store}>
-        <Cobranza />
-      </Provider>
+  element:<Cobranza />
 }])
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-    </RouterProvider>
+    <Provider store={store}>
+        <RouterProvider router={router}>
+        </RouterProvider>
+    </Provider>
+
   </React.StrictMode>
 );
 
