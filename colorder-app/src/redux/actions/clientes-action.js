@@ -1,5 +1,7 @@
 import { createAction } from '@reduxjs/toolkit'
 
+
+// SELECCIONAR CLIENTE EN EL BUSCADOR
 export const selectCliente = createAction('cliente/seleccionar', function prepare(cliente){
   return {
     payload:{
@@ -8,8 +10,7 @@ export const selectCliente = createAction('cliente/seleccionar', function prepar
   }
 })
 
-console.log(selectCliente('Write more docs'))
-
+// AGREGAR ITEM EN EL PEDIDO/CARRITO
 export const agregarItem = createAction('item/agregar', function prepare(item){
   return {
     payload:

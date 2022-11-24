@@ -1,14 +1,14 @@
-import { Badge, Button, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
-import axios from "axios"
-import { useState, useEffect } from "react"
+import { Badge, Button, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
+import {  useEffect } from "react"
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import { useDispatch, useSelector } from "react-redux";
+import { fecthPedidos } from "../../features/pedidos/pedidoshowSlice";
 const PedidosCobranza = () => {
-    const [pedidos,setPedidos] = useState([])
+    const pedidos = useSelector(state=>state.pedidosMostrar)
+    const dispatch = useDispatch()
     useEffect(()=>{
-        axios
-            .get('/api/pedidos')
-            .then((res)=>{setPedidos(res.data)})
-    },[])
+        dispatch(fecthPedidos())
+    },[dispatch])
     return (
         <div className="container">
             
@@ -22,7 +22,7 @@ const PedidosCobranza = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                {pedidos.map((pedido)=>{
+                {pedidos.pedidos.map((pedido)=>{
                     return (
                                 <TableRow sx={{borderBottom:"none"}}>
                                     <TableCell sx={{borderBottom:"none"}}>{pedido.id}</TableCell>

@@ -1,8 +1,12 @@
 import { Button } from "@mui/material"
-import axios from "axios"
-import { useSelector } from "react-redux"
+import Alert from '@mui/material/Alert';
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+
 const Imprimir = () => {
-    const pedido =  useSelector(state=>state.pedido)
+    const pedido = useSelector(state=>state.pedido)
+    const [alert, setAlert] = useState(false)
     const addPedido = () => {
         axios({
             method:'POST',
@@ -13,6 +17,12 @@ const Imprimir = () => {
                 recibo:pedido.cobrado
             }
         }).then((res)=>{
+            // SI SE CREO
+            
+            if(res.status == 201){
+                setAlert(true)
+                setTimeout(()=>(setAlert(false)), 3000)
+            }
             pedido.carrito.map((item)=>{
                 axios({
                     method:'POST',
@@ -28,6 +38,7 @@ const Imprimir = () => {
     }
     return(
         <>
+            {alert ? <Alert severity='success'>Pedido Añadido</Alert> : <></> }
             <Button variant="contained" onClick={addPedido}>Imprimir</Button>
         </>
     )
