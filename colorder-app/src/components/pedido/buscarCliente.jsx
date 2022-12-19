@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {fecthClientes} from '../features/clientes/clienteSlice.js'
+import {fecthClientes} from '../../features/clientes/clienteSlice.js'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import {selectCliente} from '../redux/actions/clientes-action.js';
+import {selectCliente} from '../../redux/actions/clientes-action.js';
 
 
 

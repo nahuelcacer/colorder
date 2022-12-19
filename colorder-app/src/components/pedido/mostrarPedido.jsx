@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card, Table, TableContainer, TableBody, TableHead, TableRow,TableCell, Typography, IconButton  } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { eliminarItem } from '../redux/actions/clientes-action';
+import { eliminarItem } from '../../redux/actions/clientes-action';
 import { useState } from 'react';
 const MostrarPedido = () => {
     const pedido = useSelector(state=>state.pedido)

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fecthPedidos } from "../features/pedidos/pedidoshowSlice";
+import {connect} from 'react-redux'
 
 const Imprimir = () => {
     const pedido = useSelector(state=>state.pedido)
@@ -44,4 +45,13 @@ const Imprimir = () => {
         </>
     )
 }
-export default Imprimir;
+const mapStateToProps = (state) => ({
+    // Asigna una propiedad al componente con un dato del estado de la aplicación.
+    pedido: state.pedido
+  });
+  
+  const mapDispatchToProps = (dispatch) => ({
+    // Asigna una propiedad al componente con una acción de la aplicación.
+    fecthPedidos: () => dispatch(fecthPedidos())
+  });
+export default connect(mapStateToProps, mapDispatchToProps)(Imprimir);

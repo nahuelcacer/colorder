@@ -3,8 +3,8 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fecthProductos } from '../features/clientes/productoSlice';
-import { agregarItem, agregarProducto } from '../redux/actions/clientes-action';
+import { fecthProductos } from '../../features/clientes/productoSlice';
+import { agregarItem, agregarProducto } from '../../redux/actions/clientes-action';
 
 const AgregarProductos = () => {
     const [product,setProduct] = useState({})

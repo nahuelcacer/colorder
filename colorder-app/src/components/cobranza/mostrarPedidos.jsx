@@ -1,14 +1,22 @@
 import { Badge, Button, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
 import {  useEffect } from "react"
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import { useDispatch, useSelector } from "react-redux";
 import { fecthPedidos } from "../../features/pedidos/pedidoshowSlice";
+import {connect} from 'react-redux'
+import { useState } from "react";
+
 const PedidosCobranza = () => {
-    const pedidos = useSelector(state=>state.pedidosMostrar)
-    const dispatch = useDispatch()
+    const [data,setData] = useState([])
     useEffect(()=>{
-        dispatch(fecthPedidos())
-    },[dispatch])
+        const fetchData = async () => {
+            const response = await fetch('/api/pedidos');
+            const data = await response.json();
+            setData(data);
+          };
+      
+          const interval = setInterval(fetchData, 5000);
+          return () => clearInterval(interval);
+    },[])
     return (
         <div className="container">
             
@@ -22,15 +30,15 @@ const PedidosCobranza = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                {pedidos.pedidos.map((pedido)=>{
+                {data.map((pedido)=>{
                     return (
-                                <TableRow sx={{borderBottom:"none"}}>
-                                    <TableCell sx={{borderBottom:"none"}}>{pedido.id}</TableCell>
-                                    <TableCell sx={{borderBottom:"none"}}>{pedido.fecha}</TableCell>
-                                    <TableCell sx={{borderBottom:"none"}}>{pedido.tiempo.substr(0,5)}</TableCell>
-                                    <TableCell sx={{borderBottom:"none"}}>{pedido.factura ? <Badge variant="dot"color="success"></Badge> : <Badge variant="dot" color="error"><AccessTimeOutlinedIcon></AccessTimeOutlinedIcon></Badge> }</TableCell>
-                                    <TableCell sx={{borderBottom:"none"}}><Button variant="contained"color="success">Recibido</Button></TableCell>
-                                </TableRow>
+                        <TableRow sx={{borderBottom:"none"}}>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.id}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.fecha}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.tiempo.substr(0,5)}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.factura ? <Badge variant="dot"color="success"></Badge> : <Badge variant="dot" color="error"><AccessTimeOutlinedIcon></AccessTimeOutlinedIcon></Badge> }</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}><Button variant="contained"color="success">Recibido</Button></TableCell>
+                        </TableRow>
                     )
                 })}
                 </TableBody>
@@ -40,4 +48,13 @@ const PedidosCobranza = () => {
     )
 }
 
-export default PedidosCobranza
+function mapStateToProps(state){
+    return {
+        pedidos: state.pedidosMostrar
+    }
+}
+const mapDispatchToProps = (dispatch) => ({
+    // Asigna una propiedad al componente con una acción de la aplicación.
+    fecthPedidos: () => dispatch(fecthPedidos())
+  });
+export default connect(mapStateToProps, mapDispatchToProps)(PedidosCobranza);
