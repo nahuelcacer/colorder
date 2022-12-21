@@ -24,6 +24,8 @@ const PedidosCobranza = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell sx={{borderBottom:"none"}}>Pedido</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>Nombre</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>identificacion</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Fecha</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Hora</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Factura</TableCell>
@@ -34,6 +36,8 @@ const PedidosCobranza = () => {
                     return (
                         <TableRow sx={{borderBottom:"none"}}>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.id}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente_nombre}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente_dni}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.fecha}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.tiempo.substr(0,5)}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.factura ? <Badge variant="dot"color="success"></Badge> : <Badge variant="dot" color="error"><AccessTimeOutlinedIcon></AccessTimeOutlinedIcon></Badge> }</TableCell>
