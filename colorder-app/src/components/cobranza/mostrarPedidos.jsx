@@ -7,17 +7,24 @@ import { useState } from "react";
 
 const PedidosCobranza = () => {
     const [data,setData] = useState([])
+    const [pendientes, setPendientes] = useState(0)
     useEffect(()=>{
         const fetchData = async () => {
             const response = await fetch('/api/pedidos');
             const data = await response.json();
             setData(data);
+            const arr_pendientes = data.filter(i => i.completado == false)
+            setPendientes(arr_pendientes.length)
+            if(pendientes !== 0){
+                document.title = 'Pendientes ' + pendientes.toString()
+            }
           };
       
           const interval = setInterval(fetchData, 5000);
           return () => clearInterval(interval);
     },[])
     return (
+
         <div className="container">
             
                 <Table>
@@ -49,6 +56,7 @@ const PedidosCobranza = () => {
             </Table>
             
         </div>
+        
     )
 }
 
