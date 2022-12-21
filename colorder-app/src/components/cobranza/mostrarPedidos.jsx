@@ -7,12 +7,17 @@ import { useState } from "react";
 
 const PedidosCobranza = () => {
     const [data,setData] = useState([])
-    const [clientes, setClientes] = useState()
+    const [pendientes, setPendientes] = useState(0)
     useEffect(()=>{
         const fetchData = async () => {
             const response = await fetch('/api/pedidos');
             const data = await response.json();
             setData(data);
+            const arr_pendientes = data.filter(i => i.completado == false)
+            setPendientes(arr_pendientes.length)
+            if(pendientes !== 0){
+                document.title = 'Pendientes ' + pendientes.toString()
+            }
           };
         // const fetchClientes = async () => {
         //     const response = await fetch('/api/clientes');
@@ -24,12 +29,15 @@ const PedidosCobranza = () => {
           return () => clearInterval(interval);
     },[])
     return (
+
         <div className="container">
             
                 <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell sx={{borderBottom:"none"}}>Pedido</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>Nombre</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>identificacion</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Fecha</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Hora</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Factura</TableCell>
@@ -40,6 +48,8 @@ const PedidosCobranza = () => {
                     return (
                         <TableRow sx={{borderBottom:"none"}}>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.id}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente_nombre}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente_dni}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.fecha}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.tiempo.substr(0,5)}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.factura ? <Badge variant="dot"color="success"></Badge> : <Badge variant="dot" color="error"><AccessTimeOutlinedIcon></AccessTimeOutlinedIcon></Badge> }</TableCell>
@@ -51,6 +61,7 @@ const PedidosCobranza = () => {
             </Table>
             
         </div>
+        
     )
 }
 
