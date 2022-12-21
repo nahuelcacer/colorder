@@ -7,12 +7,18 @@ import { useState } from "react";
 
 const PedidosCobranza = () => {
     const [data,setData] = useState([])
+    const [clientes, setClientes] = useState()
     useEffect(()=>{
         const fetchData = async () => {
             const response = await fetch('/api/pedidos');
             const data = await response.json();
             setData(data);
           };
+        // const fetchClientes = async () => {
+        //     const response = await fetch('/api/clientes');
+        //     const data = await response.json()
+        //     setClientes(data)
+        // }
       
           const interval = setInterval(fetchData, 5000);
           return () => clearInterval(interval);

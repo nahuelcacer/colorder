@@ -2,12 +2,17 @@ from rest_framework import serializers
 from .models import Pedido, OrderProduct
 
 
-class PedidoSerializer(serializers.ModelSerializer):
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Pedido
-        fields = ('id', 'factura', 'recibo', 'fecha', 'tiempo', 'completado', 'cliente')
+        model =  OrderProduct
+        fields = ('id', 'producto', 'cantidad')
 
 class OrderSerializer(serializers.ModelSerializer):
+    order_items = OrderItemSerializer(many=True)
+    
     class Meta:
-        model = OrderProduct
-        fields = ('id', 'pedido' , 'producto' , 'cantidad')
+        model = Pedido
+        fields = ('id', 'factura', 'recibo', 'fecha', 'tiempo', 'completado', 'cliente', 'order_items')
+

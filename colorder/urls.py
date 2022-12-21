@@ -23,7 +23,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'pedidos', views.PedidoView, 'pedido')
-router.register(r'orderproducts', views.OrderProductView, 'orderproducts' )
+# router.register(r'orderproducts', views.OrderProductView, 'orderproducts' )
 router.register(r'clientes', ClienteView, 'clientes' )
 router.register(r'productos', ProductoView, 'productos' )
 
