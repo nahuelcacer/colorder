@@ -10,7 +10,7 @@ const PedidosCobranza = () => {
     const [pendientes, setPendientes] = useState(0)
     useEffect(()=>{
         const fetchData = async () => {
-            const response = await fetch('/api/pedidos');
+            const response = await fetch('/api/pedidos?completado=0');
             const data = await response.json();
             setData(data);
             const arr_pendientes = data.filter(i => i.completado == false)
@@ -19,15 +19,15 @@ const PedidosCobranza = () => {
                 document.title = 'Pendientes ' + pendientes.toString()
             }
           };
-        // const fetchClientes = async () => {
-        //     const response = await fetch('/api/clientes');
-        //     const data = await response.json()
-        //     setClientes(data)
-        // }
-      
           const interval = setInterval(fetchData, 5000);
           return () => clearInterval(interval);
     },[])
+
+    const clienteData = async (cliente) => {    
+        const response = await fetch('/api/clientes/'+ cliente)
+        const data = await response.json()
+        return data
+    } 
     return (
 
         <div className="container">
@@ -47,13 +47,13 @@ const PedidosCobranza = () => {
                 {data.map((pedido)=>{
                     return (
                         <TableRow sx={{borderBottom:"none"}}>
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.id}</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente_nombre}</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente_dni}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.orden}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente.nombre}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente.dni}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.fecha}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.tiempo.substr(0,5)}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.factura ? <Badge variant="dot"color="success"></Badge> : <Badge variant="dot" color="error"><AccessTimeOutlinedIcon></AccessTimeOutlinedIcon></Badge> }</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}><Button variant="contained"color="success">Recibido</Button></TableCell>
+                            <TableCell sx={{borderBottom:"none"}}><Button variant="contained"color="primary">Preparar</Button></TableCell>
                         </TableRow>
                     )
                 })}

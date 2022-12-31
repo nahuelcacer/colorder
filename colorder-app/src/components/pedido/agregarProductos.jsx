@@ -7,7 +7,7 @@ import { fecthProductos } from '../../features/clientes/productoSlice';
 import { agregarItem, agregarProducto } from '../../redux/actions/clientes-action';
 
 const AgregarProductos = () => {
-    const [product,setProduct] = useState({})
+    const [product,setProduct] = useState(null)
     const [quantity,setQuantity] = useState(1)
     const dispatch = useDispatch()
     const productos = useSelector(state => state.productos)
@@ -17,8 +17,16 @@ const AgregarProductos = () => {
     useEffect(()=>{
         dispatch(fecthProductos())
     },[])
+
+    const addItem = (item) => {
+        if(product !== null){
+            dispatch(agregarItem(item))
+        }
+        // Agregar mensaje
+    }
     return (
         
+
     <div className="row"> 
         {/* INPUT DE PRODUCTO */}
         <div className="col">
@@ -54,7 +62,7 @@ const AgregarProductos = () => {
                 sx = {{
                     p:1
                 }}
-                onClick={(e)=>{dispatch(agregarItem({producto:product, cantidad:quantity, total:product.precio*quantity}))}}
+                onClick={(e)=>{addItem({producto:product, cantidad:quantity, total:product.precio*quantity})}}
                 >
                 Agregar
             </Button>

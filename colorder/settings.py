@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.cliente',
     'corsheaders',
     'rest_framework',
+    'django_filters'
 ]
 
 MIDDLEWARE = [

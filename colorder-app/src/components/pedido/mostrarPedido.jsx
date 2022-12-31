@@ -9,6 +9,13 @@ const MostrarPedido = () => {
     const dispatch = useDispatch()
     const [total,setTotal] = useState([0])
     
+    const calcTotal = (arr) => {
+        if(arr.length > 0){
+            return (
+                "$" + arr.reduce((a,b)=> a + b.total, 0)
+            )
+        }
+    }
     return (
         <>
                 <TableContainer sx = {{boxShadow:4, borderRadius:2}} component={Paper}>
@@ -21,7 +28,7 @@ const MostrarPedido = () => {
                         ml:2,
                         color: 'text.secondary'
                     }}
-                    >({pedido.carrito.length} items)
+                    >({pedido.orderproduct.length} items)
                     </Typography>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table" title="Carrito">
                         <TableHead >
@@ -34,7 +41,7 @@ const MostrarPedido = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {pedido.carrito.map((item, index)=>{
+                            {pedido.orderproduct.map((item, index)=>{
                                 return(
                                     <TableRow
                                     key={index}
@@ -56,8 +63,12 @@ const MostrarPedido = () => {
                                 )
                             })}
                             <TableRow>
-                                <TableCell colSpan={2}>Total</TableCell>
-                                <TableCell align="right">{total}</TableCell>
+                                <TableCell colSpan={3}>Total</TableCell>
+                                
+
+                                <TableCell align="right">{calcTotal(pedido.orderproduct)}</TableCell>
+                            
+
                             </TableRow>
                         </TableBody>
                     </Table>

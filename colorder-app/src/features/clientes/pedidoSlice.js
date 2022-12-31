@@ -5,12 +5,10 @@ import {agregarItem, selectCliente, eliminarItem} from '../../redux/actions/clie
 
 
 const initialState = {
-    cliente:{nombre:"",identificacion:""},
-    carrito:[],
-    cobrado:false,
-    facturado:false
-
-
+    cliente:null,
+    orderproduct:[],
+    recibo:false,
+    factura:false
 }
 
 
@@ -20,10 +18,10 @@ const pedidoReducer = createReducer(initialState, (builder) => {
         state.cliente = action.payload.cliente
       })
       .addCase(agregarItem, (state,action)=>{
-        state.carrito.push(action.payload) 
+        state.orderproduct.push(action.payload) 
       })
       .addCase(eliminarItem, (state,action)=>{
-        state.carrito.splice(action.payload,1)
+        state.orderproduct.splice(action.payload,1)
       })
   })
 

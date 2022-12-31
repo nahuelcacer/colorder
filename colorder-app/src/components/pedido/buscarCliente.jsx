@@ -4,7 +4,7 @@ import {fecthClientes} from '../../features/clientes/clienteSlice.js'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import {selectCliente} from '../../redux/actions/clientes-action.js';
-
+import { createFilterOptions } from "@mui/material/Autocomplete";
 
 
 const BuscarCliente = () => {
@@ -16,6 +16,9 @@ const BuscarCliente = () => {
         dispatch(fecthClientes())
         
     },[])
+    const filterOptions = createFilterOptions({
+      stringify: (option) => option.nombre + option.dni
+    });
     return(
         <div className='container'>
         <Autocomplete
@@ -31,6 +34,7 @@ const BuscarCliente = () => {
             </li>
           );
         }}
+        filterOptions={filterOptions}
         onChange={(event, newValue) => {dispatch(selectCliente(newValue))}}
         renderInput={(params) => <TextField  {...params} label="Seleccionar cliente" />}
         />
