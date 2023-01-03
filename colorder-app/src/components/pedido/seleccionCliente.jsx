@@ -5,10 +5,12 @@ import React from 'react'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import Fingerprint from '@mui/icons-material/Fingerprint';
 import AddIcon from '@mui/icons-material/Add';
+import { useState } from 'react';
+import AgregarCliente from '../clientes/agregarCliente';
 
 const ClienteSeleccionado = (props) => {
     const pedido = useSelector(state=>state.pedido)
-   
+    const [open, setOpen] = useState(false)
     if(pedido.cliente === null){
         return(
             <div className="container">
@@ -19,9 +21,10 @@ const ClienteSeleccionado = (props) => {
                     </CardContent>
                     <CardActions>
                         
-                        <Button color="primary" size="small" startIcon={<AddIcon/>}>Agregar cliente</Button>
+                        <Button color="primary" size="small" onClick={()=>{setOpen(true)}} startIcon={<AddIcon/>}>Agregar cliente</Button>
                     </CardActions>
                 </Card>
+                <AgregarCliente open={open} setOpen={setOpen}></AgregarCliente>
             </div>
         )
     }else{
