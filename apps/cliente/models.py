@@ -4,6 +4,11 @@ from django.db import models
 
 class Cliente(models.Model):
     nombre = models.CharField(max_length=60)
-    dni = models.IntegerField()
+    dni = models.IntegerField(unique=True)
     def __str__(self):
         return self.nombre
+
+    class Meta:
+       unique_together = [
+        ['dni', 'nombre'],
+        ]

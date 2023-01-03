@@ -1,6 +1,6 @@
 import CardContent from '@mui/material/CardContent';
 import { Button, Card, CardActions, Typography } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import React from 'react'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import Fingerprint from '@mui/icons-material/Fingerprint';

@@ -1,4 +1,4 @@
-import { Modal, Box, Typography, TextField, Button } from "@mui/material"
+import { Modal, Box, Typography, TextField, Button, Alert } from "@mui/material"
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,7 @@ const AgregarCliente = ({open, setOpen}) => {
     const handleClose = () => setOpen(false);
     const [cliente,setCliente] = useState({})
     const dispatch = useDispatch()
+    const [alert, setAlert] = useState({on:false,tipo:"",texto:""})
     const style = {
         position: 'absolute',
         top: '50%',
@@ -29,11 +30,22 @@ const AgregarCliente = ({open, setOpen}) => {
     const addCliente =  () => {
         axios.post('api/clientes/', cliente)
         .then(res=>{
-            setOpen(false)
-            dispatch(fecthClientes())
+            setAlert({on:true, tipo:"success", texto:"Cliente agregado!"})
+            setTimeout(()=>(
+                setAlert({on:false,tipo:"",texto:""})
+                ), 1000)
+            setTimeout(()=>(
 
+                setOpen(false)
+            ),1000)
+            dispatch(fecthClientes())
         })
-        .catch(res=>console.log(res))
+        .catch(res=>{
+            setAlert({on:true, tipo:"warning", texto:"No se pudo agregar"})
+            setTimeout(()=>(setAlert({on:false,tipo:"",texto:""})), 4000)
+            console.log(res)
+        
+        })
 
     }
     return (
@@ -56,9 +68,11 @@ const AgregarCliente = ({open, setOpen}) => {
                 variant="contained" 
                 color="primary"
                 onClick={addCliente}
+                sx={{mb:2}}
                 >
                 Agregar
                 </Button>
+                {alert.on ? <Alert severity={alert.tipo}>{alert.texto}</Alert>:<></>}
             </Box>
         </Modal>
     )
