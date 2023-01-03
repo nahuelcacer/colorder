@@ -7,6 +7,7 @@ import Fingerprint from '@mui/icons-material/Fingerprint';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import AgregarCliente from '../clientes/agregarCliente';
+import EditarCliente from '../clientes/editarCliente';
 
 const ClienteSeleccionado = (props) => {
     const pedido = useSelector(state=>state.pedido)
@@ -36,9 +37,10 @@ const ClienteSeleccionado = (props) => {
                         <Typography><Fingerprint sx={{mr:1}} />{pedido.cliente.dni}</Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small">Ver cliente</Button>
+                        <Button size="small"  onClick={()=>{setOpen(true)}}>Ver cliente</Button>
                     </CardActions>
                 </Card>
+                <EditarCliente open={open} setOpen={setOpen} idCliente={pedido.cliente.id}></EditarCliente>
             </div>
         )
     }

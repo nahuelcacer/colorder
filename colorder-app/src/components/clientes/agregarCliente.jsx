@@ -3,24 +3,13 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fecthClientes } from "../../features/clientes/clienteSlice";
-
+import StyleModal from "../../tools/styleModals";
 
 const AgregarCliente = ({open, setOpen}) => {
     const handleClose = () => setOpen(false);
     const [cliente,setCliente] = useState({})
     const dispatch = useDispatch()
     const [alert, setAlert] = useState({on:false,tipo:"",texto:""})
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        // border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-      };
     const hanledChange = (e) => {
         setCliente({
             ...cliente,
@@ -62,7 +51,7 @@ const AgregarCliente = ({open, setOpen}) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={style}>
+            <Box sx={StyleModal}>
                 <Typography sx={{mb:2}} id="modal-modal-title" variant="h6" component="h2">
                     AGREGAR CLIENTE
                 </Typography>
