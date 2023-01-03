@@ -7,6 +7,6 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=60)
     precio = models.IntegerField()
     tramite = models.IntegerField()
-
+    notarial = models.BooleanField(default=False)
     def __str__(self):
         return self.nombre

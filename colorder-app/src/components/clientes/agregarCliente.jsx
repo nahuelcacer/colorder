@@ -1,4 +1,4 @@
-import { Modal, Box, Typography, TextField, Button, Alert } from "@mui/material"
+import { Modal, Box, Typography, TextField, Button, Alert, Checkbox, FormControlLabel } from "@mui/material"
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -27,6 +27,12 @@ const AgregarCliente = ({open, setOpen}) => {
             [e.target.name] : e.target.value
           })
     }
+    const handleChangeCheckBox = (event) => {
+        setCliente({
+            ...cliente,
+            ['escribano']:event.target.checked
+        });
+      };
     const addCliente =  () => {
         axios.post('api/clientes/', cliente)
         .then(res=>{
@@ -63,12 +69,18 @@ const AgregarCliente = ({open, setOpen}) => {
             
                 <TextField sx={{mb:2}} name="nombre" onChange={(e)=>{hanledChange(e)}} fullWidth label="Nombre" id="fullWidth" />
                 <TextField sx={{mb:2}} name="dni" onChange={(e)=>{hanledChange(e)}} fullWidth label="Dni" id="fullWidth" />
+                <div><FormControlLabel
+                value={true}
+                control={<Checkbox name="escribano" onChange={handleChangeCheckBox}/>}
+                label="Es escribano?"
+                >
 
+                </FormControlLabel></div>
                 <Button 
                 variant="contained" 
                 color="primary"
                 onClick={addCliente}
-                sx={{mb:2}}
+                sx={{mb:2,mt:2}}
                 >
                 Agregar
                 </Button>

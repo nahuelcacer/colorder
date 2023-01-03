@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import {selectCliente} from '../../redux/actions/clientes-action.js';
 import { createFilterOptions } from "@mui/material/Autocomplete";
+import { Chip } from '@mui/material';
 
 
 const BuscarCliente = () => {
@@ -31,6 +32,7 @@ const BuscarCliente = () => {
           return (
             <li {...props} key={option.identificacion}>
               {option.nombre}
+              {option.escribano ?  <Chip sx={{ml:2}} label="Esc" size="small" variant="outlined" />:<></>}
             </li>
           );
         }}
