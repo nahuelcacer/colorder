@@ -14,7 +14,7 @@ const ClienteSeleccionado = (props) => {
     if(pedido.cliente === null){
         return(
             <div className="container">
-                <Card sx={{ width: 300, mt:4, boxShadow:4, borderRadius:2 }}>
+                <Card sx={{ width: 415, mt:4, boxShadow:4, borderRadius:2 }}>
                     <CardContent>
                         <Typography><PersonOutlineOutlinedIcon sx={{mr:1}}/>...</Typography>
                         <Typography><Fingerprint sx={{mr:1}} />...</Typography>
@@ -30,7 +30,7 @@ const ClienteSeleccionado = (props) => {
     }else{
         return (
             <div className="container">
-                <Card sx={{ width: 300, mt:4, boxShadow:4, borderRadius:2 }}>
+                <Card sx={{ width: 415, mt:4, boxShadow:4, borderRadius:2 }}>
                     <CardContent>
                         <Typography><PersonOutlineOutlinedIcon sx={{mr:1}}/>{pedido.cliente.nombre}</Typography>
                         <Typography><Fingerprint sx={{mr:1}} />{pedido.cliente.dni}</Typography>
