@@ -9,7 +9,8 @@ import {
   Route
 } from "react-router-dom"
 import Cobranza from './Cobranza';
-import ProductosMostrar from './components/productos/abmProductos';
+  
+import BuscarProducto from './components/productos/buscarProducto';
 const router = createBrowserRouter([{
   path:"/",
   element:<App />
@@ -20,7 +21,7 @@ const router = createBrowserRouter([{
 },
 {
   path:"/productos",
-  element:<ProductosMostrar />
+  element:<BuscarProducto/>
 }])
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
