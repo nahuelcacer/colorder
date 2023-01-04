@@ -9,6 +9,7 @@ import {
   Route
 } from "react-router-dom"
 import Cobranza from './Cobranza';
+import ProductosMostrar from './components/productos/abmProductos';
 const router = createBrowserRouter([{
   path:"/",
   element:<App />
@@ -16,6 +17,10 @@ const router = createBrowserRouter([{
 {
   path:"/cobranza",
   element:<Cobranza />
+},
+{
+  path:"/productos",
+  element:<ProductosMostrar />
 }])
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

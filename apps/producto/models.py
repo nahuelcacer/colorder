@@ -8,5 +8,6 @@ class Producto(models.Model):
     precio = models.IntegerField()
     tramite = models.IntegerField()
     notarial = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.nombre
