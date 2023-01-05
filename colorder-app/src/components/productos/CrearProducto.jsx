@@ -4,7 +4,7 @@ import React from 'react'
 import { useState } from 'react';
 import StyleModal from '../../tools/styleModals';
 
-const CrearProducto = ({open, setOpen}) => {
+const CrearProducto = ({open, setOpen, updateProductos}) => {
     const handleClose = () => setOpen(false);
     const [producto,setProducto] = useState({})
     const hanledChange = (e) => {
@@ -21,7 +21,11 @@ const CrearProducto = ({open, setOpen}) => {
       };
     const addProducto = () => {
         axios.post('api/productos/', producto)
-        .then((res)=>{console.log(res)})
+        .then((res)=>{
+            updateProductos()
+            console.log(res)
+            setOpen(false)
+        })
     }
     return (
         <Modal 

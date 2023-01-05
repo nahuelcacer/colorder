@@ -4,8 +4,7 @@ import { useState } from 'react'
 import CrearProducto from './CrearProducto'
 import MostrarProductos from './MostrarProductos'
 
-const BuscarProducto = ({ search, handleChange }) => {
-    const [open,setOpen] = useState(false)
+const BuscarProducto = ({ search, handleChange,setOpen }) => {
     return (
       <Paper>
         <Card sx={{ padding: 6, mt:4, boxShadow:4, borderRadius:2}}>
@@ -25,7 +24,6 @@ const BuscarProducto = ({ search, handleChange }) => {
             </Grid>
           </Grid>
         </Card>
-        <CrearProducto open={open} setOpen={setOpen}></CrearProducto>
       </Paper>
     )
   }
