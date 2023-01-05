@@ -14,7 +14,7 @@ const MostrarProductos = ({busqueda}) => {
     },[busqueda])
   return (
     <div>
-        <Card>
+        <Card sx={{mt:4, boxShadow:4, borderRadius:2}}>
             {productos.map((i) => {
                 return <li>{i.nombre}</li>
             })}
