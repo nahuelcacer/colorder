@@ -11,6 +11,7 @@ import {
 import Cobranza from './Cobranza';
   
 import BuscarProducto from './components/productos/buscarProducto';
+import Productos from './components/productos/Productos';
 const router = createBrowserRouter([{
   path:"/",
   element:<App />
@@ -21,7 +22,7 @@ const router = createBrowserRouter([{
 },
 {
   path:"/productos",
-  element:<BuscarProducto/>
+  element:<Productos/>
 }])
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
