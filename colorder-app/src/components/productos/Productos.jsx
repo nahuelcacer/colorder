@@ -1,7 +1,6 @@
 import { Container } from "@mui/system"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import BuscarProducto from "./buscarProducto"
 import CrearProducto from "./CrearProducto"
 import MostrarProductos from "./MostrarProductos"
 
@@ -30,9 +29,7 @@ const Productos = () => {
     return (
       <div>
         <Container>
-          
-          <BuscarProducto   search={search} handleChange={handleChange} open={open} setOpen={setOpen} />
-          <MostrarProductos productos={productos}/>
+          <MostrarProductos search={search} handleChange={handleChange} open={open} setOpen={setOpen} productos={productos}/>
           <CrearProducto open={open} setOpen={setOpen} updateProductos={updateProductos}></CrearProducto>
 
         </Container>

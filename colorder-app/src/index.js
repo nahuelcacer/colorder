@@ -9,8 +9,6 @@ import {
   Route
 } from "react-router-dom"
 import Cobranza from './Cobranza';
-  
-import BuscarProducto from './components/productos/buscarProducto';
 import Productos from './components/productos/Productos';
 const router = createBrowserRouter([{
   path:"/",

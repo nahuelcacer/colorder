@@ -11,6 +11,8 @@ const AgregarProductos = () => {
     const [quantity,setQuantity] = useState(1)
     const dispatch = useDispatch()
     const productos = useSelector(state => state.productos)
+    const cliente = useSelector(state=> state.pedido.cliente)
+    
     const hanledQuantity = (e) => {
         setQuantity(parseInt(e.target.value))
     }
