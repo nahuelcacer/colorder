@@ -29,15 +29,26 @@ class OrderSerializer(serializers.ModelSerializer):
     def create(self,validated_data):
         cliente_data = validated_data.pop('cliente')
         orderproduct_data  = validated_data.pop('orderproduct')
+
         cliente = Cliente.objects.get(**cliente_data)
-        last_order = Pedido.objects.latest('id')
-        pedido = Pedido.objects.create(cliente=cliente,**validated_data)
-        if last_order.fecha == pedido.fecha:
-            pedido.orden = last_order.orden + 1 
-            pedido.save()
+       #############################
+        if Pedido.objects.exists():
+
+            last_order = Pedido.objects.latest('id')
+            pedido = Pedido.objects.create(cliente=cliente,**validated_data)
+            if last_order.fecha == pedido.fecha:
+                pedido.orden = last_order.orden + 1 
+                pedido.save()
+            else:
+                pedido.orden = 1 
+                pedido.save()
         else:
-            pedido.orden = 1 
+        # If there are no existing orders, set the order number for the new order to 1
+            pedido = Pedido.objects.create(cliente=cliente,**validated_data)
+
+            pedido.orden = 1
             pedido.save()
+        ################################
         for orderproduct_item in orderproduct_data:
             pr_data = orderproduct_item.get('producto')
             producto = Producto.objects.get(**pr_data)

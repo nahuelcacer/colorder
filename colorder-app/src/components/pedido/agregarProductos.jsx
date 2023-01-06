@@ -13,6 +13,7 @@ const AgregarProductos = () => {
     const productos = useSelector(state => state.productos)
     const cliente = useSelector(state=> state.pedido.cliente)
     
+
     const hanledQuantity = (e) => {
         setQuantity(parseInt(e.target.value))
     }

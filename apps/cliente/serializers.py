@@ -8,5 +8,9 @@ class ClienteSerializer(serializers.ModelSerializer):
         fields = ('id', 'nombre', 'dni', 'escribano')
         
 
-
+    def create(self, validated_data):
+        dni = validated_data['dni']
+        if Cliente.objects.filter(dni=dni).exists():
+            raise serializers.ValidationError({'dni': ['A client with this DNI already exists.']})
+        return Cliente.objects.create(**validated_data)
     
