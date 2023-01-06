@@ -2,7 +2,7 @@ import { Button, Card, Table, TableBody, TableCell, TableHead, TableRow, TextFie
 import React from 'react'
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
-const MostrarProductos = ({productos,search, handleChange,setOpen }) => {
+const MostrarProductos = ({productos,search, handleChange,setOpen, setEdit }) => {
 
   return (
     <div>
@@ -70,7 +70,7 @@ const MostrarProductos = ({productos,search, handleChange,setOpen }) => {
                         {i.tramite}
                     </TableCell>
                     <TableCell>
-                      <Button>Editar</Button>
+                      <Button onClick={()=>{setEdit({on:true, id:i.id})}}>Editar</Button>
                     </TableCell>
                   </TableRow>
                   )
