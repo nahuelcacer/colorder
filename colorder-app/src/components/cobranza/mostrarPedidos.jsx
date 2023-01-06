@@ -1,16 +1,19 @@
-import { Badge, Button, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
+import { Badge, Button, Table, TableBody, TableCell, TableHead, TableRow, Modal, Box, Typography } from "@mui/material"
 import {  useEffect } from "react"
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import { fecthPedidos } from "../../features/pedidos/pedidoshowSlice";
 import {connect} from 'react-redux'
 import { useState } from "react";
 
+
 const PedidosCobranza = () => {
     const [data,setData] = useState([])
     const [pendientes, setPendientes] = useState(0)
+
+
     useEffect(()=>{
         const fetchData = async () => {
-            const response = await fetch('/api/pedidos?completado=0');
+            const response = await fetch('/api/pedidos?completado=0&recibo=0');
             const data = await response.json();
             setData(data);
             const arr_pendientes = data.filter(i => i.completado == false)
@@ -22,12 +25,6 @@ const PedidosCobranza = () => {
           const interval = setInterval(fetchData, 5000);
           return () => clearInterval(interval);
     },[])
-
-    const clienteData = async (cliente) => {    
-        const response = await fetch('/api/clientes/'+ cliente)
-        const data = await response.json()
-        return data
-    } 
     return (
 
         <div className="container">
@@ -37,7 +34,7 @@ const PedidosCobranza = () => {
                         <TableRow>
                             <TableCell sx={{borderBottom:"none"}}>Pedido</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Nombre</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>identificacion</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>Identificacion</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Fecha</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Hora</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Factura</TableCell>
@@ -53,12 +50,13 @@ const PedidosCobranza = () => {
                             <TableCell sx={{borderBottom:"none"}}>{pedido.fecha}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.tiempo.substr(0,5)}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.factura ? <Badge variant="dot"color="success"></Badge> : <Badge variant="dot" color="error"><AccessTimeOutlinedIcon></AccessTimeOutlinedIcon></Badge> }</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}><Button variant="contained"color="primary">Preparar</Button></TableCell>
+                            <TableCell sx={{borderBottom:"none"}}><Button variant="contained"color="primary">Recibido</Button></TableCell>
                         </TableRow>
                     )
                 })}
                 </TableBody>
             </Table>
+           
             
         </div>
         

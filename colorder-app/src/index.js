@@ -10,6 +10,7 @@ import {
 } from "react-router-dom"
 import Cobranza from './Cobranza';
 import Productos from './components/productos/Productos';
+import Facturacion from './components/facturacion/Facturacion';
 const router = createBrowserRouter([{
   path:"/",
   element:<App />
@@ -17,6 +18,10 @@ const router = createBrowserRouter([{
 {
   path:"/cobranza",
   element:<Cobranza />
+},
+{
+  path:"/factura",
+  element:<Facturacion/>
 },
 {
   path:"/productos",
