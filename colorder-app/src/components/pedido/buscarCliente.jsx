@@ -30,7 +30,7 @@ const BuscarCliente = () => {
         sx={{ width: 700, mt:3 }}
         renderOption={(props, option) => {
           return (
-            <li {...props} key={option.identificacion}>
+            <li {...props} key={option.dni}>
               
               {option.nombre}
               {option.escribano ?  <Chip sx={{ml:2}} label="Esc" size="small" variant="outlined" />:<></>}

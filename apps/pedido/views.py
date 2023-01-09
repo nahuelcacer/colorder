@@ -10,7 +10,7 @@ class PedidoView(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     queryset = Pedido.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['completado']
+    filterset_fields = ['completado', 'recibo']
 
 class OrderProductView(viewsets.ModelViewSet):
     serializer_class = OrderProductSerializer

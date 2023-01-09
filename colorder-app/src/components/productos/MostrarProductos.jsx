@@ -53,7 +53,7 @@ const MostrarProductos = ({productos,search, handleChange,setOpen, setEdit }) =>
               
               productos.map((i) => {
                 return (
-                  <TableRow>
+                  <TableRow key={i.id}>
                     <TableCell>
                       <div>
 

@@ -11,7 +11,9 @@ const EditarProducto = ({edit,setEdit,updateProductos,id}) => {
     useEffect(()=>{
         axios
         .get(`api/productos/${id}`)
-        .then(res=>{setPr(res.data)})
+        .then(res=>{
+            setPr(res.data)
+        })
     },[id])
     
     const hanledChange = (e) => {
@@ -26,12 +28,13 @@ const EditarProducto = ({edit,setEdit,updateProductos,id}) => {
             ['notarial']:event.target.checked
         });
       };
-    const addProducto = () => {
-        axios.post('api/productos/', pr)
-        .then((res)=>{
+    const updateProduct = () => {
+        axios.put(`api/productos/${id}/`,pr)
+        .then(res=>{
             updateProductos()
             console.log(res)
-            // setOpen(false)
+            setEdit({on:false,id:''})
+
         })
     }
     return (
@@ -50,7 +53,7 @@ const EditarProducto = ({edit,setEdit,updateProductos,id}) => {
                 <TextField sx={{mb:2}} name="tramite" value={pr.tramite} onChange={(e)=>{hanledChange(e)}} fullWidth  placeholder="Tiempo de espera" id="fullWidth" />
                 <div><FormControlLabel
                 value={true}
-                control={<Checkbox name="notarial"  defaultValue={false} checked={pr.notarial} onChange={handleChangeCheckBox}/>}
+                control={<Checkbox name="notarial" checked={pr.notarial} onChange={handleChangeCheckBox}/>}
                 label="Es notarial?"
                 >
 
@@ -58,7 +61,7 @@ const EditarProducto = ({edit,setEdit,updateProductos,id}) => {
                 <Button 
                 variant="contained" 
                 color="primary"
-                onClick={addProducto}
+                onClick={updateProduct}
                 sx={{mb:2,mt:2}}
                 >
                 Editar

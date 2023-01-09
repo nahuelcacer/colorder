@@ -33,7 +33,7 @@ const Productos = () => {
         <Container>
           <MostrarProductos search={search} handleChange={handleChange} open={open} setOpen={setOpen} productos={productos} setEdit={setEdit}/>
           <CrearProducto open={open} setOpen={setOpen} updateProductos={updateProductos}></CrearProducto>
-          <EditarProducto edit={edit.on} setEdit={setEdit} id={edit.id}></EditarProducto>
+          {edit.on ? <EditarProducto edit={edit.on} setEdit={setEdit} id={edit.id} updateProductos={updateProductos}></EditarProducto>:<></>}
         </Container>
       </div>
     )
