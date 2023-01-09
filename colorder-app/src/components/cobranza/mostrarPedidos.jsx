@@ -14,23 +14,24 @@ const PedidosCobranza = () => {
 
     useEffect(()=>{
         const fetchData = async () => {
-            const response = await fetch('/api/pedidos?completado=0&recibo=0');
-            const data = await response.json();
-            setData(data);
-            const arr_pendientes = data.filter(i => i.completado == false)
-            setPendientes(arr_pendientes.length)
-            
+            axios.get('/api/pedidos?completado=0&recibo=0')
+            .then(res=>{
+                setData(res.data)
+                const arr_pendientes = data.filter(i => i.completado == false)
+                setPendientes(arr_pendientes.length)
+            })            
           };
           const interval = setInterval(fetchData, 5000);
           return () => clearInterval(interval);
-    },[data])
+        },[data])
+
     useEffect(() => {
-        if (pendientes !== 0) {
-          document.title = `Pendientes ${pendientes}`;
-        } else {
-          document.title = 'No hay pedidos pendientes';
-        }
-      }, [pendientes]);
+            if (pendientes !== 0) {
+            document.title = `(${pendientes}) Pendientes`;
+            } else {
+            document.title = 'No hay pedidos pendientes';
+            }
+    }, [pendientes]);
     
     const RecibirPedido  = (id) => {
         axios.get(`api/pedidos/${id}`)
