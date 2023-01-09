@@ -4,6 +4,7 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import { fecthPedidos } from "../../features/pedidos/pedidoshowSlice";
 import {connect} from 'react-redux'
 import { useState } from "react";
+import axios from "axios";
 
 
 const PedidosCobranza = () => {
@@ -18,13 +19,32 @@ const PedidosCobranza = () => {
             setData(data);
             const arr_pendientes = data.filter(i => i.completado == false)
             setPendientes(arr_pendientes.length)
-            if(pendientes !== 0){
-                document.title = 'Pendientes ' + pendientes.toString()
-            }
+            
           };
           const interval = setInterval(fetchData, 5000);
           return () => clearInterval(interval);
-    },[])
+    },[data])
+    useEffect(() => {
+        if (pendientes !== 0) {
+          document.title = `Pendientes ${pendientes}`;
+        } else {
+          document.title = 'No hay pedidos pendientes';
+        }
+      }, [pendientes]);
+    
+    const RecibirPedido  = (id) => {
+        axios.get(`api/pedidos/${id}`)
+        .then(res=>{
+            res.data.recibo = true
+            axios.put(`api/pedidos/${id}/`, res.data )
+            .then(() => {
+                // Filter the data array to remove the order with the specified ID
+                const updatedData = data.filter(item => item.id !== id);
+                setData(updatedData);
+              });
+        })
+
+    }
     return (
 
         <div className="container">
@@ -50,7 +70,7 @@ const PedidosCobranza = () => {
                             <TableCell sx={{borderBottom:"none"}}>{pedido.fecha}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.tiempo.substr(0,5)}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.factura ? <Badge variant="dot"color="success"></Badge> : <Badge variant="dot" color="error"><AccessTimeOutlinedIcon></AccessTimeOutlinedIcon></Badge> }</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}><Button variant="contained"color="primary">Recibido</Button></TableCell>
+                            <TableCell sx={{borderBottom:"none"}}><Button onClick={()=>{RecibirPedido(pedido.id)}} variant="contained"color="primary">Recibido</Button></TableCell>
                         </TableRow>
                     )
                 })}

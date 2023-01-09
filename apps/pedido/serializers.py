@@ -56,3 +56,8 @@ class OrderSerializer(serializers.ModelSerializer):
             OrderProduct.objects.create(pedido=pedido, **orderproduct_item)
         return pedido
     
+
+    def update(self, instance, validated_data):
+        instance.recibo = validated_data.get('recibo', instance.recibo)
+        instance.save()
+        return instance
