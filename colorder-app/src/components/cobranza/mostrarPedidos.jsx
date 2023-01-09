@@ -54,10 +54,10 @@ const PedidosCobranza = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell sx={{borderBottom:"none"}}>Pedido</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>Nombre</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>Identificacion</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Fecha</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Hora</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>Nombre</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>Identificacion</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>Factura</TableCell>
                         </TableRow>
                     </TableHead>
@@ -66,10 +66,11 @@ const PedidosCobranza = () => {
                     return (
                         <TableRow sx={{borderBottom:"none"}}>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.orden}</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente.nombre}</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente.dni}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.fecha}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.tiempo.substr(0,5)}</TableCell>
+
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente.nombre}</TableCell>
+                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente.dni}</TableCell>
                             <TableCell sx={{borderBottom:"none"}}>{pedido.factura ? <Badge variant="dot"color="success"></Badge> : <Badge variant="dot" color="error"><AccessTimeOutlinedIcon></AccessTimeOutlinedIcon></Badge> }</TableCell>
                             <TableCell sx={{borderBottom:"none"}}><Button onClick={()=>{RecibirPedido(pedido.id)}} variant="contained"color="primary">Recibido</Button></TableCell>
                         </TableRow>
