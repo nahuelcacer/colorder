@@ -1,10 +1,13 @@
-import { Badge, Button, Table, TableBody, TableCell, TableHead, TableRow, Modal, Box, Typography } from "@mui/material"
+import { Badge, Button, Table, TableBody, TableCell, TableHead, TableRow, Modal, Box, Typography, Chip } from "@mui/material"
 import {  useEffect } from "react"
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import { fecthPedidos } from "../../features/pedidos/pedidoshowSlice";
 import {connect} from 'react-redux'
 import { useState } from "react";
 import axios from "axios";
+import { textAlign } from "@mui/system";
+import styleIdCliente from "../../tools/styleIdentificacion";
+import getTotalCost from "../../tools/getTotalCost";
 
 
 const PedidosCobranza = () => {
@@ -53,26 +56,44 @@ const PedidosCobranza = () => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{borderBottom:"none"}}>Pedido</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>Fecha</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>Hora</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>Nombre</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>Identificacion</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>Factura</TableCell>
+                            <TableCell align='center' sx={{borderBottom:"none"}}>Pedido</TableCell>
+                            <TableCell align='center' sx={{borderBottom:"none"}}>Cliente</TableCell>
+                            <TableCell align='center' sx={{borderBottom:"none"}}>Total</TableCell>
+                            <TableCell align='center' sx={{borderBottom:"none"}}>Factura</TableCell>
+                            <TableCell align='center' sx={{borderBottom:"none"}}>*</TableCell>
+                            {/* <TableCell sx={{borderBottom:"none"}}>Identificacion</TableCell> */}
+                            {/* <TableCell sx={{borderBottom:"none"}}>Factura</TableCell> */}
                         </TableRow>
                     </TableHead>
                     <TableBody>
                 {data.map((pedido)=>{
                     return (
                         <TableRow sx={{borderBottom:"none"}}>
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.orden}</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.fecha}</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.tiempo.substr(0,5)}</TableCell>
+                            <TableCell align='center'  sx={{borderBottom:"none"}}>
+                                <Typography><strong>{pedido.orden}</strong></Typography>
+                                <Typography variant='overline' color={'grey'}>{pedido.fecha}</Typography>
+                                <div><Typography variant='caption' color={'grey'}> {pedido.tiempo.substr(0,5)} hs</Typography></div>
+                            
+                            </TableCell>
+                            {/* <TableCell sx={{borderBottom:"none"}}>{pedido.fecha}</TableCell> */}
+                            {/* <TableCell sx={{borderBottom:"none"}}>{pedido.tiempo.substr(0,5)}</TableCell> */}
 
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente.nombre}</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.cliente.dni}</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}>{pedido.factura ? <Badge variant="dot"color="success"></Badge> : <Badge variant="dot" color="error"><AccessTimeOutlinedIcon></AccessTimeOutlinedIcon></Badge> }</TableCell>
-                            <TableCell sx={{borderBottom:"none"}}><Button onClick={()=>{RecibirPedido(pedido.id)}} variant="contained"color="primary">Recibido</Button></TableCell>
+                            <TableCell align='center'  sx={{borderBottom:"none"}}>
+                                <Typography><strong>{pedido.cliente.nombre}</strong></Typography> 
+                                <Typography>{styleIdCliente(pedido.cliente.dni)}</Typography> 
+                                {pedido.cliente.escribano ?  <Chip label="Esc" size="small"  color='primary' variant="outlined" />:<></>}
+
+                            </TableCell>
+                            <TableCell align='center'  sx={{borderBottom:"none"}}>
+                                <Typography><strong>{getTotalCost(pedido.orderproduct).toLocaleString('es-ar', {
+                                    style: 'currency',
+                                    currency: 'ARS',
+                                    minimumFractionDigits: 2
+                                })}</strong></Typography>
+                            </TableCell>
+                            {/* <TableCell sx={{borderBottom:"none"}}>{pedido.cliente.dni}</TableCell> */}
+                            <TableCell align='center'  sx={{borderBottom:"none"}}>{pedido.factura ? <Badge variant="dot"color="success"></Badge> : <Badge variant="dot" color="error"><AccessTimeOutlinedIcon></AccessTimeOutlinedIcon></Badge> }</TableCell>
+                            <TableCell align='center'  sx={{borderBottom:"none"}}><Button onClick={()=>{RecibirPedido(pedido.id)}} variant="contained"color="primary">Recibido</Button></TableCell>
                         </TableRow>
                     )
                 })}
