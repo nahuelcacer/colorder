@@ -35,6 +35,7 @@ const ClienteSeleccionado = (props) => {
                     <CardContent>
                         <Typography><PersonOutlineOutlinedIcon sx={{mr:1}}/>{pedido.cliente.nombre}</Typography>
                         <Typography><Fingerprint sx={{mr:1}} />{pedido.cliente.dni}</Typography>
+                        {pedido.cliente.escribano ? <>Esc</> :<></>}
                     </CardContent>
                     <CardActions>
                         <Button size="small"  onClick={()=>{setOpen(true)}}>Ver cliente</Button>
