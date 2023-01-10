@@ -1,5 +1,5 @@
 import CardContent from '@mui/material/CardContent';
-import { Button, Card, CardActions, Typography } from '@mui/material';
+import { Button, Card, CardActions, Chip, Typography } from '@mui/material';
 import { useSelector } from 'react-redux'
 import React from 'react'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
@@ -35,7 +35,13 @@ const ClienteSeleccionado = (props) => {
                     <CardContent>
                         <Typography><PersonOutlineOutlinedIcon sx={{mr:1}}/>{pedido.cliente.nombre}</Typography>
                         <Typography><Fingerprint sx={{mr:1}} />{pedido.cliente.dni}</Typography>
-                        {pedido.cliente.escribano ? <>Esc</> :<></>}
+                        {
+                        pedido.cliente.escribano
+                        ? 
+                        <Chip variant="outlined" label="Escribano/a" color="success" size="small" />
+                        :
+                        <></>
+                        }
                     </CardContent>
                     <CardActions>
                         <Button size="small"  onClick={()=>{setOpen(true)}}>Ver cliente</Button>
