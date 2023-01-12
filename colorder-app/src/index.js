@@ -11,6 +11,7 @@ import {
 import Cobranza from './Cobranza';
 import Productos from './components/productos/Productos';
 import Facturacion from './components/facturacion/Facturacion';
+import Factura from './Factura';
 const router = createBrowserRouter([{
   path:"/",
   element:<App />
@@ -21,7 +22,7 @@ const router = createBrowserRouter([{
 },
 {
   path:"/factura",
-  element:<Facturacion/>
+  element:<Factura/>
 },
 {
   path:"/productos",

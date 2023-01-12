@@ -1,6 +1,7 @@
 import { Container } from "@mui/system"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import TableShow from "../tables/TableShow"
 import CrearProducto from "./CrearProducto"
 import EditarProducto from "./EditarProducto"
 import MostrarProductos from "./MostrarProductos"
@@ -10,7 +11,7 @@ const Productos = () => {
     const [open,setOpen] = useState(false)
     const [edit, setEdit] = useState({on:false,id:''})
     const [productos, setProductos] = useState([])
-
+    
     useEffect(()=>{
       axios
       .get(`api/productos?nombre=${search}`)
