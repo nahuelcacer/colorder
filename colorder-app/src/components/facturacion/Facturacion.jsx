@@ -1,3 +1,4 @@
+import { Container } from '@mui/system'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import TableShow from '../tables/TableShow'
@@ -7,11 +8,11 @@ const Facturacion = () => {
   const [pendientes, setPendientes] = useState(0)
   const [checked,setChecked] = useState(false) //
   // const [searchParams, setSearchParams] = useSearchParams();
-
+  const [search,setSearch] = useState('')
   useEffect(()=>{
       const searchParams = new URLSearchParams({
-        factura:checked?1:0
-        
+        factura:checked?1:0,
+        cliente:search
       })
   
 
@@ -35,10 +36,16 @@ const Facturacion = () => {
     .catch(error => console.log(error));
     const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
-  },[checked])
+  },[checked, search])
   
+  const handleChange = (e) => {
+    setSearch(e.target.value)
+  }
   return (
-    <TableShow  setChecked={setChecked} datos={data} titulo="Pedidos" subtitulo="" > </TableShow>
+    <Container>
+
+      <TableShow  handleChange={handleChange} setChecked={setChecked} datos={data} titulo="Pedidos" nombreSwitch="Facturado"> </TableShow>
+    </Container>
   )
 }
 

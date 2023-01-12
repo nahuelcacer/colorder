@@ -1,10 +1,13 @@
-import { FormControlLabel, Switch, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Badge, Button, Chip, FormControlLabel, Switch, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import styleIdCliente from "../../tools/styleIdentificacion";
+import getTotalCost from "../../tools/getTotalCost";
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 
 
 
@@ -17,17 +20,18 @@ import SearchIcon from '@mui/icons-material/Search';
  * @param {string} titulo - Titulo de la tabla.
  * @param {string} subtitulo - Subtitlo de la tabla 
  */
-const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked}) => {
+const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked, nombreSwitch}) => {
     const [value, setValue] = useState(null)
     const hanledChange = (e) => {
         setChecked(e.target.checked)
        }
+       
   return (
-    <Table>
+    <Table >
         <TableHead>
             {/* TITULO Y SUBTITULO */}
             <TableRow>
-                <TableCell colSpan={3}>
+                <TableCell colSpan={5}>
 
                     <Typography variant='h6'>
                         {titulo}
@@ -39,9 +43,9 @@ const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked})
             </TableRow>
             {/* BUSCADOR Y SWITCHERS */}
             <TableRow>
-                <TableCell>
+                <TableCell colSpan={2}>
 
-                    <TextField id="standard-basic" placeholder='Buscar producto' variant="standard" 
+                    <TextField id="standard-basic" placeholder='Buscar pedido' variant="standard" 
                     onChange={handleChange}
                     value={search}
                     InputProps={{
@@ -56,7 +60,7 @@ const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked})
                     />
                 </TableCell>
                 <TableCell>
-                    <FormControlLabel control={<Switch  onChange={(e)=>{hanledChange(e)}}/>} label="Recibidos" />
+                    <FormControlLabel control={<Switch  onChange={(e)=>{hanledChange(e)}}/>} label={nombreSwitch} />
                 </TableCell>
                 <TableCell>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -73,14 +77,34 @@ const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked})
             </TableRow>
         </TableHead>
         <TableBody>
-            {datos.map(item=>{
-                return(<TableRow>
+            {datos.map(pedido=>{
+                return(
                     <TableRow>
-                        <TableCell>
-                            {item.cliente.nombre}
+                        <TableCell align='center'  sx={{ padding:0}}>
+                                <Typography><strong>{pedido.orden}</strong></Typography>
+                                <Typography variant='overline' color={'grey'}>{pedido.fecha}</Typography>
+                                <div><Typography variant='caption' color={'grey'}> {pedido.tiempo.substr(0,5)} hs</Typography></div>
+                            
                         </TableCell>
+                        <TableCell align='center'  sx={{ padding:0}}>
+                                <Typography><strong>{pedido.cliente.nombre}</strong></Typography> 
+                                <Typography>{styleIdCliente(pedido.cliente.dni)}</Typography> 
+                                {pedido.cliente.escribano ?  <Chip label="Esc" size="small"  color='primary' variant="outlined" />:<></>}
+
+                        </TableCell>
+                        <TableCell align='center'  sx={{ padding:0}}>
+                                <Typography><strong>{getTotalCost(pedido.orderproduct).toLocaleString('es-ar', {
+                                    style: 'currency',
+                                    currency: 'ARS',
+                                    minimumFractionDigits: 2
+                                })}</strong></Typography>
+                        </TableCell>
+                        <TableCell align='center'  sx={{ padding:0}}><Button variant="contained"color="primary">Preparar</Button></TableCell>
+
+                        
+
                     </TableRow>
-                </TableRow>)
+                )
             })}
         </TableBody>
     </Table>
