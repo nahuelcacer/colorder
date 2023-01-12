@@ -5,6 +5,18 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+
+
+
+/**
+ * TableShow
+ * 
+ * A simple example component that renders a greeting.
+ * 
+ * @param {Array} datos Arr con datos obtenidos de api
+ * @param {string} titulo - Titulo de la tabla.
+ * @param {string} subtitulo - Subtitlo de la tabla 
+ */
 const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked}) => {
     const [value, setValue] = useState(null)
     const hanledChange = (e) => {
