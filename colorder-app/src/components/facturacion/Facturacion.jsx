@@ -9,10 +9,12 @@ const Facturacion = () => {
   const [checked,setChecked] = useState(false) //
   // const [searchParams, setSearchParams] = useSearchParams();
   const [search,setSearch] = useState('')
+  const [fecha,setFecha] = useState(new Date())
   useEffect(()=>{
       const searchParams = new URLSearchParams({
         factura:checked?1:0,
-        cliente:search
+        cliente:search,
+        fecha:fecha.toISOString().slice(0,10)
       })
   
 
@@ -36,7 +38,7 @@ const Facturacion = () => {
     .catch(error => console.log(error));
     const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
-  },[checked, search])
+  },[checked, search, fecha])
   
   const handleChange = (e) => {
     setSearch(e.target.value)
@@ -44,7 +46,7 @@ const Facturacion = () => {
   return (
     <Container>
 
-      <TableShow  handleChange={handleChange} setChecked={setChecked} datos={data} titulo="Pedidos" nombreSwitch="Facturado"> </TableShow>
+      <TableShow  fecha={fecha}setFecha={setFecha} handleChange={handleChange} setChecked={setChecked} datos={data} titulo="Pedidos" nombreSwitch="Facturado"> </TableShow>
     </Container>
   )
 }

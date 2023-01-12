@@ -20,8 +20,8 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
  * @param {string} titulo - Titulo de la tabla.
  * @param {string} subtitulo - Subtitlo de la tabla 
  */
-const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked, nombreSwitch}) => {
-    const [value, setValue] = useState(null)
+const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked, nombreSwitch, setFecha, fecha}) => {
+    
     const hanledChange = (e) => {
         setChecked(e.target.checked)
        }
@@ -66,9 +66,9 @@ const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked, 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                             label="Basic example"
-                            value={value}
+                            value={fecha}
                             onChange={(newValue) => {
-                            setValue(newValue);
+                                setFecha(newValue)
                             }}
                             renderInput={(params) => <TextField {...params} />}
                         />

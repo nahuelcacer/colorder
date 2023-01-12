@@ -5,13 +5,14 @@ from .models import Pedido, OrderProduct
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
 from django.db.models import Q
+from django_filters import DateFilter
 # Create your views here.
 class PedidosFilter(filters.FilterSet):
     cliente = filters.CharFilter(method='filter_by_client')
-    
+    fecha = DateFilter(field_name='fecha', lookup_expr='exact')
     class Meta:
             model = Pedido
-            fields = ['cliente', 'recibo', 'factura']
+            fields = ['cliente', 'recibo', 'factura', 'fecha']
 
     def filter_by_client(self, queryset, name, value):
         if value:
