@@ -12,6 +12,7 @@ class Pedido(models.Model):
     tiempo = models.TimeField(auto_now_add=True)
     completado = models.BooleanField(default=False)
     orden = models.PositiveIntegerField(null=True)
+    enPreparacion = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.fecha) + " / " + str(self.tiempo)

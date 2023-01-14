@@ -1,7 +1,9 @@
+import { Modal } from '@mui/material'
 import { Container } from '@mui/system'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import TableShow from '../tables/TableShow'
+import MostrarPedidoFacturacion from './MostrarPedidoFacturacion'
 
 const Facturacion = () => {
   const [data,setData] = useState([])
@@ -10,11 +12,18 @@ const Facturacion = () => {
   // const [searchParams, setSearchParams] = useSearchParams();
   const [search,setSearch] = useState('')
   const [fecha,setFecha] = useState(new Date())
+  const [preparar, setPreparar] = useState({
+    on:false,
+    id:'',
+    pedido:null
+  })
   useEffect(()=>{
+      
       const searchParams = new URLSearchParams({
         factura:checked?1:0,
         cliente:search,
-        fecha:fecha.toISOString().slice(0,10)
+        fecha:fecha.toISOString().slice(0,10),
+        enPreparacion:0
       })
   
 
@@ -43,10 +52,12 @@ const Facturacion = () => {
   const handleChange = (e) => {
     setSearch(e.target.value)
   }
+
+  
   return (
     <Container>
-
-      <TableShow  fecha={fecha}setFecha={setFecha} handleChange={handleChange} setChecked={setChecked} datos={data} titulo="Pedidos" nombreSwitch="Facturado"> </TableShow>
+      {preparar?<MostrarPedidoFacturacion preparar={preparar} setPreparar={setPreparar}/>:<></>}
+      <TableShow setPreparar={setPreparar} fecha={fecha}setFecha={setFecha} handleChange={handleChange} setChecked={setChecked} datos={data} titulo="Pedidos" nombreSwitch="Facturado"> </TableShow>
     </Container>
   )
 }

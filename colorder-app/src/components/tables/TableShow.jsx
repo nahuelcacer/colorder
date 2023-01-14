@@ -1,5 +1,4 @@
 import { Badge, Button, Chip, FormControlLabel, Switch, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
-import { useState } from "react";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -7,7 +6,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import styleIdCliente from "../../tools/styleIdentificacion";
 import getTotalCost from "../../tools/getTotalCost";
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import { useState } from "react";
+import es from "dayjs/locale/es-mx"
+import axios from "axios";
 
 
 
@@ -20,13 +21,31 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
  * @param {string} titulo - Titulo de la tabla.
  * @param {string} subtitulo - Subtitlo de la tabla 
  */
-const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked, nombreSwitch, setFecha, fecha}) => {
+const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked, nombreSwitch, setFecha, fecha, setPreparar}) => {
     
     const hanledChange = (e) => {
         setChecked(e.target.checked)
        }
-       
-  return (
+    const checkEstadoPedido = async (id) => {
+        axios.get(`api/pedidos/${id}/`)
+        .then(
+            res =>{
+                if(!res.status){
+                   console.log('error')
+                }
+                if(res.data.enPreparacion){
+                    console.log('Pedido tomado')
+                }else
+                {
+
+                    res.data.enPreparacion = true
+                    axios.put(`api/pedidos/${id}/`, res.data )
+                    setPreparar({on:true, id:id, pedido:res.data})
+                }
+            }
+        )
+    }
+   return (
     <Table >
         <TableHead>
             {/* TITULO Y SUBTITULO */}
@@ -63,9 +82,9 @@ const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked, 
                     <FormControlLabel control={<Switch  onChange={(e)=>{hanledChange(e)}}/>} label={nombreSwitch} />
                 </TableCell>
                 <TableCell>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs} >
                         <DatePicker
-                            label="Basic example"
+                            label="Seleccione una fecha"
                             value={fecha}
                             onChange={(newValue) => {
                                 setFecha(newValue)
@@ -79,7 +98,7 @@ const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked, 
         <TableBody>
             {datos.map(pedido=>{
                 return(
-                    <TableRow>
+                    <TableRow key={pedido.id}>
                         <TableCell align='center'  sx={{ padding:0}}>
                                 <Typography><strong>{pedido.orden}</strong></Typography>
                                 <Typography variant='overline' color={'grey'}>{pedido.fecha}</Typography>
@@ -99,7 +118,7 @@ const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked, 
                                     minimumFractionDigits: 2
                                 })}</strong></Typography>
                         </TableCell>
-                        <TableCell align='center'  sx={{ padding:0}}><Button variant="contained"color="primary">Preparar</Button></TableCell>
+                        <TableCell align='center'  sx={{ padding:0}}><Button onClick={(e)=>{checkEstadoPedido(pedido.id)}} variant="contained"color="primary">Preparar</Button></TableCell>
 
                         
 

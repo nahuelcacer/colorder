@@ -12,7 +12,7 @@ class PedidosFilter(filters.FilterSet):
     fecha = DateFilter(field_name='fecha', lookup_expr='exact')
     class Meta:
             model = Pedido
-            fields = ['cliente', 'recibo', 'factura', 'fecha']
+            fields = ['cliente', 'recibo', 'factura', 'fecha', 'enPreparacion']
 
     def filter_by_client(self, queryset, name, value):
         if value:

@@ -24,7 +24,7 @@ class OrderSerializer(serializers.ModelSerializer):
     cliente = ClienteSerializer()
     class Meta:
         model = Pedido
-        fields = ('id', 'cliente', 'factura', 'recibo', 'fecha', 'tiempo', 'completado', 'orderproduct', 'orden')
+        fields = ('id', 'cliente', 'factura', 'recibo', 'fecha', 'tiempo', 'completado', 'orderproduct', 'orden', 'enPreparacion')
     
     def create(self,validated_data):
         cliente_data = validated_data.pop('cliente')
@@ -59,5 +59,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.recibo = validated_data.get('recibo', instance.recibo)
+        instance.factura = validated_data.get('factura', instance.factura)
+        instance.enPreparacion = validated_data.get('enPreparacion', instance.enPreparacion)
         instance.save()
         return instance
