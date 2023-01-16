@@ -86,7 +86,7 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <Button color="primary">
+                            <Button variant="contained">
                                 Facturado
                             </Button>
                         </TableRow>
