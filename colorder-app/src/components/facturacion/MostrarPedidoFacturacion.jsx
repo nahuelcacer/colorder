@@ -4,10 +4,13 @@ import { useState } from "react";
 import { updatePedidoFactura } from "../../services/service.pedidos";
 import getTotalCost from "../../tools/getTotalCost";
 import StyleModal from '../../tools/styleModals';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import Fingerprint from '@mui/icons-material/Fingerprint';
+import { useEffect } from "react";
 
 
 const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
-    const [pedido,setPedido] = useState({})
+    const [pedido,setPedido] = useState('')
     const handleClose = () => {
         axios.get(`api/pedidos/${preparar.id}/`)
         .then(
@@ -23,6 +26,8 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
         )
     
     };
+    
+
     
     const handleCloseOnClick = () => {
         updatePedidoFactura(preparar.pedido)
@@ -45,20 +50,22 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                     CLIENTE
                 </Typography>
                 <Typography   >
+                <PersonOutlineOutlinedIcon sx={{mr:1}}/>
                     {preparar.on ? preparar.pedido.cliente.nombre : ''} 
                 </Typography>
                 <Typography   >
+                <Fingerprint sx={{mr:1,}} />
                     {preparar.on ? preparar.pedido.cliente.dni : ''} 
                 </Typography>
-                <Typography sx={{mb:2}} id="modal-modal-title" variant="h6" component="h2">
+                <Typography sx={{mb:2, mt:2}} id="modal-modal-title" variant="h6" component="h2">
                     PEDIDO
                 </Typography>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell >Producto</TableCell>
-                            <TableCell >Precio</TableCell>
-                            <TableCell >Cantidad</TableCell>
+                            <TableCell align='center'>Producto</TableCell>
+                            <TableCell align='center'>Precio</TableCell>
+                            <TableCell align='center'>Cantidad</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -69,8 +76,8 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                                 return(
                                     <TableRow>
                                         <TableCell align='center' sx={{borderBottom:'none'}}>{item.producto.nombre}</TableCell>
-                                        <TableCell align='center' sx={{borderBottom:'none'}}>{item.producto.precio}</TableCell>
-                                        <TableCell align='center' sx={{borderBottom:'none'}}>{item.cantidad}</TableCell>
+                                        <TableCell align='center' sx={{borderBottom:'none'}}>$ {item.producto.precio}</TableCell>
+                                        <TableCell align='center' sx={{borderBottom:'none'}}><strong>x {item.cantidad}</strong></TableCell>
                                         
 
                                     </TableRow>
@@ -88,7 +95,7 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                                 {
                                     preparar.on 
                                     ?
-                                    getTotalCost(preparar.pedido.orderproduct)
+                                    '$ ' + getTotalCost(preparar.pedido.orderproduct)
                                     :
                                     ''
                                 }

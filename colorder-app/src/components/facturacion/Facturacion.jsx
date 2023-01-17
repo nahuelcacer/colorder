@@ -6,6 +6,8 @@ import TableShow from '../tables/TableShow'
 import MostrarPedidoFacturacion from './MostrarPedidoFacturacion'
 
 const Facturacion = () => {
+  
+
   const [data,setData] = useState([])
   const [pendientes, setPendientes] = useState(0)
   const [checked,setChecked] = useState(false) //
@@ -17,6 +19,10 @@ const Facturacion = () => {
     id:'',
     pedido:null
   })
+  
+
+
+
   useEffect(()=>{
       
       const searchParams = new URLSearchParams({
@@ -25,7 +31,7 @@ const Facturacion = () => {
         fecha:fecha.toISOString().slice(0,10),
         enPreparacion:checked?'':0
       })
-  
+      
 
     const fetchData = async () => {
       axios.get(`/api/pedidos?completado=0&${searchParams}`)
