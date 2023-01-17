@@ -7,41 +7,33 @@ import SearchIcon from '@mui/icons-material/Search';
 import styleIdCliente from "../../tools/styleIdentificacion";
 import getTotalCost from "../../tools/getTotalCost";
 import axios from "axios";
-import CheckIcon from '@mui/icons-material/Check';
+import { updatePedidoRecibo } from "../../services/service.pedidos";
 
-
-/**
- * TableShow
- * 
- * A simple example component that renders a greeting.
- * 
- * @param {Array} datos Arr con datos obtenidos de api
- * @param {string} titulo - Titulo de la tabla.
- * @param {string} subtitulo - Subtitlo de la tabla 
- */
-const TableShow = ({ datos, titulo, subtitulo, search, handleChange, setChecked, nombreSwitch, setFecha, fecha, setPreparar }) => {
+const TableShowRecibo = (
+    {
+        datos,
+        titulo,
+        subtitulo,
+        search,
+        handleChange,
+        setChecked,
+        nombreSwitch,
+        setFecha,
+        fecha,
+        setRecibir }
+    ) => {
 
     const hanledChange = (e) => {
         setChecked(e.target.checked)
     }
-   
-    const checkEstadoPedido = async (id) => {
-        axios.get(`api/pedidos/${id}/`)
-            .then(
-                res => {
-                    if (!res.status) {
-                        console.log('error')
-                    }
-                    if (res.data.enPreparacion) {
-                        console.log('Pedido tomado')
-                    } else {
-
-                        res.data.enPreparacion = true
-                        axios.put(`api/pedidos/${id}/`, res.data)
-                        setPreparar({ on: true, id: id, pedido: res.data })
-                    }
-                }
-            )
+    const Recibir = (pedido) => {
+        updatePedidoRecibo(pedido)
+        .then(res=>{
+            setRecibir({
+                on:true,
+                pedido:res.data
+            })
+        })
     }
     return (
         <Table >
@@ -105,8 +97,7 @@ const TableShow = ({ datos, titulo, subtitulo, search, handleChange, setChecked,
                                 <Typography><strong>{pedido.orden}</strong></Typography>
                                 <Typography variant='overline' color={'grey'}>{pedido.fecha}</Typography>
                                 <div><Typography variant='caption' color={'grey'}> {pedido.tiempo.substr(0, 5)} hs</Typography></div>
-                                {pedido.recibo ? <Chip label='Recibido' size="small" color='success' />: <></>}
-                            
+                                {pedido.factura ? <Chip label='Facturado' size="small" color='success' />: <></>}
                             </TableCell>
                             <TableCell align='center' sx={{ padding: 0 }}>
                                 <Typography><strong>{pedido.cliente.nombre}</strong></Typography>
@@ -122,12 +113,12 @@ const TableShow = ({ datos, titulo, subtitulo, search, handleChange, setChecked,
                                 })}</strong></Typography>
                             </TableCell>
                             <TableCell align='center' sx={{ padding: 0 }}>
-                                {pedido.factura & pedido.enPreparacion
+                                {pedido.recibo
                                     ?
                                     <>
                                     </>
                                     :
-                                    <Button onClick={(e) => { checkEstadoPedido(pedido.id) }} variant="contained" color="primary">Preparar</Button>
+                                    <Button onClick={(e) => { Recibir(pedido) }} variant="contained" color="primary">Recibido</Button>
                                 }
                             </TableCell>
 
@@ -139,6 +130,8 @@ const TableShow = ({ datos, titulo, subtitulo, search, handleChange, setChecked,
             </TableBody>
         </Table>
     )
+
 }
 
-export default TableShow
+
+export default TableShowRecibo
