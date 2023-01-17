@@ -1,6 +1,7 @@
 import { Button, Modal, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
 import axios from "axios";
 import { useState } from "react";
+import { updatePedidoFactura } from "../../services/service.pedidos";
 import getTotalCost from "../../tools/getTotalCost";
 import StyleModal from '../../tools/styleModals';
 
@@ -23,7 +24,15 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
     
     };
     
-
+    const handleCloseOnClick = () => {
+        updatePedidoFactura(preparar.pedido)
+        .then(
+            res=>{ 
+                console.log(res.data)
+            }
+        )
+        setPreparar({on:false, id:''})
+    }
     return(
         <Modal 
             open={preparar.on}
@@ -86,7 +95,7 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <Button variant="contained">
+                            <Button variant="contained" onClick={handleCloseOnClick}>
                                 Facturado
                             </Button>
                         </TableRow>

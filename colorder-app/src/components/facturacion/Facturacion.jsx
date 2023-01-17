@@ -23,7 +23,7 @@ const Facturacion = () => {
         factura:checked?1:0,
         cliente:search,
         fecha:fecha.toISOString().slice(0,10),
-        enPreparacion:0
+        enPreparacion:checked?'':0
       })
   
 
@@ -47,7 +47,7 @@ const Facturacion = () => {
     .catch(error => console.log(error));
     const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
-  },[checked, search, fecha])
+  },[checked, search, fecha, preparar])
   
   const handleChange = (e) => {
     setSearch(e.target.value)

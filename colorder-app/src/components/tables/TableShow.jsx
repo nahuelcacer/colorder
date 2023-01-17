@@ -118,7 +118,15 @@ const TableShow = ({datos, titulo, subtitulo, search, handleChange ,setChecked, 
                                     minimumFractionDigits: 2
                                 })}</strong></Typography>
                         </TableCell>
-                        <TableCell align='center'  sx={{ padding:0}}><Button onClick={(e)=>{checkEstadoPedido(pedido.id)}} variant="contained"color="primary">Preparar</Button></TableCell>
+                        <TableCell align='center'  sx={{ padding:0}}>
+                            {pedido.factura & pedido.enPreparacion 
+                            ? 
+                            <>
+                            </>
+                            :
+                            <Button onClick={(e)=>{checkEstadoPedido(pedido.id)}} variant="contained"color="primary">Preparar</Button>
+                            }
+                        </TableCell>
 
                         
 

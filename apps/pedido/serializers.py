@@ -58,6 +58,7 @@ class OrderSerializer(serializers.ModelSerializer):
     
 
     def update(self, instance, validated_data):
+        instance.completado = validated_data.get('completado', instance.completado)
         instance.recibo = validated_data.get('recibo', instance.recibo)
         instance.factura = validated_data.get('factura', instance.factura)
         instance.enPreparacion = validated_data.get('enPreparacion', instance.enPreparacion)
