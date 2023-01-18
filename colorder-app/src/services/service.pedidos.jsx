@@ -8,7 +8,7 @@ export const updatePedidoRecibo = (pedido) => {
         pedido.recibo = true
         return (
             axios
-            .put(`api/pedidos/${pedido.id}/`, pedido )
+            .put(`/api/pedidos/${pedido.id}/`, pedido )
             
         )
     }else {
