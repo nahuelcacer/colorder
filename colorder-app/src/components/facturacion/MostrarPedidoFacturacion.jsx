@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { updatePedidoFactura } from "../../services/service.pedidos";
 import getTotalCost from "../../tools/getTotalCost";
-import StyleModal from '../../tools/styleModals';
+import { StyleModalFacturacion } from '../../tools/styleModals';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import Fingerprint from '@mui/icons-material/Fingerprint';
 import { useEffect } from "react";
@@ -45,7 +45,7 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Paper sx={StyleModal}>
+            <Paper sx={StyleModalFacturacion}>
                 <Typography sx={{mb:2}} id="modal-modal-title" variant="h6" component="h2">
                     CLIENTE
                 </Typography>
@@ -63,9 +63,9 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell align='center'>Producto</TableCell>
-                            <TableCell align='center'>Precio</TableCell>
-                            <TableCell align='center'>Cantidad</TableCell>
+                            <TableCell align='left'>Producto</TableCell>
+                            <TableCell align='left'>Precio</TableCell>
+                            <TableCell align='left'>Cantidad</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -75,9 +75,9 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                             preparar.pedido.orderproduct.map(item=>{
                                 return(
                                     <TableRow>
-                                        <TableCell align='center' sx={{borderBottom:'none'}}>{item.producto.nombre}</TableCell>
-                                        <TableCell align='center' sx={{borderBottom:'none'}}>$ {item.producto.precio}</TableCell>
-                                        <TableCell align='center' sx={{borderBottom:'none'}}><strong>x {item.cantidad}</strong></TableCell>
+                                        <TableCell align='left' sx={{borderBottom:'none'}}>{item.producto.nombre}</TableCell>
+                                        <TableCell align='left' sx={{borderBottom:'none'}}>$ {item.producto.precio}</TableCell>
+                                        <TableCell align='left' sx={{borderBottom:'none'}}><strong>x {item.cantidad}</strong></TableCell>
                                         
 
                                     </TableRow>
@@ -91,7 +91,7 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                             <TableCell colspan={2} sx={{borderBottom:'none'}}>
                                 Total
                             </TableCell>
-                            <TableCell align='center' sx={{borderBottom:'none'}}>
+                            <TableCell align='left' sx={{borderBottom:'none'}}>
                                 {
                                     preparar.on 
                                     ?

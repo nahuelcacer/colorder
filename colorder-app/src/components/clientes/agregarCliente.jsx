@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fecthClientes } from "../../features/clientes/clienteSlice";
-import StyleModal from "../../tools/styleModals";
+import {StyleModal} from "../../tools/styleModals";
 
 const AgregarCliente = ({open, setOpen}) => {
     const handleClose = () => setOpen(false);

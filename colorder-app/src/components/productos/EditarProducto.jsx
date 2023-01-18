@@ -3,7 +3,7 @@ import axios from 'axios';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import StyleModal from '../../tools/styleModals';
+import {StyleModal} from '../../tools/styleModals';
 
 const EditarProducto = ({edit,setEdit,updateProductos,id}) => {
     const handleClose = () => setEdit({on:false,id:''});

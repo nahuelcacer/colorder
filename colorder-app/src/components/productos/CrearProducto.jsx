@@ -2,7 +2,7 @@ import { Box, Button, Checkbox, FormControlLabel, Modal, TextField, Typography }
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import StyleModal from '../../tools/styleModals';
+import {StyleModal} from '../../tools/styleModals';
 
 const CrearProducto = ({open, setOpen, updateProductos}) => {
     const handleClose = () => setOpen(false);

@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { fecthClientes } from "../../features/clientes/clienteSlice"
-import StyleModal from "../../tools/styleModals"
+import {StyleModal} from "../../tools/styleModals"
 
 
 const EditarCliente =  ({open,setOpen, idCliente}) => {
