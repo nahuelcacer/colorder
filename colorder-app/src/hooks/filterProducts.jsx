@@ -1,13 +1,10 @@
 import { useSelector } from 'react-redux';
 
-export const useTodosLosProductos = () => {
+const useTodosLosProductos = () => {
     const productos = useSelector(state => state.productos.productos);
     return productos
 }
 
+export default useTodosLosProductos
 
 
-export const useClienteSeleccionado = () => {
-    const cliente = useSelector(state=>state.pedido.cliente)
-    return cliente
-}

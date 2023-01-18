@@ -5,14 +5,17 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fecthProductos } from '../../features/clientes/productoSlice';
 import { agregarItem, agregarProducto } from '../../redux/actions/clientes-action';
-import { useClienteSeleccionado, useTodosLosProductos } from '../../hooks/filterProducts';
+import FilterProductos from '../../hooks/filterProducts';
+import useTodosLosProductos from '../../hooks/filterProducts';
 
 const AgregarProductos = () => {
     const [product, setProduct] = useState(null)
     const [quantity, setQuantity] = useState(1)
     const dispatch = useDispatch()
-
-    const productos = useClienteSeleccionado() != null && !useClienteSeleccionado().escribano ? useTodosLosProductos().filter(i => !i.notarial) : useTodosLosProductos()
+    const cliente = useSelector(state => state.pedido.cliente)
+    const productosF =useTodosLosProductos()
+    
+    const productos = cliente != null && !cliente.escribano ? productosF.filter(i=>!i.notarial): productosF
 
     const hanledQuantity = (e) => {
         setQuantity(parseInt(e.target.value))
