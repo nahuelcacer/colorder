@@ -1,6 +1,7 @@
 import { Container } from "@mui/system"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { localhost } from "../../services/service.pedidos"
 import TableShow from "../tables/TableShow"
 import CrearProducto from "./CrearProducto"
 import EditarProducto from "./EditarProducto"
@@ -14,7 +15,7 @@ const Productos = () => {
     
     useEffect(()=>{
       axios
-      .get(`api/productos?nombre=${search}`)
+      .get(`${localhost}api/productos?nombre=${search}`)
       .then(res=>{
           setProductos(res.data)
       })
@@ -24,7 +25,7 @@ const Productos = () => {
     }
     const updateProductos = () => {
       axios
-      .get(`api/productos?nombre=${search}`)
+      .get(`${localhost}api/productos?nombre=${search}`)
       .then((res) => {
         setProductos(res.data);
       });

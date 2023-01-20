@@ -11,6 +11,7 @@ import { Chip } from '@mui/material';
 const BuscarCliente = () => {
     const [value,setValue] = useState("")
     const clientes = useSelector(state=>state.clientes)
+
     const dispatch = useDispatch()
     useEffect(()=>{
 

@@ -1,5 +1,6 @@
 import { createSlice , createAsyncThunk, createReducer, createAction } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { localhost } from '../../services/service.pedidos'
 
 
 const initialState = {
@@ -10,7 +11,7 @@ const initialState = {
 
 export const fecthPedidos = createAsyncThunk('pedidos/requestPedidos',()=>{
     return axios
-                .get('api/pedidos')
+                .get(`${localhost}api/pedidos`)
                 .then((res)=> res.data) 
 })
 

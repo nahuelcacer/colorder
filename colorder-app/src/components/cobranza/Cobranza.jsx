@@ -1,6 +1,7 @@
 import { Container } from "@mui/system"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { localhost } from "../../services/service.pedidos"
 import TableShowRecibo from "../tables/TableShowRecibo"
 
 const Cobranza = () => {
@@ -26,7 +27,7 @@ const Cobranza = () => {
 
 
         const fetchData = async () => {
-            axios.get(`/api/pedidos?completado=0&${searchParams}`)
+            axios.get(`${localhost}api/pedidos?completado=0&${searchParams}`)
                 .then(res => {
                     setData(res.data)
                     const arr_pendientes = res.data.filter(i => i.recibo == false)
@@ -35,7 +36,7 @@ const Cobranza = () => {
         };
 
 
-        axios.get(`/api/pedidos?completado=0&${searchParams}`)
+        axios.get(`${localhost}api/pedidos?completado=0&${searchParams}`)
             .then(
                 response => {
                     console.log(response)

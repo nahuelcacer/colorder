@@ -5,8 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fecthPedidos } from "../features/pedidos/pedidoshowSlice";
 import {connect} from 'react-redux'
+import { localhost } from "../services/service.pedidos";
+import { backtoInitialState } from "../redux/actions/clientes-action";
 
-const Imprimir = () => {
+const Imprimir = ({setProduct}) => {
+    const dispatch = useDispatch()
     const pedido = useSelector(state=>state.pedido)
     const [alert, setAlert] = useState(false)
     const [warning, setWarning] = useState(false)
@@ -17,10 +20,12 @@ const Imprimir = () => {
     }
     const addPedido = () => {
         console.log(data)
-        axios.post('/api/pedidos/', data)
+        axios.post(`${localhost}api/pedidos/`, data)
         .then(res=>{
             setAlert(true)
             setTimeout(()=>(setAlert(false)), 4000)
+            dispatch(backtoInitialState())
+            setProduct(null)
             console.log(res)
         })
         .catch(res=>{

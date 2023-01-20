@@ -8,12 +8,10 @@ import { agregarItem, agregarProducto } from '../../redux/actions/clientes-actio
 import FilterProductos from '../../hooks/filterProducts';
 import useTodosLosProductos from '../../hooks/filterProducts';
 
-const AgregarProductos = () => {
-    const [product, setProduct] = useState(null)
-    const [quantity, setQuantity] = useState(1)
+const AgregarProductos = ({product, setProduct, setQuantity, quantity}) => {
     const dispatch = useDispatch()
     const cliente = useSelector(state => state.pedido.cliente)
-    const productosF =useTodosLosProductos()
+    const productosF = useTodosLosProductos()
     
     const productos = cliente != null && !cliente.escribano ? productosF.filter(i=>!i.notarial): productosF
 
@@ -43,6 +41,7 @@ const AgregarProductos = () => {
                     renderInput={(params) => <TextField  {...params} label="Selecionar producto" />}
                     getOptionLabel={(option) => option.nombre}
                     onChange={(event, newValue) => { setProduct(newValue) }}
+                    value={product}
                 >
                 </Autocomplete>
             </div>

@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { fecthClientes } from "../../features/clientes/clienteSlice"
+import { localhost } from "../../services/service.pedidos"
 import {StyleModal} from "../../tools/styleModals"
 
 
@@ -14,7 +15,7 @@ const EditarCliente =  ({open,setOpen, idCliente}) => {
 
     const dispatch = useDispatch()
     useEffect(()=>{
-        axios.get(`api/clientes/${idCliente}`)
+        axios.get(`${localhost}api/clientes/${idCliente}`)
         .then(res=>{
             setCliente(res.data)
         }) 
@@ -33,7 +34,7 @@ const EditarCliente =  ({open,setOpen, idCliente}) => {
       };
 
     const editarCliente = () => {
-        axios.put(`api/clientes/${idCliente}/`,cliente)
+        axios.put(`${localhost}api/clientes/${idCliente}/`,cliente)
         .then(res=>{
             setAlert({on:true, tipo:"success", texto:"Cliente editado!"})
             setTimeout(()=>(

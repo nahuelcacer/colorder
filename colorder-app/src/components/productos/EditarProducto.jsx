@@ -3,6 +3,7 @@ import axios from 'axios';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { localhost } from '../../services/service.pedidos';
 import {StyleModal} from '../../tools/styleModals';
 
 const EditarProducto = ({edit,setEdit,updateProductos,id}) => {
@@ -10,7 +11,7 @@ const EditarProducto = ({edit,setEdit,updateProductos,id}) => {
     const [pr,setPr] = useState({nombre:"",precio:"",tramite:"",notarial:false})
     useEffect(()=>{
         axios
-        .get(`api/productos/${id}`)
+        .get(`${localhost}api/productos/${id}`)
         .then(res=>{
             setPr(res.data)
         })
@@ -29,7 +30,7 @@ const EditarProducto = ({edit,setEdit,updateProductos,id}) => {
         });
       };
     const updateProduct = () => {
-        axios.put(`api/productos/${id}/`,pr)
+        axios.put(`${localhost}api/productos/${id}/`,pr)
         .then(res=>{
             updateProductos()
             console.log(res)

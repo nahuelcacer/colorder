@@ -1,6 +1,6 @@
 import axios from "axios"
 
-
+export const localhost = 'http://127.0.0.1:8000/'
 // UPDATE FIELD RECIBO
 export const updatePedidoRecibo = (pedido) => {
     if(pedido.factura){
@@ -8,14 +8,14 @@ export const updatePedidoRecibo = (pedido) => {
         pedido.recibo = true
         return (
             axios
-            .put(`/api/pedidos/${pedido.id}/`, pedido )
+            .put(`${localhost}api/pedidos/${pedido.id}/`, pedido )
             
         )
     }else {
         pedido.recibo = true
         return (
             axios
-            .put(`api/pedidos/${pedido.id}/`, pedido )
+            .put(`${localhost}api/pedidos/${pedido.id}/`, pedido )
             
             
             
@@ -31,7 +31,7 @@ export const updatePedidoFactura = (pedido) => {
         pedido.enPreparacion = true
         return (
             axios
-            .put(`api/pedidos/${pedido.id}/`, pedido )
+            .put(`${localhost}api/pedidos/${pedido.id}/`, pedido )
             
         )
     }
@@ -40,7 +40,7 @@ export const updatePedidoFactura = (pedido) => {
         pedido.enPreparacion = true
         return (
             axios
-            .put(`api/pedidos/${pedido.id}/`, pedido )
+            .put(`${localhost}api/pedidos/${pedido.id}/`, pedido )
             
             
             

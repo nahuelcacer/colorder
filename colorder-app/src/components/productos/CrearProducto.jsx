@@ -2,6 +2,7 @@ import { Box, Button, Checkbox, FormControlLabel, Modal, TextField, Typography }
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
+import { localhost } from '../../services/service.pedidos';
 import {StyleModal} from '../../tools/styleModals';
 
 const CrearProducto = ({open, setOpen, updateProductos}) => {
@@ -20,7 +21,7 @@ const CrearProducto = ({open, setOpen, updateProductos}) => {
         });
       };
     const addProducto = () => {
-        axios.post('api/productos/', producto)
+        axios.post(`${localhost}api/productos/`, producto)
         .then((res)=>{
             updateProductos()
             console.log(res)

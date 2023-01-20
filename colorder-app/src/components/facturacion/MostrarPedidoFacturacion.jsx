@@ -1,7 +1,7 @@
 import { Button, Modal, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
 import axios from "axios";
 import { useState } from "react";
-import { updatePedidoFactura } from "../../services/service.pedidos";
+import  {localhost, updatePedidoFactura} from "../../services/service.pedidos";
 import getTotalCost from "../../tools/getTotalCost";
 import { StyleModalFacturacion } from '../../tools/styleModals';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
@@ -12,11 +12,11 @@ import { useEffect } from "react";
 const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
     const [pedido,setPedido] = useState('')
     const handleClose = () => {
-        axios.get(`api/pedidos/${preparar.id}/`)
+        axios.get(`${localhost}api/pedidos/${preparar.id}/`)
         .then(
             res=> {
                 res.data.enPreparacion = false
-                axios.put(`api/pedidos/${preparar.id}/`, res.data)
+                axios.put(`${localhost}api/pedidos/${preparar.id}/`, res.data)
                 .then(
                     res=>{
                         setPreparar({on:false,id:''})

@@ -9,7 +9,6 @@ export const selectCliente = createAction('cliente/seleccionar', function prepar
     }
   }
 })
-
 // AGREGAR ITEM EN EL PEDIDO/CARRITO
 export const agregarItem = createAction('item/agregar', function prepare(item){
   return {
@@ -18,7 +17,13 @@ export const agregarItem = createAction('item/agregar', function prepare(item){
   }
 })
 export const eliminarItem = createAction('item/eliminar', function prepare(item){
+  return {
+    payload:
+      item
+  }
+})
 
+export const backtoInitialState = createAction('item/initialState', function prepare(item){
   return {
     payload:
       item

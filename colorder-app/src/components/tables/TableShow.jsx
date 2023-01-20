@@ -8,7 +8,7 @@ import styleIdCliente from "../../tools/styleIdentificacion";
 import getTotalCost from "../../tools/getTotalCost";
 import axios from "axios";
 import CheckIcon from '@mui/icons-material/Check';
-
+import { localhost } from '../../services/service.pedidos'
 
 /**
  * TableShow
@@ -26,7 +26,7 @@ const TableShow = ({ datos, titulo, subtitulo, search, handleChange, setChecked,
     }
    
     const checkEstadoPedido = async (id) => {
-        axios.get(`api/pedidos/${id}/`)
+        axios.get(`${localhost}api/pedidos/${id}/`)
             .then(
                 res => {
                     if (!res.status) {
@@ -37,7 +37,7 @@ const TableShow = ({ datos, titulo, subtitulo, search, handleChange, setChecked,
                     } else {
 
                         res.data.enPreparacion = true
-                        axios.put(`api/pedidos/${id}/`, res.data)
+                        axios.put(`${localhost}api/pedidos/${id}/`, res.data)
                         setPreparar({ on: true, id: id, pedido: res.data })
                     }
                 }

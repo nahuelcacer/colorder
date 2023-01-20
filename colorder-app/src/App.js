@@ -8,21 +8,24 @@ import {
   RouterProvider,
   Route,
 } from "react-router-dom";
+import { useState } from 'react';
 
-function App() {
-  
+function App() {   
+  const [product, setProduct] = useState(null)
+  const [quantity, setQuantity] = useState(1)
+
   return(
     <>
       <BuscarCliente/>
       <ClienteSeleccionado/> 
       <div className='container mt-4'>
-        <AgregarProductos/>
+        <AgregarProductos product={product} setProduct={setProduct} setQuantity={setQuantity} quantity={quantity}/>
       </div>
       <div className='container mt-4'>
         <MostrarPedido></MostrarPedido>
       </div>
       <div className='container mt-4'>
-      <Imprimir></Imprimir>
+      <Imprimir setProduct={setProduct}></Imprimir>
       </div>
     </>
   )

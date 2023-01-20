@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fecthClientes } from "../../features/clientes/clienteSlice";
+import { localhost } from "../../services/service.pedidos";
 import {StyleModal} from "../../tools/styleModals";
 
 const AgregarCliente = ({open, setOpen}) => {
@@ -23,7 +24,7 @@ const AgregarCliente = ({open, setOpen}) => {
         });
       };
     const addCliente =  () => {
-        axios.post('api/clientes/', cliente)
+        axios.post(`${localhost}api/clientes/`, cliente)
         .then(res=>{
             setAlert({on:true, tipo:"success", texto:"Cliente agregado!"})
             setTimeout(()=>(

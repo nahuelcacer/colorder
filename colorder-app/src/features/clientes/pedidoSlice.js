@@ -1,5 +1,5 @@
 import { createSlice , createAsyncThunk, createReducer, createAction } from '@reduxjs/toolkit'
-import {agregarItem, selectCliente, eliminarItem} from '../../redux/actions/clientes-action'
+import {agregarItem, selectCliente, eliminarItem, backtoInitialState} from '../../redux/actions/clientes-action'
 
 
 
@@ -22,6 +22,13 @@ const pedidoReducer = createReducer(initialState, (builder) => {
       })
       .addCase(eliminarItem, (state,action)=>{
         state.orderproduct.splice(action.payload,1)
+      })
+      .addCase(backtoInitialState, (state,action)=> {
+        state.cliente = state.cliente
+        state.orderproduct = []
+        state.recibo=false
+        state.false=false
+
       })
   })
 
