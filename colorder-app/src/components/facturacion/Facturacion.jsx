@@ -73,6 +73,7 @@ const Facturacion = () => {
         datos={data}
         titulo="Pedidos"
         nombreSwitch="Facturado"
+        subtitulo="Facturas"
       >
       </TableShow>
     </Container>
