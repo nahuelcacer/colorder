@@ -7,6 +7,8 @@ import { fecthPedidos } from "../features/pedidos/pedidoshowSlice";
 import {connect} from 'react-redux'
 import { localhost } from "../services/service.pedidos";
 import { backtoInitialState } from "../redux/actions/clientes-action";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import CrearPdf from "./pdf/createPdf";
 
 const Imprimir = ({setProduct}) => {
     const dispatch = useDispatch()
@@ -39,7 +41,9 @@ const Imprimir = ({setProduct}) => {
         <>
             {alert ? <Alert severity='success' sx={{mt:2, mb:2}}>Pedido Añadido</Alert> : <></>}
             {warning ? <Alert severity='warning' sx={{mt:2, mb:2}}>Ocurrio un problema</Alert> : <></>}
-            <Button variant="contained" onClick={addPedido}>Imprimir</Button>
+            <PDFDownloadLink document={<CrearPdf data={pedido}></CrearPdf>}>
+                <Button variant="contained" onClick={addPedido}>Imprimir</Button>
+            </PDFDownloadLink>
         </>
     )
 }
