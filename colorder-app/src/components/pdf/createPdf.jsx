@@ -1,4 +1,6 @@
-import { Document, Page, Text } from "@react-pdf/renderer";
+import { Document, Image, Page, Text, View } from "@react-pdf/renderer";
+import Logo from '../../static/logocolegio.jpg'
+
 
 
 const titles = {
@@ -13,52 +15,84 @@ const texts = {
     textAlign: 'center'
 }
 const CrearPdf = ({data}) => { 
+    console.log(data)
     return (
         <Document>
             <Page size={{width:294.8, heigth: 566.92}}>
-                <Text style={titles}>
-                    COLEGIO DE ESCRIBANOS DE LA PROVINCIA DEL CHACO 
-                </Text>            
-                <Text style={texts}>
-                    Av. Italia 123
-                </Text>
-                <Text style={texts}>
-                    Fecha y hora: 
+                <View style={{alignItems:'center', flexGrow:1}}>
+                    <Image source={Logo} style={{textAlign:'center', width:'100px', height:'100px', margin:'5px'}} />
+                </View>
+               
+                <Text style={{
+                    marginTop:'10px',
+                    fontSize: '10px',
+                    textAlign: 'center'
+                }}>
+                    Av. Italia 123, Resistencia
                 </Text>
                 <Text style={texts}>
                     Cuit: 30-56214518-0
                 </Text>
-                <Text style={texts}>
-                   ----------------------------------------------------------------
-                </Text>
-                <Text style={titles}>
+               
+                <Text style={{
+                    marginTop:'10px',
+                    fontSize: '14px',
+                    textAlign: 'center'
+                }}>
                    Cliente
                 </Text>
-                {
-                    data.cliente != null ? <div><Text style={texts}>{data.cliente.nombre}</Text><Text style={texts}>{data.cliente.dni}</Text></div> : <></>
-                }
+                
+                <Text style={texts}>
+                    {data.cliente.nombre}
+                </Text>
+                <Text style={texts}>
+                    {data.cliente.dni}
+                </Text>
+                <Text style={{
+                    marginTop:'10px',
+                    fontSize: '14px',
+                    textAlign: 'center'
+                }}>
+                    Pedido
+                </Text>
+        
+                <Text style={{marginTop:'4px',                             
+                                    fontSize: '15px',
+                                    textAlign: 'center'}}>
+                   {data.orden}
+                </Text>
+                <Text style={texts}>
+                    Fecha: {data.fecha}
+                </Text> 
+                <Text style={texts}>
+                    Hora: {data.tiempo}
+                </Text>
                 {
                     data.orderproduct.map(i=>{
-                        return (
+                        return(
                             <>
-                                <Text style={{textAlign:'center', fontSize:'10px', margin:'5px', width:'100%' }}>
-                                    <Text style={{margin:'10px'}}>x{i.cantidad} </Text>
-                                    <Text style={{margin:'10px'}}> {i.producto.nombre}</Text>
-                                    <Text style={{margin:'10px'}}> {i.producto.precio} </Text>
-                                    <Text style={{margin:'10px'}}> ${i.total} </Text>
+                            <View>
 
+                                <Text style={{
+                                    marginTop:'4px',                             
+                                    fontSize: '10px',
+                                    textAlign: 'center'}}
+                                    >x{i.cantidad}.  {i.producto.nombre}
                                 </Text>
+                                <Text style={texts}>
+                                    Precio: {i.producto.precio}
+                                </Text>
+                                <Text style={texts}>
+                                    Total: {i.cantidad*i.producto.precio}
+                                </Text>
+                                    </View>
+                            
                             </>
                         )
                     })
                 }
-                {/* <div>
-                    {data.orderproduct.map(i=>{
-                        return (
-                            <Text>{i.total}</Text>
-                        )
-                    })}
-                </div> */}
+                
+                
 
             </Page>
         </Document>
