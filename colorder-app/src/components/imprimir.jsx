@@ -7,6 +7,7 @@ import { fecthPedidos } from "../features/pedidos/pedidoshowSlice";
 import {connect} from 'react-redux'
 import { localhost } from "../services/service.pedidos";
 import { backtoInitialState } from "../redux/actions/clientes-action";
+import { createPdf } from "./pdf";
 
 
 const Imprimir = ({setProduct, setPdf}) => {
@@ -30,8 +31,8 @@ const Imprimir = ({setProduct, setPdf}) => {
             setTimeout(()=>(setAlert(false)), 4000)
             dispatch(backtoInitialState())
             setProduct(null)
-            console.log(res)
-            setPdf(res.data)
+            const pdf = createPdf(res.data).output('datauristring')
+            console.log(pdf)
             
         })
         .catch(res=>{
