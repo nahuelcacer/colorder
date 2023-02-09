@@ -9,13 +9,12 @@ import { localhost } from "../services/service.pedidos";
 import { backtoInitialState } from "../redux/actions/clientes-action";
 import { createPdf } from "./pdf";
 
-
 const Imprimir = ({setProduct, setPdf}) => {
     const dispatch = useDispatch()
     const pedido = useSelector(state=>state.pedido)
     const [alert, setAlert] = useState(false)
     const [warning, setWarning] = useState(false)
-    
+
     const data = {
         cliente:pedido.cliente,
         orderproduct:pedido.orderproduct,
@@ -31,8 +30,11 @@ const Imprimir = ({setProduct, setPdf}) => {
             setTimeout(()=>(setAlert(false)), 4000)
             dispatch(backtoInitialState())
             setProduct(null)
-            const pdf = createPdf(res.data).output('datauristring')
-            console.log(pdf)
+            const pdf = createPdf(res.data).output('bloburi')
+            const as = window.open(pdf);
+            as.focus()
+            as.print()
+            
             
         })
         .catch(res=>{
@@ -47,6 +49,7 @@ const Imprimir = ({setProduct, setPdf}) => {
             {alert ? <Alert severity='success' sx={{mt:2, mb:2}}>Pedido Añadido</Alert> : <></>}
             {warning ? <Alert severity='warning' sx={{mt:2, mb:2}}>Ocurrio un problema</Alert> : <></>}
             <Button variant="contained" onClick={addPedido}>Imprimir</Button>
+           
         </>
     )
 }
