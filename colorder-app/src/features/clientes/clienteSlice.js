@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { createSlice , createAsyncThunk } from '@reduxjs/toolkit'
+import { localhost } from '../../services/service.pedidos'
 
 
 
@@ -11,7 +12,7 @@ const initialState = {
 
 export const fecthClientes = createAsyncThunk('clientes/requestClientes',()=>{
     return axios
-                .get('api/clientes')
+                .get(`${localhost}api/clientes`)
                 .then((res)=> res.data) 
 })
 

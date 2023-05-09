@@ -7,6 +7,7 @@ import { fecthPedidos } from "../features/pedidos/pedidoshowSlice";
 import {connect} from 'react-redux'
 import { localhost } from "../services/service.pedidos";
 import { backtoInitialState } from "../redux/actions/clientes-action";
+import { generatePdf } from "./pdf/generatePdf";
 
 const Imprimir = ({setProduct}) => {
     const dispatch = useDispatch()
@@ -20,6 +21,8 @@ const Imprimir = ({setProduct}) => {
     }
     const addPedido = () => {
         console.log(data)
+        
+
         axios.post(`${localhost}api/pedidos/`, data)
         .then(res=>{
             setAlert(true)
@@ -27,6 +30,7 @@ const Imprimir = ({setProduct}) => {
             dispatch(backtoInitialState())
             setProduct(null)
             console.log(res)
+            generatePdf(res.data)
         })
         .catch(res=>{
             setWarning(true)
