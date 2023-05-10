@@ -1,19 +1,20 @@
-export const generatePdf = (data) => {
+import { formatDate } from "../../tools/formatedDate";
 
+export const generatePdf = (data) => {
 
   const content = `
     <html>
       <head>
         <title>Colegio de Escribanos del Chaco</title>
         <style>
+          * {
+            padding:0
+          }
           body {
             font-family: Georgia, serif;
+
           }
-          // Agrega estilos CSS aquí si es necesario.
-          img.logo {
-            width: auto;
-            max-height:100px; 
-          }
+          
           table {
             border-collapse: collapse;
             width: 100%;
@@ -35,18 +36,22 @@ export const generatePdf = (data) => {
         </style>
       </head>
       <body onload="window.print()">
+        
         <h4>COLEGIO DE ESCRIBANOS DEL CHACO</h4>
         <p>Av Italia 123 - Resistencia, Chaco</p>
-        // Añade aquí tus datos de pedido usando data. Por ejemplo:
+        
         <div>
-          <p>${data.cliente.nombre}</p>
-          <p>${data.cliente.dni}</p>
+          <p>Cliente: ${data.cliente.nombre}</p>
+          <p>Dni/Cuit: ${data.cliente.dni}</p>
         </div>
         <div>
-          <p>Fecha: ${data.fecha}</p>
-          <p>Numero: ${data.orden}</p>
+          <p>tracking id: ${data.id}</p>
+          <p>Fecha: ${formatDate(data.fecha)}</p>
+          <p>Numero: <h1>${data.orden}</h1></p>
         </div>
-        <div></div>
+        <div>
+        
+        </div>
         <div>
           <table>
             <th>

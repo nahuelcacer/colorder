@@ -33,9 +33,9 @@ const Tracking = () => {
             <Button variant="contained" onClick={() => { searchOrder(searchTracking) }}>Buscar</Button>
             <Box sx={{ width: '100%' }}>
                 <Stepper activeStep={activeStep.activeStep} alternativeLabel>
-                    {steps.map((label) => (
+                    {steps.map((label,index) => (
                         <Step key={label.name}>
-                            <StepLabel>{label.name} <br></br> {activeStep.sector}</StepLabel>
+                            <StepLabel>{label.name} <br></br> {activeStep.activeStep === index  ? activeStep.sector: <></>}</StepLabel>
                         </Step>
                     ))}
                 </Stepper>

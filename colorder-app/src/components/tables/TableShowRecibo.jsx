@@ -97,6 +97,7 @@ const TableShowRecibo = (
                                     setFecha(newValue)
                                 }}
                                 renderInput={(params) => <TextField {...params} />}
+                                inputFormat="DD/MM/YYYY"
                             />
                         </LocalizationProvider>
                     </TableCell>

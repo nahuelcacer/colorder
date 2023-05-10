@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nwzv=syzc1wujhy1-mlxt9@jpl6e-ty^hou%3-qs#t^u3*lxh9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL ='usuario.Usuario'
 
 # Application definition
@@ -60,9 +60,8 @@ MIDDLEWARE = [
 ]
 
 
-
-# CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 
 ROOT_URLCONF = 'colorder.urls'
 
@@ -86,16 +85,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'colorder.wsgi.application'
 
+# from dotenv import load_dotenv
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# # Database
+# # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+# load_dotenv()
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'pedido',
+#         'HOST': os.environ.get('HOST'),
+#         'USER': os.environ.get('USER'),
+#         'PASSWORD': os.environ.get('PASSWORD')
+#     }
+# }
 
 
 # Password validation

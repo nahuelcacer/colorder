@@ -35,8 +35,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)), 
     path('', TemplateView.as_view(template_name="index.html")),
-        re_path(r'^cobranza/$', TemplateView.as_view(template_name="index.html")),
-        re_path(r'^factura/$', TemplateView.as_view(template_name="index.html")),
-        re_path(r'^productos/$', TemplateView.as_view(template_name="index.html")),
-        re_path(r'^tracking/$', TemplateView.as_view(template_name="index.html")),
+    path('cobranza/', TemplateView.as_view(template_name="index.html")),
+    path('factura/', TemplateView.as_view(template_name="index.html")),
+    path('productos/', TemplateView.as_view(template_name="index.html")),
+    path('tracking/', TemplateView.as_view(template_name="index.html")),
 ]
