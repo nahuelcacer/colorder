@@ -24,6 +24,7 @@ export const eliminarItem = createAction('item/eliminar', function prepare(item)
 })
 
 export const backtoInitialState = createAction('item/initialState', function prepare(item){
+  
   return {
     payload:
       item

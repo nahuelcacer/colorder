@@ -19,7 +19,8 @@ const BuscarCliente = () => {
         
     },[])
     const filterOptions = createFilterOptions({
-      stringify: (option) => option.nombre + option.dni
+      stringify: (option) => option.nombre + option.dni,
+      limit:5
     });
     return(
         <div className='container'>

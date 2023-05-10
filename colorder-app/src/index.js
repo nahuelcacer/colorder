@@ -12,6 +12,7 @@ import Productos from './components/productos/Productos';
 import Facturacion from './components/facturacion/Facturacion';
 import Factura from './Factura';
 import Cobranza from './components/cobranza/Cobranza';
+import Tracking from './components/tracking/Tracking';
 const router = createBrowserRouter([{
   path:"/",
   element:<App />
@@ -27,6 +28,10 @@ const router = createBrowserRouter([{
 {
   path:"/productos",
   element:<Productos/>
+},
+{
+  path:"/tracking",
+  element:<Tracking/>
 }])
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

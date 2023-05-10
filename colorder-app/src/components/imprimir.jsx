@@ -7,7 +7,7 @@ import { fecthPedidos } from "../features/pedidos/pedidoshowSlice";
 import {connect} from 'react-redux'
 import { localhost } from "../services/service.pedidos";
 import { backtoInitialState } from "../redux/actions/clientes-action";
-import { createPdf } from "./pdf";
+import { generatePdf } from "./pdf/generatePdf";
 
 const Imprimir = ({setProduct, setPdf}) => {
     const dispatch = useDispatch()
@@ -21,21 +21,27 @@ const Imprimir = ({setProduct, setPdf}) => {
     }
     
     
+    
     const addPedido = () => {
-        
-        console.log(data)
         axios.post(`${localhost}api/pedidos/`, data)
         .then(res=>{
+            const tracking = { 
+                pedido_id : res.data.id,
+                sector_id: 1
+            }
+            axios.post(`${localhost}api/tracking/`,tracking
+            ).then(res=>{
+                console.log(res)
+            
+            }).catch(res=>{
+                console.log(res)
+            })
             setAlert(true)
             setTimeout(()=>(setAlert(false)), 4000)
             dispatch(backtoInitialState())
             setProduct(null)
-            const pdf = createPdf(res.data).output('bloburi')
-            const as = window.open(pdf);
-            as.focus()
-            as.print()
-            
-            
+            console.log(res)
+            generatePdf(res.data)
         })
         .catch(res=>{
             setWarning(true)

@@ -8,9 +8,9 @@ const Cobranza = () => {
 
     const [data, setData] = useState([])
     const [pendientes, setPendientes] = useState(0)
-    const [checked, setChecked] = useState(false)
     const [search, setSearch] = useState('')
     const [fecha, setFecha] = useState(new Date())
+    const [alignment, setAlignment ] = useState('sin')
     const [recibir, setRecibir] = useState({
         on: false,
         pedido: ''
@@ -19,7 +19,7 @@ const Cobranza = () => {
     useEffect(() => {
 
         const searchParams = new URLSearchParams({
-            recibo: checked ? 1 : 0,
+            recibo: alignment === 'sin' ? 0 : (alignment === 'con' ? 1 : undefined),
             cliente: search,
             fecha: fecha.toISOString().slice(0, 10),
 
@@ -47,7 +47,7 @@ const Cobranza = () => {
             .catch(error => console.log(error));
         const interval = setInterval(fetchData, 5000);
         return () => clearInterval(interval);
-    }, [checked, search, fecha, recibir])
+    }, [alignment, search, fecha, recibir])
     useEffect(() => {
         if (pendientes !== 0) {
 
@@ -68,11 +68,12 @@ const Cobranza = () => {
                 fecha={fecha}
                 setFecha={setFecha}
                 handleChange={handleChange}
-                setChecked={setChecked}
                 datos={data}
                 titulo="Pedidos"
                 subtitulo='Recibos'
                 nombreSwitch="Recibidos"
+                alignment={alignment}
+                setAlignment={setAlignment}
             ></TableShowRecibo>
         </Container>
     )
