@@ -1,10 +1,13 @@
 import { formatDate } from "../../tools/formatedDate";
+import getTotalCost from "../../tools/getTotalCost";
+
 
 export const generatePdf = (data) => {
 
   const content = `
     <html>
       <head>
+       <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
         <title>Colegio de Escribanos del Chaco</title>
         <style>
           * {
@@ -13,6 +16,9 @@ export const generatePdf = (data) => {
           body {
             font-family: Georgia, serif;
 
+          }
+          #barcode {
+            width: 100%;
           }
           
           table {
@@ -39,7 +45,7 @@ export const generatePdf = (data) => {
         
         <h4>COLEGIO DE ESCRIBANOS DEL CHACO</h4>
         <p>Av Italia 123 - Resistencia, Chaco</p>
-        
+        <p>Tel: 0362 443-0551</p>
         <div>
           <p>Cliente: ${data.cliente.nombre}</p>
           <p>Dni/Cuit: ${data.cliente.dni}</p>
@@ -50,31 +56,29 @@ export const generatePdf = (data) => {
           <p>Numero: <h1>${data.orden}</h1></p>
         </div>
         <div>
-        
+            <ul>
+              ${data.orderproduct.map((item,index) => (
+                `<li key={item.id}>
+                  - ${item.producto.nombre}<br />
+                  $ ${item.producto.precio}  x ${item.cantidad}
+                  Total:${item.cantidad * item.producto.precio}
+                </li>`
+              )).join('')}
+            </ul>
         </div>
-        <div>
-          <table>
-            <th>
-              <tr>
-                <td>Producto</td>
-                <td>Precio</td>
-                <td>Cantidad</td>
-                <td>Total</td>
-              </tr>
-            </th>
-            ${data.orderproduct.map(item => {
-                return (
-                  `<tr>
-                    <td>${item.producto.nombre}</td>
-                    <td>${item.producto.precio}</td>
-                    <td>${item.cantidad}</td>
-                    <td>${item.cantidad * item.producto.precio}</td>
-                  </tr>`
-                )
-              })}
-          </table>
-        </div>
+        <div> <h4>Importe total: $ ${getTotalCost(data.orderproduct)}</h4></div>
+        <!-- Código de barras -->
+        <svg id="barcode"></svg>
 
+        <script>
+          JsBarcode("#barcode", "${data.id}", {
+            format: "CODE39",
+            width: 2,
+            height: 70,
+            displayValue: true,
+            fontOptions: "",
+          });
+        </script>
       </body>`
     ;
 
