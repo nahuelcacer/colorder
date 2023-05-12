@@ -1,4 +1,4 @@
-import { Badge, Button, Chip, FormControlLabel, Switch, Table, TableBody, TableCell, TableHead, TableRow, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import { Badge, Button, Chip, FormControlLabel, Switch, Table, TableBody, TableCell, TableHead, TableRow, TextField, ToggleButton, ToggleButtonGroup, Tooltip, Typography } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -11,6 +11,7 @@ import getTotalCost from "../../tools/getTotalCost";
 import axios from "axios";
 import { updatePedidoRecibo } from "../../services/service.pedidos";
 import { useState } from "react";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const TableShowRecibo = (
     {
@@ -77,7 +78,7 @@ const TableShowRecibo = (
                     </TableCell>
                     <TableCell>
                         <ToggleButtonGroup
-                            sx={{ml:5, padding:0}}
+                            sx={{ ml: 5, padding: 0 }}
                             color="primary"
                             value={alignment}
                             exclusive
@@ -134,6 +135,26 @@ const TableShowRecibo = (
                                     :
                                     <Button onClick={(e) => { Recibir(pedido) }} variant="contained" color="primary">Recibido</Button>
                                 }
+                            </TableCell>
+                            <TableCell align='center' sx={{ padding: 0 }}>
+                                <Tooltip
+                                    title={
+                                        <>
+                                            {pedido.orderproduct.map(item => {
+                                                return (
+                                                    <span>
+                                                        {item.producto.nombre}
+                                                    </span>
+                                                )
+                                            })}
+                                        </>
+                                    }
+                                >
+                                    <span>
+
+                                        <InfoOutlinedIcon></InfoOutlinedIcon>
+                                    </span>
+                                </Tooltip>
                             </TableCell>
 
 

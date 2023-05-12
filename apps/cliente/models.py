@@ -8,8 +8,7 @@ class Cliente(models.Model):
     escribano = models.BooleanField(default=False)
     def __str__(self):
         return self.nombre
-    class Meta:
-            app_label = 'cliente'
+
     # class Meta:
     #    unique_together = [
     #     ['dni', 'nombre'],

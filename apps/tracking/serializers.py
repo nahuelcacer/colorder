@@ -28,7 +28,7 @@ class OrderStatusSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = OrderStatus
-        fields = ('id', 'sector_id', 'pedido_id', 'created_at')
+        fields = ('id', 'sector_id', 'pedido_id', 'created_at', 'tiempo')
 
     # def create(self, validated_data):
     #     sector_id = validated_data.pop('sector_id')

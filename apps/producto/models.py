@@ -9,7 +9,5 @@ class Producto(models.Model):
     tramite = models.IntegerField()
     notarial = models.BooleanField(default=False)
     
-    class Meta:
-        app_label = 'producto'
     def __str__(self):
         return self.nombre
