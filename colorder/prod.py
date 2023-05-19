@@ -6,6 +6,7 @@ from .settings import *
 ALLOWED_HOSTS = ["*"]
 ROOT_URLCONF = 'colorder.urls'
 DEBUG = True
+
 load_dotenv()
 DATABASES = {
     'default': {
