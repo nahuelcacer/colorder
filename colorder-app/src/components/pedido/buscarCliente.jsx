@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {fecthClientes} from '../../features/clientes/clienteSlice.js'
 import TextField from '@mui/material/TextField';
@@ -22,6 +22,7 @@ const BuscarCliente = () => {
       stringify: (option) => option.nombre + option.dni,
       limit:5
     });
+    
     return(
         <div className='container'>
         <Autocomplete
