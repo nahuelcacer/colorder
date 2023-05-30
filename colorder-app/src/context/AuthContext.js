@@ -31,11 +31,13 @@ export const AuthProvider = ({ children }) => {
         })
         let data = await response.json();
         console.log({ "data": jwt_decode(data.access) })
+
         if (response.ok) {
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
             setIsAuthenticated(true)
+            
             navigate('/')
         }
 
@@ -53,7 +55,8 @@ export const AuthProvider = ({ children }) => {
         user: user,
         isAuthenticated: isAuthenticated,
         loginUser: loginUser,
-        logoutUser: logoutUser
+        logoutUser: logoutUser,
+        
 
     }
     return (

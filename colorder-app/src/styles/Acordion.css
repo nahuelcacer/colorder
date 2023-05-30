@@ -1,0 +1,19 @@
+.my-accordion.MuiAccordion-root{
+    width: 100%;
+    border-radius: 0px;
+    box-shadow: none;
+    background-color: #8833FF;
+  }
+.my-accordion.MuiAccordion-root p, 
+.my-accordion.MuiAccordion-root div {
+    color: #ffffff;
+  }
+.my-accordion.Mui-expanded {
+    background-color: #ffffff;
+
+}
+.my-accordion.Mui-expanded p,
+.my-accordion.Mui-expanded div {
+    color: black;
+}
+

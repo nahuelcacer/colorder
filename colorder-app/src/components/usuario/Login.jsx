@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { styled } from "@mui/system";
 import { Button, TextField } from "@mui/material";
+import { styled } from "@mui/system";
+import React, { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 
 const Container = styled("div")({
@@ -53,7 +52,7 @@ const LoginPage = () => {
         </ButtonWrapper>
       </Form>
       {user != null ? <>{user.username}</> : <></>}
-      <p onClick={logoutUser}>Logout</p>
+      {/* <p onClick={logoutUser}>Logout</p> */}
     </Container>
   );
 };

@@ -9,8 +9,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-
+        # print(dir(user))
+        # print(user)
         # Add custom claims
+        # print(dir(user.groups.count))
+        # print(user.get_user_permissions(), "sssssssssss")
+        token['groups'] = [{'nombre':group.name.capitalize(), 'id':group.id, 'url':group.name} for group in user.groups.all()]
         token['username'] = user.username
         token['email'] = user.email
         # ...

@@ -6,6 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
 from django.db.models import Q
 from django_filters import DateFilter
+
 # Create your views here.
 class PedidosFilter(filters.FilterSet):
     cliente = filters.CharFilter(method='filter_by_client')
