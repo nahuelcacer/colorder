@@ -4,7 +4,7 @@ from django.db import models
 
 class Cliente(models.Model):
     nombre = models.CharField(max_length=60)
-    dni = models.IntegerField()
+    dni = models.CharField(max_length=11)
     escribano = models.BooleanField(default=False)
     telefono = models.CharField(max_length=20, null=True)
     
