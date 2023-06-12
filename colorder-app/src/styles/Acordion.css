@@ -17,3 +17,13 @@
     color: black;
 }
 
+.MuiAutocomplete-root {
+  background-color: #ffffff;
+}
+div #escState {
+  background-color: rgb(9, 234, 9);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+}

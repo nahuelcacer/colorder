@@ -24,13 +24,13 @@ const BuscarCliente = () => {
     });
     
     return(
-        <div className='container'>
         <Autocomplete
+        fullWidth
         disablePortal
         id="combo-box-demo"
         options={clientes.clientes}
         getOptionLabel={(option) => option.nombre  }
-        sx={{ width: 700, mt:3 }}
+        sx={{mt:3 }}
         renderOption={(props, option) => {
           return (
             <li {...props} key={option.dni}>
@@ -44,7 +44,7 @@ const BuscarCliente = () => {
         onChange={(event, newValue) => {dispatch(selectCliente(newValue))}}
         renderInput={(params) => <TextField  {...params} label="Seleccionar cliente" />}
         />
-        </div>
+        
     )
 }
 export default BuscarCliente;

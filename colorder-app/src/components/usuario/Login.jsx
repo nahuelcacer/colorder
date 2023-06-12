@@ -36,13 +36,13 @@ const LoginPage = () => {
         <TextField
           type="text"
           name="username"
-          label="Enter username"
+          label="Nombre de usuario"
           variant="outlined"
         />
         <TextField
           type="password"
           name="password"
-          label="Enter password"
+          label="Contraseña"
           variant="outlined"
         />
         <ButtonWrapper>
@@ -51,8 +51,6 @@ const LoginPage = () => {
           </Button>
         </ButtonWrapper>
       </Form>
-      {user != null ? <>{user.username}</> : <></>}
-      {/* <p onClick={logoutUser}>Logout</p> */}
     </Container>
   );
 };

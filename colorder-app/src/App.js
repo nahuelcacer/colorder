@@ -7,6 +7,7 @@ import MostrarPedido from './components/pedido/mostrarPedido.jsx';
 import ClienteSeleccionado from './components/pedido/seleccionCliente.jsx';
 
 import jwt_decode from "jwt-decode"
+import { Container } from '@mui/system';
 
 
 function App() {
@@ -16,24 +17,24 @@ function App() {
   const isAuthenticated = jwtToken ? true : false;
 
   if (isAuthenticated) {
-    
+
     return (
-      <>
+      <Container>
         {/* <Sidebar user={user} logoutUser={logoutUser}></Sidebar> */}
-       
+
         <BuscarCliente />
         <ClienteSeleccionado />
         <div className='container mt-4'>
           <AgregarProductos product={product} setProduct={setProduct} setQuantity={setQuantity} quantity={quantity} />
         </div>
-        <div className='container mt-4'>
+        {/* <div className='container mt-4'> */}
           <MostrarPedido></MostrarPedido>
-        </div>
+        {/* </div> */}
         <div className='container mt-4'>
           <Imprimir setProduct={setProduct} ></Imprimir>
         </div>
 
-      </>
+      </Container>
     )
   }
   else {
