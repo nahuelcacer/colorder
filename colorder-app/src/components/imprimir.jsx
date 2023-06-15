@@ -52,8 +52,8 @@ const Imprimir = ({setProduct, setPdf}) => {
 
     return(
         <>
-            {alert ? <Alert severity='success' sx={{mt:2, mb:2}}>Pedido Añadido</Alert> : <></>}
-            {warning ? <Alert severity='warning' sx={{mt:2, mb:2}}>Ocurrio un problema</Alert> : <></>}
+            {alert ? <Alert  variant="filled" severity="success" sx={{mt:2, mb:2}}>Pedido Añadido</Alert> : <></>}
+            {warning ? <Alert  variant="filled" severity="error" sx={{mt:2, mb:2 }}>Ocurrio un problema</Alert> : <></>}
             <Button variant="contained" onClick={addPedido}>Imprimir</Button>
            
         </>

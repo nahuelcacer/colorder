@@ -2,6 +2,7 @@ import { Button, Card, Table, TableBody, TableCell, TableHead, TableRow, TextFie
 import React from 'react'
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import { fontSize } from '@mui/system';
 const MostrarProductos = ({productos,search, handleChange,setOpen, setEdit }) => {
 
   return (

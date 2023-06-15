@@ -20,19 +20,19 @@ function App() {
 
     return (
       <Container>
-        {/* <Sidebar user={user} logoutUser={logoutUser}></Sidebar> */}
+       
 
         <BuscarCliente />
         <ClienteSeleccionado />
-        <div className='container mt-4'>
-          <AgregarProductos product={product} setProduct={setProduct} setQuantity={setQuantity} quantity={quantity} />
-        </div>
-        {/* <div className='container mt-4'> */}
-          <MostrarPedido></MostrarPedido>
-        {/* </div> */}
-        <div className='container mt-4'>
-          <Imprimir setProduct={setProduct} ></Imprimir>
-        </div>
+
+        <AgregarProductos product={product} setProduct={setProduct} setQuantity={setQuantity} quantity={quantity} />
+
+
+        <MostrarPedido></MostrarPedido>
+
+
+        <Imprimir setProduct={setProduct} ></Imprimir>
+
 
       </Container>
     )

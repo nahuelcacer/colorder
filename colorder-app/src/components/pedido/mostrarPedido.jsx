@@ -17,8 +17,9 @@ const MostrarPedido = () => {
         }
     }
     return (
-        <>
-                <TableContainer sx = {{boxShadow:4, borderRadius:2}} component={Paper}>
+        <Card sx={{boxShadow:0, border: '1px solid #D9D9D9', marginTop:'1rem', marginBottom:'1rem'}}>
+
+                <TableContainer>
                     
                     <Typography variant="h6" component="h2" sx ={{
                         ml:2, mt:1
@@ -30,7 +31,7 @@ const MostrarPedido = () => {
                     }}
                     >({pedido.orderproduct.length} items)
                     </Typography>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table" title="Carrito">
+                    <Table sx={{ minWidth: 650 }} size="small" aria-label="simple table" title="Carrito">
                         <TableHead >
                             <TableRow >
                                 <TableCell>Producto</TableCell>
@@ -74,7 +75,7 @@ const MostrarPedido = () => {
                     </Table>
                 </TableContainer>
 
-        </>
+        </Card>
     )
 }
 

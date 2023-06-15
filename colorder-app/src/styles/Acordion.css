@@ -20,6 +20,11 @@
 .MuiAutocomplete-root {
   background-color: #ffffff;
 }
+.MuiTextField-root {
+  background-color: #ffffff;
+
+}
+
 div #escState {
   background-color: rgb(9, 234, 9);
   width: 10px;

@@ -31,7 +31,7 @@ const AgregarProductos = ({product, setProduct, setQuantity, quantity}) => {
     return (
 
 
-        <div className="row">
+        <div className="row" style={{marginTop:'1rem'}}>
             {/* INPUT DE PRODUCTO */}
             <div className="col">
                 <Autocomplete
