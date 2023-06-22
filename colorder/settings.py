@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'apps.cliente',
     'apps.tracking',
     'corsheaders',
-    'rest_framework',   
+    'rest_framework', 
+    'rest_framework.authtoken', 
     'django_filters',   
     'rest_framework_simplejwt',
 ]
@@ -60,11 +61,11 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     )
+# }
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=90),

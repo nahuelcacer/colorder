@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
         () => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null
     )
     const [user, setUser] = useState(
-        () => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null
+        () => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null
     )
     const [isAuthenticated, setIsAuthenticated] = useState(
         () => localStorage.getItem('authTokens') ? true : false
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     let loginUser = async (e) => {
         e.preventDefault()
         console.log('Form ')
-        let response = await fetch(`${localhost}api/token/`, {
+        let response = await fetch(`${localhost}api-token-auth/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,11 +30,12 @@ export const AuthProvider = ({ children }) => {
             body: JSON.stringify({ 'username': e.target.username.value, 'password': e.target.password.value })
         })
         let data = await response.json();
-        console.log({ "data": jwt_decode(data.access) })
-
-        if (response.ok) {
+        console.log(data)
+        // console.log({ "data": jwt_decode(data.access)})
+        console.log(response)
+        if (response.status === 200) {
             setAuthTokens(data)
-            setUser(jwt_decode(data.access))
+            setUser(data)
             localStorage.setItem('authTokens', JSON.stringify(data))
             setIsAuthenticated(true)
             navigate('/')

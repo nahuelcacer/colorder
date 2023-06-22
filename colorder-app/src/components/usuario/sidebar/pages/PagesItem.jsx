@@ -16,7 +16,7 @@ const PagesItem = ({ user }) => {
                 <Typography >Paginas</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                {user.groups.map(item => {
+                {/* {user.groups.map(item => {
                     if (item.nombre == "/") {
                         return (
                             <ListItemButton
@@ -41,7 +41,7 @@ const PagesItem = ({ user }) => {
 
 
                     )
-                })}
+                })} */}
 
             </AccordionDetails>
         </Accordion>

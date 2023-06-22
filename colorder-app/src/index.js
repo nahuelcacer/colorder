@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import App from './App';
+import Administracion from './components/administracion/Administracion';
 import Cobranza from './components/cobranza/Cobranza';
 import Productos from './components/productos/Productos';
 import Tracking from './components/tracking/Tracking';
@@ -28,13 +29,27 @@ root.render(
     <Provider store={store}>
       <Router>
         <AuthProvider>
-          <Sidebar></Sidebar>
+          {/* <Sidebar></Sidebar> */}
+          
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/cobranza" element={<RequireAuth><Cobranza /></RequireAuth>} />
             <Route path="/factura" element={<RequireAuth><Factura /></RequireAuth>} ></Route>
-            <Route path="/productos" element={<RequireAuth><Productos /></RequireAuth>} ></Route>
-            <Route path="/tracking" element={<RequireAuth><Tracking /></RequireAuth>} ></Route>
+            <Route path="/administracion" element={<RequireAuth><Administracion /></RequireAuth>} >
+              <Route 
+              path="productos/"
+              element={<Productos/>}
+              />
+              <Route 
+              path="cliente/"
+              element={<h5>ssss</h5>}
+              />
+              <Route 
+              path="sectores/"
+              element={<Productos/>}
+              />
+            </Route>
+            <Route path="/tracking" element={<RequireAuth><Tracking /></RequireAuth>}></Route>
             <Route path="/login" element={<LoginPage />} ></Route>
           </Routes>
         </AuthProvider>

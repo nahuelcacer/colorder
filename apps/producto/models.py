@@ -8,6 +8,8 @@ class Producto(models.Model):
     precio = models.IntegerField()
     tramite = models.IntegerField()
     notarial = models.BooleanField(default=False)
-    
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.nombre

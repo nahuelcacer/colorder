@@ -1,3 +1,4 @@
+import { Container } from '@mui/system';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import Imprimir from './components/imprimir.jsx';
@@ -5,9 +6,8 @@ import AgregarProductos from './components/pedido/agregarProductos';
 import BuscarCliente from './components/pedido/buscarCliente.jsx';
 import MostrarPedido from './components/pedido/mostrarPedido.jsx';
 import ClienteSeleccionado from './components/pedido/seleccionCliente.jsx';
+import Sidebar from './components/usuario/sidebar/Sidebar.jsx';
 
-import jwt_decode from "jwt-decode"
-import { Container } from '@mui/system';
 
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
 
     return (
       <Container>
+        <Sidebar></Sidebar>
        
-
         <BuscarCliente />
         <ClienteSeleccionado />
 

@@ -1,5 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Button, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Button, Drawer, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Paper, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 import React, { useContext, useRef, useState } from 'react';
 import AuthContext from '../../../context/AuthContext';
 import PagesItem from './pages/PagesItem';
@@ -35,10 +36,35 @@ const Sidebar = () => {
     // }, [open]);
     if (!open) {
         return (
-
-            <Button onClick={() => { handleOpen() }} onClose={handleClose}  >
-                <MenuIcon></MenuIcon>
-            </Button>
+            <Box sx={{
+                position: 'fixed',
+                top: '0.5rem',
+                left: '1rem',
+              }}>
+                <Grid container justifyContent="center" alignItems="center" spacing={2}>
+                  <Grid item>
+                    <IconButton
+                      onClick={() => { handleOpen() }}
+                      onClose={handleClose}
+                      sx={{
+                        backgroundColor: '#ffffff',
+                        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+                      }}
+                    >
+                      <MenuIcon />
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                      {
+                        user ? 
+                        <ListItemText primary={user.username} secondary={user.email} />
+                        : <>
+                        </>
+                      }
+                  </Grid>
+                </Grid>
+              </Box>
+              
         )
     }
     else {

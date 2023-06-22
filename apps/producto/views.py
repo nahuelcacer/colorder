@@ -4,6 +4,8 @@ from .serializers import ProductoSerializer
 from .models import Producto
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 # Create your views here.
 class ProductFilter(filters.FilterSet):
     nombre = filters.CharFilter(lookup_expr='icontains')

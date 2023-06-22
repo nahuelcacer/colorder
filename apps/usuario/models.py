@@ -4,6 +4,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 
 
 
+
 class Usuario(AbstractUser):
     
     def get_absolute_url(self):
