@@ -2,8 +2,12 @@
     background-color: rgb(136, 51, 255, 0.3);
     border-radius: 5px;
     color:#ffffff;
+    text-align: center;
+    width:8rem;
 } a {
     text-decoration: none;
+    width: 100%;
+    text-align: center;
 
 }
 .MuiButtonBase-root.MuiListItemButton-root.Mui-selected {
