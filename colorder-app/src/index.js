@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import App from './App';
 import Administracion from './components/administracion/Administracion';
+import MostrarClientes from './components/clientes/mostrarClientes';
 import Cobranza from './components/cobranza/Cobranza';
 import Productos from './components/productos/Productos';
 import Tracking from './components/tracking/Tracking';
 import LoginPage from './components/usuario/Login';
-import Sidebar from './components/usuario/sidebar/Sidebar';
 import { AuthProvider } from './context/AuthContext';
 import Factura from './Factura';
 import { store } from './redux/store';
@@ -42,7 +42,7 @@ root.render(
               />
               <Route 
               path="cliente/"
-              element={<h5>ssss</h5>}
+              element={<MostrarClientes></MostrarClientes>}
               />
               <Route 
               path="sectores/"
