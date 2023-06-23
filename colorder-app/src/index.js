@@ -12,6 +12,7 @@ import LoginPage from './components/usuario/Login';
 import { AuthProvider } from './context/AuthContext';
 import Factura from './Factura';
 import { store } from './redux/store';
+import Sectores from './components/sectores/sectores';
 
 const RequireAuth = ({ children }) => {
   const jwtToken = localStorage.getItem('authTokens');
@@ -46,7 +47,7 @@ root.render(
               />
               <Route 
               path="sectores/"
-              element={<Productos/>}
+              element={<Sectores/>}
               />
             </Route>
             <Route path="/tracking" element={<RequireAuth><Tracking /></RequireAuth>}></Route>

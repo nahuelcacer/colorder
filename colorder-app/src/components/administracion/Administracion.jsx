@@ -10,8 +10,8 @@ const Administracion = () => {
         setSelectedIndex(index);
     };
     return (
-        <Box sx={{ display: 'flex' }}>
-            <Box sx={{border: '1px solid rgba(0, 0, 0, 0.1)', marginTop: '4rem', marginLeft: '4rem', borderRadius: 2, backgroundColor:'#ffffff' }}>
+        <Box sx={{ display: 'flex'}}>
+            <Box sx={{border: '1px solid rgba(0, 0, 0, 0.1)', marginTop: '4rem', marginLeft: '4rem', borderRadius: 2, backgroundColor:'#ffffff', height:'fit-content' }}>
                 <List>
                     <ListItem>
                         <Link to='/administracion/productos' id="productos">
