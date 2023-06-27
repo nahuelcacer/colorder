@@ -1,14 +1,16 @@
-import { Container, Button } from '@mui/material'
+import { Box, Button, Container } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { localhost } from '../../services/service.pedidos'
-import { formatDate } from '../../tools/formatedDate'
+import CrearProducto from './CrearProducto'
 import EditarProducto from './EditarProducto'
+import ActionsProductos from './productoActions'
 
 const ProductosDataGrid = () => {
     const [edit, setEdit] = useState({ on: false, id: '' })
     const [data, setData] = useState(null)
+    const [open, setOpen] = useState(false)
     useEffect(() => {
         getProductos()
     }, [])
@@ -21,13 +23,8 @@ const ProductosDataGrid = () => {
                 }
             )
     }
-    
+
     const columns = [
-        {
-            field: 'id',
-            headerName: 'ID',
-            width: 90
-        },
         {
             field: 'nombre',
             headerName: 'Nombre',
@@ -53,12 +50,7 @@ const ProductosDataGrid = () => {
             field: 'modified_at',
             headerName: 'Ultima modif',
             width: 150,
-            // renderCell: (params) => {
-               
-            //     return (
-            //         formatDate(params.value)
-            //     )
-            // }
+
         },
         {
             field: 'action',
@@ -66,13 +58,21 @@ const ProductosDataGrid = () => {
             width: 150,
             renderCell: (params) => {
                 return (
-                    <Button onClick={() => setEdit({ on: true, id: params.id })}>
-                        Edit
-                    </Button>
+                    <ActionsProductos setEdit={setEdit} params={params} getProductos={getProductos} />
+
                 );
             }
         }
     ]
+    const addBtn = () => {
+        return (
+            <Box sx={{ padding: '5px' }}>
+                <Button onClick={() => { setOpen(true) }}>
+                    Agregar
+                </Button>
+            </Box>
+        )
+    }
     return (
         <Container>
             {data != null ?
@@ -80,12 +80,14 @@ const ProductosDataGrid = () => {
                     sx={{ marginTop: '4rem', backgroundColor: '#ffffff' }}
                     columns={columns}
                     rows={data}
+                    slots={{ toolbar: addBtn }}
                 >
                 </DataGrid>
                 : <>
                     No existen datos
                 </>}
             {edit.on ? <EditarProducto edit={edit.on} setEdit={setEdit} id={edit.id} updateProductos={getProductos}></EditarProducto> : <></>}
+            <CrearProducto open={open} setOpen={setOpen} updateProductos={getProductos}></CrearProducto>
 
         </Container>
     )
