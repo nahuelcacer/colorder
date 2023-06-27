@@ -13,6 +13,8 @@ import { AuthProvider } from './context/AuthContext';
 import Factura from './Factura';
 import { store } from './redux/store';
 import Sectores from './components/sectores/sectores';
+import ProductosDataGrid from './components/productos/productosDataGrid';
+
 
 const RequireAuth = ({ children }) => {
   const jwtToken = localStorage.getItem('authTokens');
@@ -39,7 +41,7 @@ root.render(
             <Route path="/administracion" element={<RequireAuth><Administracion /></RequireAuth>} >
               <Route 
               path="productos/"
-              element={<Productos/>}
+              element={<ProductosDataGrid></ProductosDataGrid>}
               />
               <Route 
               path="cliente/"

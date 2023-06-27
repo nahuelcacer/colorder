@@ -40,7 +40,13 @@ const Sectores = () => {
             field: 'action',
             headerName: 'Action',
             width: 150,
-            renderCell:(params) => deleteSector(params)
+            renderCell:(params) => {
+                return (
+                  <Button onClick={() => deleteSector(params)}>
+                    Eliminar
+                  </Button>
+                );
+              }
         },
         
     ]
