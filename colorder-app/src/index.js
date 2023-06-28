@@ -14,6 +14,7 @@ import Factura from './Factura';
 import { store } from './redux/store';
 import Sectores from './components/sectores/sectores';
 import ProductosDataGrid from './components/productos/productosDataGrid';
+import Sidebar from './components/usuario/sidebar/Sidebar';
 
 
 const RequireAuth = ({ children }) => {
@@ -32,7 +33,7 @@ root.render(
     <Provider store={store}>
       <Router>
         <AuthProvider>
-          {/* <Sidebar></Sidebar> */}
+        <Sidebar></Sidebar>
           
           <Routes>
             <Route path="/" element={<App />} />
@@ -51,8 +52,8 @@ root.render(
               path="sectores/"
               element={<Sectores/>}
               />
+              <Route path="tracking/" element={<RequireAuth><Tracking /></RequireAuth>}></Route>
             </Route>
-            <Route path="/tracking" element={<RequireAuth><Tracking /></RequireAuth>}></Route>
             <Route path="/login" element={<LoginPage />} ></Route>
           </Routes>
         </AuthProvider>

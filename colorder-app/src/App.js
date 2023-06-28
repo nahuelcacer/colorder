@@ -19,9 +19,7 @@ function App() {
   if (isAuthenticated) {
 
     return (
-      <Container>
-        <Sidebar></Sidebar>
-       
+      <Container>      
         <BuscarCliente />
         <ClienteSeleccionado />
 

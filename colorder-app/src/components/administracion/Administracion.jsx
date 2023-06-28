@@ -11,7 +11,7 @@ const Administracion = () => {
     };
     return (
         <Box sx={{ display: 'flex'}}>
-            <Box sx={{border: '1px solid rgba(0, 0, 0, 0.1)', marginTop: '4rem', marginLeft: '4rem', borderRadius: 2, backgroundColor:'#ffffff', height:'fit-content' }}>
+            <Box sx={{border: '1px solid rgba(0, 0, 0, 0.1)', marginTop: '8rem', marginLeft: '4rem', borderRadius: 2, backgroundColor:'#ffffff', height:'fit-content' }}>
                 <List>
                     <ListItem>
                         <Link to='/administracion/productos' id="productos">
@@ -44,6 +44,17 @@ const Administracion = () => {
                                 }
                                 onClick={(event) => handleListItemClick(event, 2)}
                             >Sectores</ListItemButton>
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link to='/administracion/tracking' id="productos">
+                            <ListItemButton
+                            className="my-listButton"
+                                selected={
+                                    selectedIndex === 3
+                                }
+                                onClick={(event) => handleListItemClick(event, 3)}
+                            >Tracking</ListItemButton>
                         </Link>
                     </ListItem>
                 </List>

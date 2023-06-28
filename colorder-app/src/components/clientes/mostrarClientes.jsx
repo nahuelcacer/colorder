@@ -7,6 +7,7 @@ import CheckIcon from '@mui/icons-material/Check'
 import ClienteAccion from './clienteActions';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { copyToClipboard } from '../../tools/copyClipboard';
+import EditarCliente from './editarCliente';
 const MostrarClientes = () => {
     const [data, setData] = useState(null)
     const getClientes = () => {
@@ -77,7 +78,7 @@ const MostrarClientes = () => {
             width: 150,
             renderCell: (params) => {
                 return (
-                    <ClienteAccion />
+                    <ClienteAccion setOpen={setOpen}/>
 
                 );
             }
@@ -86,9 +87,12 @@ const MostrarClientes = () => {
     useEffect(() => {
         getClientes()
     }, [])
+    const [open, setOpen] = useState(false)
+
     return (
         <Container>
-            {data != null ?
+            {
+            data != null ?
                 <DataGrid
                     sx={{ marginTop: '4rem', backgroundColor: '#ffffff' }}
                     columns={columns}
@@ -97,7 +101,10 @@ const MostrarClientes = () => {
                 </DataGrid>
                 : <>
                     No existen datos
-                </>}
+                </>
+            }
+            <EditarCliente open={open} idCliente={""}></EditarCliente>
+            
         </Container>
     )
 }
