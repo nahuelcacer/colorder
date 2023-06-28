@@ -5,12 +5,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const ClienteAccion = () => {
     return (
         <Box>
-            <Tooltip title="Editar producto">
+            <Tooltip title="Editar cliente">
                 <IconButton onClick={() => { }}>
                     <EditIcon />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Eliminar producto">
+            <Tooltip title="Eliminar cliente">
                 <IconButton onClick={() => { }}>
                     <DeleteIcon />
                 </IconButton>

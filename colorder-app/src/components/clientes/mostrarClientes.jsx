@@ -1,11 +1,12 @@
-import { Box, Container } from '@mui/material'
+import { Box, Container, IconButton, Tooltip } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { localhost } from '../../services/service.pedidos'
 import { DataGrid } from '@mui/x-data-grid';
 import CheckIcon from '@mui/icons-material/Check'
 import ClienteAccion from './clienteActions';
-
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { copyToClipboard } from '../../tools/copyClipboard';
 const MostrarClientes = () => {
     const [data, setData] = useState(null)
     const getClientes = () => {
@@ -56,7 +57,19 @@ const MostrarClientes = () => {
         {
             field: 'telefono',
             headerName: 'Telefono',
-            width: 150
+            width: 150,
+            renderCell: (params) => {
+                return (
+                    <Box>
+                        {params.value}
+                        <Tooltip title="Copiar al portapapeles">
+                            <IconButton sx= {{ml: 1}} onClick={() => { copyToClipboard(params.value) }}>
+                                <ContentCopyIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+                )
+            }
         },
         {
             field: 'action',
