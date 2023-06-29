@@ -3,6 +3,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
 import { localhost } from "../../services/service.pedidos";
+
+
 const ActionsProductos = ({setEdit, params, getProductos}) => {
     const deleteProduct = (id) => { 
         axios.delete(`${localhost}api/productos/${id}/`)

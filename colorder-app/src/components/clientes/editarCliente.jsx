@@ -9,7 +9,7 @@ import { StyleModal } from "../../tools/styleModals"
 
 
 const EditarCliente = ({ open, setOpen, idCliente }) => {
-    const [cliente, setCliente] = useState({ nombre: "", dni: "", escribano: false })
+    const [cliente, setCliente] = useState({ nombre: "", dni: "", escribano: false, telefono:"" })
     const handleClose = () => setOpen(false);
     const [alert, setAlert] = useState({ on: false, tipo: "", texto: "" })
 
@@ -68,6 +68,7 @@ const EditarCliente = ({ open, setOpen, idCliente }) => {
                 </Typography>
                 <TextField sx={{ mb: 2 }} value={cliente.nombre} name="nombre" onChange={(e) => { hanledChange(e) }} fullWidth label="Nombre" id="fullWidth" />
                 <TextField sx={{ mb: 2 }} value={cliente.dni} name="dni" onChange={(e) => { hanledChange(e) }} fullWidth label="Dni" id="fullWidth" />
+                <TextField sx={{ mb: 2 }} value={cliente.telefono} name="telefono" onChange={(e) => { hanledChange(e) }} fullWidth label="Telefono" id="fullWidth" />
                 <div><FormControlLabel
                     value={true}
                     control={<Checkbox name="escribano" checked={cliente.escribano} onChange={handleChangeCheckBox} />}

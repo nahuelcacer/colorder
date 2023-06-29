@@ -64,7 +64,7 @@ const MostrarClientes = () => {
                     <Box>
                         {params.value}
                         <Tooltip title="Copiar al portapapeles">
-                            <IconButton sx= {{ml: 1}} onClick={() => { copyToClipboard(params.value) }}>
+                            <IconButton sx={{ ml: 1 }} onClick={() => { copyToClipboard(params.value) }}>
                                 <ContentCopyIcon />
                             </IconButton>
                         </Tooltip>
@@ -78,7 +78,7 @@ const MostrarClientes = () => {
             width: 150,
             renderCell: (params) => {
                 return (
-                    <ClienteAccion setOpen={setOpen}/>
+                    <ClienteAccion setOpen={setEdit} params={params} />
 
                 );
             }
@@ -87,24 +87,24 @@ const MostrarClientes = () => {
     useEffect(() => {
         getClientes()
     }, [])
-    const [open, setOpen] = useState(false)
+    const [edit, setEdit] = useState({on:false, id:""})
 
     return (
         <Container>
             {
-            data != null ?
-                <DataGrid
-                    sx={{ marginTop: '4rem', backgroundColor: '#ffffff' }}
-                    columns={columns}
-                    rows={data}
-                >
-                </DataGrid>
-                : <>
-                    No existen datos
-                </>
+                data != null ?
+                    <DataGrid
+                        sx={{ marginTop: '4rem', backgroundColor: '#ffffff' }}
+                        columns={columns}
+                        rows={data}
+                    >
+                    </DataGrid>
+                    : <>
+                        No existen datos
+                    </>
             }
-            <EditarCliente open={open} idCliente={""}></EditarCliente>
-            
+            <EditarCliente idCliente={edit.id} open={edit.on} setOpen={setEdit} ></EditarCliente>
+
         </Container>
     )
 }
