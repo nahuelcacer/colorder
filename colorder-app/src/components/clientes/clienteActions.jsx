@@ -2,7 +2,7 @@ import { Box, IconButton, Tooltip } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const ClienteAccion = ({setOpen, params}) => {
+const ClienteAccion = ({setOpen, params, deleteCliente}) => {
     return (
         <Box>
             <Tooltip title="Editar cliente">
@@ -11,7 +11,7 @@ const ClienteAccion = ({setOpen, params}) => {
                 </IconButton>
             </Tooltip>
             <Tooltip title="Eliminar cliente">
-                <IconButton onClick={() => { }}>
+                <IconButton onClick={() => {deleteCliente(params.id)}}>
                     <DeleteIcon />
                 </IconButton>
             </Tooltip>

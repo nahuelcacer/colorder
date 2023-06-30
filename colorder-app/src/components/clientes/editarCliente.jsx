@@ -8,18 +8,20 @@ import { localhost } from "../../services/service.pedidos"
 import { StyleModal } from "../../tools/styleModals"
 
 
-const EditarCliente = ({ open, setOpen, idCliente }) => {
+const EditarCliente = ({ open, setOpen, idCliente, getClientes }) => {
     const [cliente, setCliente] = useState({ nombre: "", dni: "", escribano: false, telefono:"" })
     const handleClose = () => setOpen(false);
     const [alert, setAlert] = useState({ on: false, tipo: "", texto: "" })
 
     const dispatch = useDispatch()
     useEffect(() => {
+        console.log(idCliente)
         axios.get(`${localhost}api/clientes/${idCliente}`)
             .then(res => {
+                console.log(res.data)
                 setCliente(res.data)
             })
-    }, [])
+    }, [open])
     const hanledChange = (e) => {
         setCliente({
             ...cliente,
@@ -39,7 +41,9 @@ const EditarCliente = ({ open, setOpen, idCliente }) => {
                 setAlert({ on: true, tipo: "success", texto: "Cliente editado!" })
                 setTimeout(() => (
                     setAlert({ on: false, tipo: "", texto: "" })
+
                 ), 1000)
+                getClientes()
                 setTimeout(() => (
 
                     setOpen(false)

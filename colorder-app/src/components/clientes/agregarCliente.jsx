@@ -16,7 +16,8 @@ const AgregarCliente = ({ open, setOpen }) => {
     const [isDniInvalid, setIsInvalidDni] = useState(false)
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target
-        if (name === 'telefono' && value.length >= 15) {
+        if (name === 'telefono' && value.length >= 15 ) {
+            console.log(value.includes('/[a-zA-Z]/g'))
             setIsTelefonoInvalid(true)
             return cliente.telefono;
         }

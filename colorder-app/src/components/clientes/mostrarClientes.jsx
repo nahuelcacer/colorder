@@ -1,4 +1,4 @@
-import { Box, Container, IconButton, Tooltip } from '@mui/material'
+import { Box, Button, Container, IconButton, Tooltip } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { localhost } from '../../services/service.pedidos'
@@ -8,12 +8,23 @@ import ClienteAccion from './clienteActions';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { copyToClipboard } from '../../tools/copyClipboard';
 import EditarCliente from './editarCliente';
+import AgregarCliente from './agregarCliente';
 const MostrarClientes = () => {
     const [data, setData] = useState(null)
     const getClientes = () => {
         axios.get(`${localhost}api/clientes`)
             .then(res => {
                 setData(res.data)
+            })
+    }
+    const deleteCliente = (cliente) => {
+        axios.delete(`${localhost}api/clientes/${cliente}`)
+            .then(res => {
+                console.log(res.data)
+                getClientes()
+            })
+            .catch(err => {
+                console.log(err)
             })
     }
     const columns = [
@@ -78,7 +89,7 @@ const MostrarClientes = () => {
             width: 150,
             renderCell: (params) => {
                 return (
-                    <ClienteAccion setOpen={setEdit} params={params} />
+                    <ClienteAccion setOpen={setEdit} params={params} deleteCliente={deleteCliente} />
 
                 );
             }
@@ -87,8 +98,17 @@ const MostrarClientes = () => {
     useEffect(() => {
         getClientes()
     }, [])
-    const [edit, setEdit] = useState({on:false, id:""})
-
+    const [edit, setEdit] = useState({ on: false, id: "" })
+    const [open, setOpen] = useState(false)
+    const addBtn = () => {
+        return (
+            <Box sx={{ padding: '5px' }}>
+                <Button onClick={() => { setOpen(true)}}>
+                    Agregar
+                </Button>
+            </Box>
+        )
+    }
     return (
         <Container>
             {
@@ -97,13 +117,16 @@ const MostrarClientes = () => {
                         sx={{ marginTop: '4rem', backgroundColor: '#ffffff' }}
                         columns={columns}
                         rows={data}
+                        slots={{ toolbar: addBtn }}
+
                     >
                     </DataGrid>
                     : <>
                         No existen datos
                     </>
             }
-            <EditarCliente idCliente={edit.id} open={edit.on} setOpen={setEdit} ></EditarCliente>
+            <EditarCliente idCliente={edit.id} open={edit.on} setOpen={setEdit} getClientes={getClientes}></EditarCliente>
+            <AgregarCliente open={open} setOpen={setOpen}></AgregarCliente>
 
         </Container>
     )
