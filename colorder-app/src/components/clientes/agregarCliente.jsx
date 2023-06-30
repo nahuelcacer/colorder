@@ -15,6 +15,7 @@ const AgregarCliente = ({ open, setOpen }) => {
     const [isTelefonoInvalid, setIsTelefonoInvalid] = useState(false)
     const [isNotNumber, setIsNotNumber] = useState(false)
     const [isDniInvalid, setIsInvalidDni] = useState(false)
+    const [isNotNumberDni, setIsNotNumberDni] = useState(false)
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target
         if (name === 'telefono' && value !== "" && !/^\d+$/.test(value)) {
@@ -27,6 +28,15 @@ const AgregarCliente = ({ open, setOpen }) => {
             return cliente.telefono;
         }
         setIsTelefonoInvalid(false)
+
+
+
+        if (name === 'dni' && value !== "" && !/^\d+$/.test(value)) {
+            setIsNotNumberDni(true)
+            return cliente.dni
+        }
+        setIsNotNumberDni(false)
+
 
         if (name === 'dni' && value.length >= 12) {
             setIsInvalidDni(true)
@@ -103,8 +113,8 @@ const AgregarCliente = ({ open, setOpen }) => {
                     label="Dni/Cuit"
                     value={cliente.dni || ''}
                     id="fullWidth"
-                    error={isDniInvalid}
-                    helperText={isDniInvalid ? <Typography variant="string" sx={{ color: 'red' }}>Maximo 11 caracteres</Typography> : ""}
+                    error={isDniInvalid || isNotNumberDni}
+                    helperText={isDniInvalid ? <Typography variant="string" sx={{ color: 'red' }}>Maximo 11 caracteres</Typography> : (isNotNumberDni ? <Typography variant="string" sx={{ color: 'red' }}>Solo se permiten numeros</Typography> : "")}
                 />
                 <TextField sx={{ mb: 2 }}
                     name="telefono"
@@ -119,7 +129,7 @@ const AgregarCliente = ({ open, setOpen }) => {
                             ?
                             <Typography variant="string" sx={{ color: 'red' }}>Maximo 15 caracteres</Typography>
                             :
-                            (isNotNumber ? <Typography variant="string" sx={{ color: 'red' }}>Solo se admiten numeros</Typography>
+                            (isNotNumber ? <Typography variant="string" sx={{ color: 'red' }}>Solo se permiten numeros</Typography>
                                 :
                                 ""
                             )
