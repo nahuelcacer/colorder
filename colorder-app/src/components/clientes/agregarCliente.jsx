@@ -13,11 +13,16 @@ const AgregarCliente = ({ open, setOpen }) => {
     const dispatch = useDispatch()
     const [alert, setAlert] = useState({ on: false, tipo: "", texto: "" })
     const [isTelefonoInvalid, setIsTelefonoInvalid] = useState(false)
+    const [isNotNumber, setIsNotNumber] = useState(false)
     const [isDniInvalid, setIsInvalidDni] = useState(false)
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target
-        if (name === 'telefono' && value.length >= 15 ) {
-            console.log(value.includes('/[a-zA-Z]/g'))
+        if (name === 'telefono' && value !== "" && !/^\d+$/.test(value)) {
+            setIsNotNumber(true)
+            return cliente.telefono
+        }
+        setIsNotNumber(false)
+        if (name === 'telefono' && value.length >= 15) {
             setIsTelefonoInvalid(true)
             return cliente.telefono;
         }
@@ -51,26 +56,26 @@ const AgregarCliente = ({ open, setOpen }) => {
             .catch(res => {
                 console.log(res)
                 if (res.response) {
-                  // Error de respuesta del servidor (código de estado no 2xx)
-                  const errorMessage = res.response.data.message;
-                  setAlert({ on: true, tipo: "warning", texto: errorMessage });
-                  setTimeout(() => (
-                    setAlert({ on: false, tipo: "", texto: "" })
-                ), 4000)
+                    // Error de respuesta del servidor (código de estado no 2xx)
+                    const errorMessage = res.response.data.message;
+                    setAlert({ on: true, tipo: "warning", texto: errorMessage });
+                    setTimeout(() => (
+                        setAlert({ on: false, tipo: "", texto: "" })
+                    ), 4000)
                 } else if (res.request) {
-                  // Error de solicitud (sin respuesta del servidor)
-                  setAlert({ on: true, tipo: "warning", texto: "Error de conexión. Inténtalo de nuevo más tarde." });
-                  setTimeout(() => (
-                    setAlert({ on: false, tipo: "", texto: "" })
-                ), 4000)
+                    // Error de solicitud (sin respuesta del servidor)
+                    setAlert({ on: true, tipo: "warning", texto: "Error de conexión. Inténtalo de nuevo más tarde." });
+                    setTimeout(() => (
+                        setAlert({ on: false, tipo: "", texto: "" })
+                    ), 4000)
                 } else {
-                  // Otro tipo de error
-                  setAlert({ on: true, tipo: "warning", texto: "Error al agregar el cliente. Inténtalo de nuevo más tarde." });
-                  setTimeout(() => (
-                    setAlert({ on: false, tipo: "", texto: "" })
-                ), 4000)
+                    // Otro tipo de error
+                    setAlert({ on: true, tipo: "warning", texto: "Error al agregar el cliente. Inténtalo de nuevo más tarde." });
+                    setTimeout(() => (
+                        setAlert({ on: false, tipo: "", texto: "" })
+                    ), 4000)
                 }
-              });
+            });
     }
     return (
 
@@ -108,10 +113,19 @@ const AgregarCliente = ({ open, setOpen }) => {
                     fullWidth
                     label="Telefono"
                     id="fullWidth"
-                    error={isTelefonoInvalid}
-                    helperText={isTelefonoInvalid ? <Typography variant="string" sx={{ color: 'red' }}>Maximo 15 caracteres</Typography> : ""}
+                    error={isTelefonoInvalid || isNotNumber}
+                    helperText={
+                        isTelefonoInvalid
+                            ?
+                            <Typography variant="string" sx={{ color: 'red' }}>Maximo 15 caracteres</Typography>
+                            :
+                            (isNotNumber ? <Typography variant="string" sx={{ color: 'red' }}>Solo se admiten numeros</Typography>
+                                :
+                                ""
+                            )
+                    }
                 />
-                
+
                 <div><FormControlLabel
                     value={true}
                     control={<Checkbox name="escribano" onChange={(e) => { handleChange(e) }} />}
