@@ -69,7 +69,7 @@ const MostrarClientes = () => {
         {
             field: 'telefono',
             headerName: 'Telefono',
-            width: 150,
+            width: 170,
             renderCell: (params) => {
                 return (
                     <Box>
@@ -126,7 +126,7 @@ const MostrarClientes = () => {
                     </>
             }
             <EditarCliente idCliente={edit.id} open={edit.on} setOpen={setEdit} getClientes={getClientes}></EditarCliente>
-            <AgregarCliente open={open} setOpen={setOpen}></AgregarCliente>
+            <AgregarCliente open={open} setOpen={setOpen} getClientes={getClientes}></AgregarCliente>
 
         </Container>
     )

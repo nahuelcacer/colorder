@@ -1,13 +1,12 @@
-import { Modal, Box, Typography, TextField, Button, Alert, Checkbox, FormControlLabel } from "@mui/material"
+import { Alert, Box, Button, Checkbox, FormControlLabel, Modal, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { fecthClientes } from "../../features/clientes/clienteSlice";
 import { localhost } from "../../services/service.pedidos";
 import { StyleModal } from "../../tools/styleModals";
 
 
-const AgregarCliente = ({ open, setOpen }) => {
+const AgregarCliente = ({ open, setOpen, getClientes}) => {
     const handleClose = () => setOpen(false);
     const [cliente, setCliente] = useState({})
     const dispatch = useDispatch()
@@ -54,6 +53,7 @@ const AgregarCliente = ({ open, setOpen }) => {
             .then(res => {
                 setCliente({})
                 setAlert({ on: true, tipo: "success", texto: "Cliente agregado!" })
+
                 setTimeout(() => (
                     setAlert({ on: false, tipo: "", texto: "" })
                 ), 1000)
@@ -61,7 +61,7 @@ const AgregarCliente = ({ open, setOpen }) => {
 
                     setOpen(false)
                 ), 1000)
-                dispatch(fecthClientes())
+                getClientes()
             })
             .catch(res => {
                 console.log(res)
