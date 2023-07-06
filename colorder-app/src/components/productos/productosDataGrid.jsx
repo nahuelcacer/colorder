@@ -110,7 +110,7 @@ const ProductosDataGrid = () => {
         <Container>
             {data != null ?
                 <DataGrid
-                    sx={{ marginTop: '4rem', backgroundColor: '#ffffff' }}
+                    sx={{ marginTop: '5rem', backgroundColor: '#ffffff' }}
                     columns={columns}
                     rows={data}
                     slots={{ toolbar: addBtn }}

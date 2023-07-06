@@ -11,10 +11,12 @@ import EditarCliente from './editarCliente';
 import AgregarCliente from './agregarCliente';
 const MostrarClientes = () => {
     const [data, setData] = useState(null)
+    const [totalresults, setTotalresults] = useState(null)
     const getClientes = () => {
         axios.get(`${localhost}api/clientes`)
             .then(res => {
-                setData(res.data)
+                setData(res.data.results)
+                setTotalresults(res.data.total_registros)
             })
     }
     const deleteCliente = (cliente) => {
@@ -102,10 +104,12 @@ const MostrarClientes = () => {
     const [open, setOpen] = useState(false)
     const addBtn = () => {
         return (
+            
             <Box sx={{ padding: '5px' }}>
                 <Button onClick={() => { setOpen(true)}}>
                     Agregar
                 </Button>
+                {totalresults != null ? <Box>{totalresults}</Box> :  "" }
             </Box>
         )
     }
@@ -114,7 +118,7 @@ const MostrarClientes = () => {
             {
                 data != null ?
                     <DataGrid
-                        sx={{ marginTop: '4rem', backgroundColor: '#ffffff' }}
+                        sx={{ marginTop: '5rem', backgroundColor: '#ffffff' }}
                         columns={columns}
                         rows={data}
                         slots={{ toolbar: addBtn }}
