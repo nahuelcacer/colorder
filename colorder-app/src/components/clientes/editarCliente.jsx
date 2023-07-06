@@ -71,14 +71,14 @@ const EditarCliente = ({ open, setOpen, idCliente, getClientes }) => {
                     setAlert({ on: false, tipo: "", texto: "" })
 
                 ), 1000)
-                getClientes()
+                // getClientes()
                 setTimeout(() => (
 
                     setOpen(false)
                 ), 1000)
             })
             .catch(res => {
-                setAlert({ on: true, tipo: "warning", texto: "No se pudo agregar" })
+                setAlert({ on: true, tipo: "warning", texto: "Ocurrio un error" })
                 setTimeout(() => (setAlert({ on: false, tipo: "", texto: "" })), 4000)
                 console.log(res)
 
