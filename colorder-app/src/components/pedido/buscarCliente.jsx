@@ -10,6 +10,7 @@ import { selectCliente } from '../../redux/actions/clientes-action.js';
 const BuscarCliente = () => {
   const clientes = useSelector(state => state.clientes)
 
+
   const dispatch = useDispatch()
   useEffect(() => {
 
@@ -18,9 +19,9 @@ const BuscarCliente = () => {
   }, [])
   const filterOptions = createFilterOptions({
     stringify: (option) => option.nombre + option.dni,
-    limit: 5
+    limit: 5,
   });
-
+  
   return (
     <Box sx={{paddingTop:'2rem'}}>
 
@@ -28,7 +29,7 @@ const BuscarCliente = () => {
         fullWidth
         disablePortal
         id="combo-box-demo"
-        options={clientes.clientes}
+        options={clientes.clientes.results}
         getOptionLabel={(option) => option.nombre}
         renderOption={(props, option) => {
           return (

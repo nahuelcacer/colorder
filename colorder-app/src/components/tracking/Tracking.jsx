@@ -8,7 +8,7 @@ import Fingerprint from '@mui/icons-material/Fingerprint';
 import { formatDate } from "../../tools/formatedDate";
 import getTotalCost from "../../tools/getTotalCost";
 import { formatTime } from "../../tools/formatTime";
-
+import {Toaster, toast} from "react-hot-toast"
 const Tracking = () => {
     const [searchTracking, setSearchTracking] = useState(null)
     const [steps, setSteps] = useState([])
@@ -23,28 +23,46 @@ const Tracking = () => {
             })
     }, [])
     const searchOrder = (id) => {
-        if (id === "") {
+        const newId = id.trim()
+        
+        if (newId === "" || newId === "0") {
             setPedido(null)
+            setTracking(null)
+            setActiveStep({ activeStep: null, sector: null, data: null })
         }
-        axios.get(`${localhost}api/pedidos/${id}`)
+        else {
+
+            axios.get(`${localhost}api/pedidos/${newId}`)
             .then(res => {
                 console.log(res.data)
                 setPedido(res.data)
+                
             })
-        axios.get(`${localhost}api/tracking?pedido_id=${id}`)
+            .catch(err => {
+                setPedido(null)
+                setTracking(null)
+                setActiveStep({ activeStep: null, sector: null, data: null })
+                toast.error(`No se encontró el pedido ${newId}`)
+            })
+            axios.get(`${localhost}api/tracking?pedido_id=${newId}`)
             .then(res => {
                 let last = res.data.length - 1 
                 setTracking(res.data[last])
                 let data = res.data[last]
                 axios.get(`${localhost}api/sectors/${res.data[last].sector_id}`)
-                    .then(res => {
-                        console.log(res.data)
-                        setActiveStep({ activeStep: res.data.step_id.id - 1, sector: res.data.name, data: data })
-                    })
+                .then(res => {
+                    console.log(res.data)
+                    setActiveStep({ activeStep: res.data.step_id.id - 1, sector: res.data.name, data: data })
+                })
             })
-    }
-    return (
+        }
+        }
+        return (
         <Container >
+            <Toaster
+            position="top-right"
+            reverseOrder={false}> 
+            </Toaster>
             <Box sx={{ mt: 2 }}>
                 <h2>Seguimiento</h2>
                 <Box sx={{ color: 'text.secondary' }}>Para realizare una busqueda ingresa el tracking id</Box>
@@ -105,7 +123,7 @@ const Tracking = () => {
             <Box sx={{ width: "100%", mt: 10 }}>
                 <h2>Pedido</h2>
                 {
-                    pedido != null
+                    pedido !== null
                         ?
                         <Grid container spacing={2} sx={{ borderRadius: 2, boxShadow: 1, p: 2, maxHeight: "300px", overflow: 'auto' }}>
                             <Grid item xs={12} md={6}>
