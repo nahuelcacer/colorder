@@ -30,9 +30,7 @@ const Tracking = () => {
             setTracking(null)
             setActiveStep({ activeStep: null, sector: null, data: null })
         }
-        else {
-
-            axios.get(`${localhost}api/pedidos/${newId}`)
+        axios.get(`${localhost}api/pedidopost/${id}`)
             .then(res => {
                 console.log(res.data)
                 setPedido(res.data)

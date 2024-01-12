@@ -84,7 +84,7 @@ const ClienteSeleccionado = (props) => {
                                 ?
                                 <>
                                     <Button size="small" onClick={() => { setOpen(true) }}>Ver cliente</Button>
-                                    <EditarCliente open={open} setOpen={setOpen} idCliente={pedido.cliente.id}></EditarCliente>
+                                    <EditarCliente open={open} setOpen={setOpen} idCliente={pedido.cliente.id} ></EditarCliente>
 
                                 </>
                                 :

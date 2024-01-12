@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from apps.pedido import views
+from apps.pedido.views import PedidoApiView, PedidoIdApiView
 from apps.cliente.views import ClienteView
 from apps.producto.views import ProductoView
 from apps.tracking.views import StepsView, SectorsViews, OrderStatusViews
@@ -20,6 +21,8 @@ router.register(r'tracking', OrderStatusViews, 'tracking' )
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)), 
+    path('api/pedidopost/', PedidoApiView.as_view(), name="pedidopost"),
+    path('api/pedidopost/<int:pedido_id>/', PedidoIdApiView.as_view(), name="pedidoidpost"),
     # path('api/token/', include('apps.usuario.urls')),
     path('', TemplateView.as_view(template_name="index.html")),
     path('cobranza/', TemplateView.as_view(template_name="index.html")),

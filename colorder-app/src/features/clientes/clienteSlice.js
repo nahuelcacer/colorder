@@ -13,7 +13,7 @@ const initialState = {
 export const fecthClientes = createAsyncThunk('clientes/requestClientes',()=>{
     return axios
                 .get(`${localhost}api/clientes`)
-                .then((res)=> res.data) 
+                .then((res)=> res.data.results) 
 })
 
 const clienteSlice = createSlice({

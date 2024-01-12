@@ -11,7 +11,7 @@ const initialState = {
 
 export const fecthPedidos = createAsyncThunk('pedidos/requestPedidos',()=>{
     return axios
-                .get(`${localhost}api/pedidos`)
+                .get(`${localhost}api/pedidopost`)
                 .then((res)=> res.data) 
 })
 

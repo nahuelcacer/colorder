@@ -109,7 +109,7 @@ const MostrarClientes = () => {
                 <Button onClick={() => { setOpen(true)}}>
                     Agregar
                 </Button>
-                {totalresults != null ? <Box>{totalresults}</Box> :  "" }
+                {totalresults != null ? <Box>Clientes registrados: {totalresults}</Box> :  "" }
             </Box>
         )
     }

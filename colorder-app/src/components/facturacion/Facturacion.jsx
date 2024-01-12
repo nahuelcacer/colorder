@@ -35,20 +35,19 @@ const Facturacion = () => {
 
 
     const fetchData = async () => {
-      axios.get(`${localhost}api/pedidos?completado=0&${searchParams}`)
+      axios.get(`${localhost}api/pedidopost?completado=0&${searchParams}`)
         .then(res => {
-          setData(res.data)
+          setData(res.data.data)
           const arr_pendientes = data.filter(i => i.completado == false)
           setPendientes(arr_pendientes.length)
         })
     };
 
 
-    axios.get(`${localhost}api/pedidos?completado=0&${searchParams}`)
+    axios.get(`${localhost}api/pedidopost?completado=0&${searchParams}`)
       .then(
         response => {
-          console.log(response)
-          setData(response.data)
+          setData(response.data.data)
         }
       )
       .catch(error => console.log(error));
