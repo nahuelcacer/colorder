@@ -12,11 +12,11 @@ import { useEffect } from "react";
 const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
     const [pedido,setPedido] = useState('')
     const handleClose = () => {
-        axios.get(`${localhost}api/pedidos/${preparar.id}/`)
+        axios.get(`${localhost}api/pedidopost/${preparar.id}/`)
         .then(
             res=> {
                 res.data.enPreparacion = false
-                axios.put(`${localhost}api/pedidos/${preparar.id}/`, res.data)
+                axios.put(`${localhost}api/pedidopost/${preparar.id}/`, res.data.data)
                 .then(
                     res=>{
                         setPreparar({on:false,id:''})

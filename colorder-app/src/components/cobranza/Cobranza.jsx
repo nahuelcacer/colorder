@@ -27,7 +27,7 @@ const Cobranza = () => {
 
 
         const fetchData = async () => {
-            axios.get(`${localhost}api/pedidos?completado=0&${searchParams}`)
+            axios.get(`${localhost}api/pedidopost?completado=0&${searchParams}`)
                 .then(res => {
                     setData(res.data)
                     const arr_pendientes = res.data.filter(i => i.recibo == false)
@@ -36,7 +36,7 @@ const Cobranza = () => {
         };
 
 
-        axios.get(`${localhost}api/pedidos?completado=0&${searchParams}`)
+        axios.get(`${localhost}api/pedidopost?completado=0&${searchParams}`)
             .then(
                 response => {
                     console.log(response)

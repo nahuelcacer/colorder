@@ -8,59 +8,51 @@ from apps.cliente.models import Cliente
 
 
 class OrderProductSerializer(serializers.ModelSerializer):
-    producto = ProductoSerializer()
+    # producto = ProductoSerializer()
     class Meta:
         model = OrderProduct
         fields = ('id','producto', 'cantidad')
 
-    def create(self,validated_data):
-        pr_data = validated_data.pop('producto')
-        producto = Producto.objects.get(**pr_data)
-        order = OrderProduct.objects.create(producto=producto,**validated_data)
-        return order
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        #OBTENER DATOS DEL PRODUCTO#
+        producto = instance.producto
+        #SERIALIZAR PRODUCTO#
+        productoSerlializado = ProductoSerializer(producto).data
+        #AGREGAR A LA DATA#
+        data['producto'] = productoSerlializado
+        return data
+
+
+    # def create(self,validated_data):
+    #     pr_data = validated_data.pop('producto')
+    #     producto = Producto.objects.get(**pr_data)
+    #     order = OrderProduct.objects.create(producto=producto,**validated_data)
+    #     return order
 
 class OrderSerializer(serializers.ModelSerializer):
-    orderproduct = OrderProductSerializer(many=True)
-    cliente = ClienteSerializer()
     class Meta:
         model = Pedido
         fields = ('id', 'cliente', 'factura', 'recibo', 'fecha', 'tiempo', 'completado', 'orderproduct', 'orden', 'enPreparacion')
     
-    def create(self,validated_data):
-        cliente_data = validated_data.pop('cliente')
-        orderproduct_data  = validated_data.pop('orderproduct')
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        #instanciacion#
+        cliente = instance.cliente
+        orderproduct = instance.orderproduct.all()
+        #serializacion#
+        cliente_serializado = ClienteSerializer(cliente).data
+        orderproduct_serializado = OrderProductSerializer(orderproduct, many=True).data
 
-        cliente = Cliente.objects.get(**cliente_data)
-       #############################
-        if Pedido.objects.exists():
 
-            last_order = Pedido.objects.latest('id')
-            pedido = Pedido.objects.create(cliente=cliente,**validated_data)
-            if last_order.fecha == pedido.fecha:
-                pedido.orden = last_order.orden + 1 
-                pedido.save()
-            else:
-                pedido.orden = 1 
-                pedido.save()
-        else:
-        # If there are no existing orders, set the order number for the new order to 1
-            pedido = Pedido.objects.create(cliente=cliente,**validated_data)
+        tiempo = instance.tiempo
 
-            pedido.orden = 1
-            pedido.save()
-        ################################
-        for orderproduct_item in orderproduct_data:
-            pr_data = orderproduct_item.get('producto')
-            producto = Producto.objects.get(**pr_data)
-            orderproduct_item['producto'] = producto
-            OrderProduct.objects.create(pedido=pedido, **orderproduct_item)
-        return pedido
-    
+        data['fecha'] = instance.dateFormated()
+        print(data['tiempo'])
+        data['tiempo'] = tiempo
+        data['cliente'] = cliente_serializado
+        data['orderproduct'] = orderproduct_serializado
+        
 
-    def update(self, instance, validated_data):
-        instance.completado = validated_data.get('completado', instance.completado)
-        instance.recibo = validated_data.get('recibo', instance.recibo)
-        instance.factura = validated_data.get('factura', instance.factura)
-        instance.enPreparacion = validated_data.get('enPreparacion', instance.enPreparacion)
-        instance.save()
-        return instance
+        return data
+ 

@@ -26,7 +26,7 @@ const Tracking = () => {
         if (id === "") {
             setPedido(null)
         }
-        axios.get(`${localhost}api/pedidos/${id}`)
+        axios.get(`${localhost}api/pedidopost/${id}`)
             .then(res => {
                 console.log(res.data)
                 setPedido(res.data)

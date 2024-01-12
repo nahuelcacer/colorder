@@ -26,7 +26,7 @@ const TableShow = ({ datos, titulo, subtitulo, search, handleChange, setChecked,
     }
    
     const checkEstadoPedido = async (id) => {
-        axios.get(`${localhost}api/pedidos/${id}/`)
+        axios.get(`${localhost}api/pedidopost/${id}/`)
             .then(
                 res => {
                     if (!res.status) {
@@ -35,10 +35,9 @@ const TableShow = ({ datos, titulo, subtitulo, search, handleChange, setChecked,
                     if (res.data.enPreparacion) {
                         console.log('Pedido tomado')
                     } else {
-
                         res.data.enPreparacion = true
-                        axios.put(`${localhost}api/pedidos/${id}/`, res.data)
-                        setPreparar({ on: true, id: id, pedido: res.data })
+                            axios.put(`${localhost}api/pedidopost/${id}/`, res.data.data)
+                            setPreparar({ on: true, id: id, pedido: res.data.data })
                     }
                 }
             )

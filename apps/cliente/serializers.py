@@ -5,7 +5,7 @@ from .models import Cliente
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
-        fields = ('id', 'nombre', 'dni', 'escribano', 'telefono')
+        fields = ('id', 'nombre', 'dni', 'escribano')
         
 
     def create(self, validated_data):

@@ -31,7 +31,7 @@ export const updatePedidoFactura = (pedido) => {
         pedido.enPreparacion = true
         return (
             axios
-            .put(`${localhost}api/pedidos/${pedido.id}/`, pedido )
+            .put(`${localhost}api/pedidopost/${pedido.id}/`, pedido )
             
         )
     }
@@ -40,7 +40,7 @@ export const updatePedidoFactura = (pedido) => {
         pedido.enPreparacion = true
         return (
             axios
-            .put(`${localhost}api/pedidos/${pedido.id}/`, pedido )
+            .put(`${localhost}api/pedidopost/${pedido.id}/`, pedido )
             
             
             
