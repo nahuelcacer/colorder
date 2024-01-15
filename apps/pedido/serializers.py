@@ -24,12 +24,6 @@ class OrderProductSerializer(serializers.ModelSerializer):
         return data
 
 
-    # def create(self,validated_data):
-    #     pr_data = validated_data.pop('producto')
-    #     producto = Producto.objects.get(**pr_data)
-    #     order = OrderProduct.objects.create(producto=producto,**validated_data)
-    #     return order
-
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pedido
@@ -48,7 +42,6 @@ class OrderSerializer(serializers.ModelSerializer):
         tiempo = instance.tiempo
 
         data['fecha'] = instance.dateFormated()
-        print(data['tiempo'])
         data['tiempo'] = tiempo
         data['cliente'] = cliente_serializado
         data['orderproduct'] = orderproduct_serializado

@@ -21,7 +21,7 @@ class PedidosFilter(filters.FilterSet):
     fecha = DateFilter(field_name='fecha', lookup_expr='exact')
     class Meta:
             model = Pedido
-            fields = ['cliente', 'recibo', 'factura', 'fecha', 'enPreparacion']
+            fields = ['cliente', 'recibo', 'factura', 'fecha', 'enPreparacion', 'completado']
 
     def filter_by_client(self, queryset, name, value):
         if value:
@@ -38,17 +38,22 @@ class PedidoView(viewsets.ModelViewSet):
 
 class PedidoApiView(APIView):
     def get(self, request, pedido_id=None):
-        if pedido_id is not None:
-            # Si se proporciona un pedido_id, devuelve un solo pedido por su ID
-            pedido_instance = get_object_or_404(Pedido, id=pedido_id)
-            pedido_serializado = OrderSerializer(pedido_instance).data
-            res = {'data': pedido_serializado}
-        else:
-            # Si no se proporciona un pedido_id, busca y devuelve todos los pedidos
-            filterset = PedidosFilter(request.GET, queryset=Pedido.objects.all())
-            filtered_pedidos = filterset.qs
-            pedidos_serializados = OrderSerializer(filtered_pedidos, many=True).data
-            res = {'cantidad': len(pedidos_serializados), 'data': pedidos_serializados}
+    
+        # Si no se proporciona un pedido_id, busca y devuelve todos los pedidos
+        filterset = PedidosFilter(request.GET, queryset=Pedido.objects.all())
+        print(filterset.data)
+        filtered_pedidos = filterset.qs
+
+        filtered_pedidos_norecibo = filtered_pedidos.filter(recibo=False)
+        pedidos_serializados = OrderSerializer(filtered_pedidos, many=True).data
+        pedidos_serializados_norecibo = OrderSerializer(filtered_pedidos_norecibo, many=True).data
+
+        res = {
+            'pendientes':len(pedidos_serializados_norecibo),
+            'cantidad': len(pedidos_serializados), 
+            'data': pedidos_serializados
+            
+            }
 
         return Response(res)
 
@@ -114,18 +119,19 @@ class PedidoIdApiView(APIView):
         return Response(res)
     
     def put(self, request, pedido_id=None):
+
         data = request.data
-        print(request.data)
         if pedido_id is not None:
-            # Si se proporciona un pedido_id, devuelve un solo pedido por su ID
             pedido_instance = get_object_or_404(Pedido, id=pedido_id)
-            pedido_instance.completado = data['completado']
-            pedido_instance.recibo = data['recibo']
-            pedido_instance.factura = data['factura']
-            pedido_instance.enPreparacion = data['enPreparacion']
-            pedido_instance.save()
-        
-        return Response({"message": "Objeto actualizado correctamente"})
+            for key, value in data.items():
+                setattr(pedido_instance, key, value)
+            try:
+                    pedido_instance.completado = pedido_instance.recibo and pedido_instance.factura
+                    pedido_instance.save()
+            except Exception as e:
+                print(f"Error al guardar el pedido: {e}")
+        pedido_serialized = OrderSerializer(pedido_instance).data
+        return Response(pedido_serialized)
 
 
 class OrderProductView(viewsets.ModelViewSet):

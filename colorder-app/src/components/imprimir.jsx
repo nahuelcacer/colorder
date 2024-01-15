@@ -7,7 +7,6 @@ import { fecthPedidos } from "../features/pedidos/pedidoshowSlice";
 import { connect } from 'react-redux'
 import { localhost } from "../services/service.pedidos";
 import { backtoInitialState } from "../redux/actions/clientes-action";
-import { generatePdf } from "./pdf/generatePdf";
 
 const Imprimir = ({ setProduct, setPdf }) => {
     const dispatch = useDispatch()

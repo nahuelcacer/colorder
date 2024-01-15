@@ -1,42 +1,22 @@
-import { Button, Modal, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
-import axios from "axios";
-import { useState } from "react";
-import  {localhost, updatePedidoFactura} from "../../services/service.pedidos";
+import Fingerprint from '@mui/icons-material/Fingerprint';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import { Button, Modal, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { actualizarEstadoPedidoEnFacturaTrue, actualizarEstadoPedidoEnPreparacionFalse } from "../../services/apiFunctions";
 import getTotalCost from "../../tools/getTotalCost";
 import { StyleModalFacturacion } from '../../tools/styleModals';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import Fingerprint from '@mui/icons-material/Fingerprint';
-import { useEffect } from "react";
 
 
 const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
-    const [pedido,setPedido] = useState('')
+   
     const handleClose = () => {
-        axios.get(`${localhost}api/pedidopost/${preparar.id}/`)
-        .then(
-            res=> {
-                res.data.enPreparacion = false
-                axios.put(`${localhost}api/pedidopost/${preparar.id}/`, res.data.data)
-                .then(
-                    res=>{
-                        setPreparar({on:false,id:''})
-                    }
-                )
-            }
-        )
-    
-    };
-    
+        actualizarEstadoPedidoEnPreparacionFalse(preparar.id)
+        setPreparar({on:false,id:''})
+    }
 
-    
-    const handleCloseOnClick = () => {
-        updatePedidoFactura(preparar.pedido)
-        .then(
-            res=>{ 
-                console.log(res.data)
-            }
-        )
+    const actualizarEstadoFactura = () => {
+        actualizarEstadoPedidoEnFacturaTrue(preparar.id)
         setPreparar({on:false, id:''})
+
     }
     return(
         <Modal 
@@ -74,7 +54,7 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                             ?
                             preparar.pedido.orderproduct.map(item=>{
                                 return(
-                                    <TableRow>
+                                    <TableRow key={item.id}>
                                         <TableCell align='left' sx={{borderBottom:'none'}}>{item.producto.nombre}</TableCell>
                                         <TableCell align='left' sx={{borderBottom:'none'}}>$ {item.producto.precio}</TableCell>
                                         <TableCell align='left' sx={{borderBottom:'none'}}><strong>x {item.cantidad}</strong></TableCell>
@@ -88,7 +68,7 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                             ''
                         }
                         <TableRow  >
-                            <TableCell colspan={2} sx={{borderBottom:'none'}}>
+                            <TableCell sx={{borderBottom:'none'}}>
                                 Total
                             </TableCell>
                             <TableCell align='left' sx={{borderBottom:'none'}}>
@@ -102,7 +82,7 @@ const MostrarPedidoFacturacion = ({preparar, setPreparar}) => {
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <Button variant="contained" onClick={handleCloseOnClick}>
+                            <Button variant="contained" onClick={actualizarEstadoFactura}>
                                 Facturado
                             </Button>
                         </TableRow>

@@ -1,14 +1,12 @@
-import { Badge, Button, Chip, FormControlLabel, Switch, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
-import styleIdCliente from "../../tools/styleIdentificacion";
+import { Button, Chip, FormControlLabel, Switch, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import InputAdornment from '@mui/material/InputAdornment';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { actualizarEstadoPedidoEnPreparacionTrue } from "../../services/apiFunctions";
 import getTotalCost from "../../tools/getTotalCost";
-import axios from "axios";
-import CheckIcon from '@mui/icons-material/Check';
-import { localhost } from '../../services/service.pedidos'
+import styleIdCliente from "../../tools/styleIdentificacion";
 
 /**
  * TableShow
@@ -26,22 +24,13 @@ const TableShow = ({ datos, titulo, subtitulo, search, handleChange, setChecked,
     }
    
     const checkEstadoPedido = async (id) => {
-        axios.get(`${localhost}api/pedidopost/${id}/`)
-            .then(
-                res => {
-                    if (!res.status) {
-                        console.log('error')
-                    }
-                    if (res.data.enPreparacion) {
-                        console.log('Pedido tomado')
-                    } else {
-                        res.data.enPreparacion = true
-                            axios.put(`${localhost}api/pedidopost/${id}/`, res.data.data)
-                            setPreparar({ on: true, id: id, pedido: res.data.data })
-                    }
-                }
-            )
-    }
+        try {
+            const data = await actualizarEstadoPedidoEnPreparacionTrue(id);
+            setPreparar({ on: true, id: data.id, pedido: data });
+        } catch (error) {
+            console.error('Error checking pedido state:', error.message);
+        }
+    };
     return (
         <Table >
             <TableHead>

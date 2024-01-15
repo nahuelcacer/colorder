@@ -39,10 +39,11 @@ class OrderProduct(models.Model):
 
 
 
-    def whatDayIs(f):
+    def whatDayIs(self,f):
                 while f.weekday() >= 5:
                    f += timedelta(days=1)
                 return f
+
     def timeToFinish(self):
         tiempo = self.pedido.tiempo
         tramite = self.producto.tramite
@@ -65,7 +66,7 @@ class OrderProduct(models.Model):
             # ver si tiempo final es fin de semana
             
 
-            return whatDayIs(tiempo_final)
+            return self.whatDayIs(tiempo_final)
       
         elif tiempo_final_1.hour >= hora_fin:
             tiempo_final = tiempo_final_1.replace(hour=hora_inicio + 2, minute=0, second=0) 
