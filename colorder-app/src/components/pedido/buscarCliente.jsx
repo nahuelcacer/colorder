@@ -9,7 +9,7 @@ import { selectCliente } from '../../redux/actions/clientes-action.js';
 
 const BuscarCliente = () => {
   const clientes = useSelector(state => state.clientes)
-  console.log(clientes)
+
 
   const dispatch = useDispatch()
   useEffect(() => {

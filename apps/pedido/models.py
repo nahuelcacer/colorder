@@ -39,10 +39,24 @@ class OrderProduct(models.Model):
 
 
 
-    def whatDayIs(self,f):
-                while f.weekday() >= 5:
-                   f += timedelta(days=1)
-                return f
+    def whatDayIs(self, tiempo):
+        diadehoy = tiempo
+        tramite = 1 if self.producto.tramite <= 24 else self.producto.tramite / 24
+
+        i = 0
+        diadehoy += timedelta(days=1)
+        while i < tramite:
+
+            print(f"FECHA: {diadehoy}  NUMERO DE DIA: {diadehoy.weekday()} TRAMITE: {tramite}")
+            if diadehoy.weekday() < 5:
+                diadehoy += timedelta(days=1)
+            else:
+                tramite += 1  # Increment tramite only on weekends
+                diadehoy += timedelta(days=1)
+
+            i += 1
+        
+        return diadehoy - timedelta(days=1)
 
     def timeToFinish(self):
         tiempo = self.pedido.tiempo
@@ -57,15 +71,8 @@ class OrderProduct(models.Model):
 
         # Verificar si la hora estimada supera las 18 horas
         if tiempo_final_1.day != tiempo.day:
-            # Calcular el excedente de horas
-            # excedente_horas = tiempo_final.hour - hora_fin
-
-            # Ajustar el tiempo para el siguiente día
-            tiempo_final = tiempo_final_1.replace(hour=hora_inicio + 2, minute=0, second=0)
-            ###
-            # ver si tiempo final es fin de semana
-            
-
+             # Ajustar el tiempo para el siguiente día
+            tiempo_final = tiempo.replace(hour=hora_inicio + 2, minute=0, second=0)
             return self.whatDayIs(tiempo_final)
       
         elif tiempo_final_1.hour >= hora_fin:

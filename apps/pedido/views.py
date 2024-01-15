@@ -41,12 +41,12 @@ class PedidoApiView(APIView):
     
         # Si no se proporciona un pedido_id, busca y devuelve todos los pedidos
         filterset = PedidosFilter(request.GET, queryset=Pedido.objects.all())
-        print(filterset.data)
         filtered_pedidos = filterset.qs
 
         filtered_pedidos_norecibo = filtered_pedidos.filter(recibo=False)
         pedidos_serializados = OrderSerializer(filtered_pedidos, many=True).data
         pedidos_serializados_norecibo = OrderSerializer(filtered_pedidos_norecibo, many=True).data
+
 
         res = {
             'pendientes':len(pedidos_serializados_norecibo),
@@ -54,6 +54,8 @@ class PedidoApiView(APIView):
             'data': pedidos_serializados
             
             }
+
+
 
         return Response(res)
 
@@ -116,6 +118,8 @@ class PedidoIdApiView(APIView):
             pedido_instance = get_object_or_404(Pedido, id=pedido_id)
             pedido_serializado = OrderSerializer(pedido_instance).data
             res = {'data': pedido_serializado}
+            
+
         return Response(res)
     
     def put(self, request, pedido_id=None):

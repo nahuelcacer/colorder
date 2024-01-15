@@ -14,6 +14,7 @@ const ProductosDataGrid = () => {
     const [edit, setEdit] = useState({ on: false, id: '' })
     const [data, setData] = useState(null)
     const [open, setOpen] = useState(false)
+    
     useEffect(() => {
         getProductos()
     }, [])
@@ -108,6 +109,7 @@ const ProductosDataGrid = () => {
     }
     return (
         <Container>
+            <input></input>
             {data != null ?
                 <DataGrid
                     sx={{ marginTop: '5rem', backgroundColor: '#ffffff' }}

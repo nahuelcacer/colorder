@@ -29,6 +29,7 @@ urlpatterns = [
     path('factura/', TemplateView.as_view(template_name="index.html")),
     path('productos/', TemplateView.as_view(template_name="index.html")),
     path('tracking/', TemplateView.as_view(template_name="index.html")),
+    path('administracion/', TemplateView.as_view(template_name="index.html")),
 ]
 urlpatterns += [
     path('api-token-auth/', CustomAuthToken.as_view())
