@@ -109,7 +109,6 @@ const ProductosDataGrid = () => {
     }
     return (
         <Container>
-            <input></input>
             {data != null ?
                 <DataGrid
                     sx={{ marginTop: '5rem', backgroundColor: '#ffffff' }}
