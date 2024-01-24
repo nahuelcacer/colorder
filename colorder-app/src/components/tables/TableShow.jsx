@@ -90,6 +90,7 @@ const TableShow = ({ datos, titulo, subtitulo, search, handleChange, setChecked,
                     return (
                         <TableRow key={pedido.id}>
                             <TableCell align='center' sx={{ padding: 1 }}>
+                                <p>{pedido.id}</p>
                                 <Typography><strong>{pedido.orden}</strong></Typography>
                                 <Typography variant='overline' color={'grey'}>{pedido.fecha}</Typography>
                                 <div><Typography variant='caption' color={'grey'}> {pedido.tiempo.substr(0, 5)} hs</Typography></div>

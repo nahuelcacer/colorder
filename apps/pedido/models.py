@@ -72,7 +72,7 @@ class OrderProduct(models.Model):
         # Verificar si la hora estimada supera las 18 horas
         if tiempo_final_1.day != tiempo.day:
              # Ajustar el tiempo para el siguiente día
-            tiempo_final = tiempo.replace(hour=hora_inicio + 2, minute=0, second=0)
+            tiempo_final = tiempo.replace(hour=hora_inicio + 9, minute=0, second=0)
             return self.whatDayIs(tiempo_final)
       
         elif tiempo_final_1.hour >= hora_fin:
