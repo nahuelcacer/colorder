@@ -5,7 +5,7 @@ from apps.pedido import views
 from apps.pedido.views import PedidoApiView, PedidoIdApiView
 from apps.cliente.views import ClienteView
 from apps.producto.views import ProductoView
-from apps.tracking.views import StepsView, SectorsViews, OrderStatusViews
+from apps.tracking.views import StepsView, SectorsViews, OrderStatusViews, OrderStatusApiView
 from rest_framework import routers
 # from rest_framework.authtoken import views
 from apps.usuario.views import CustomAuthToken
@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/', include(router.urls)), 
     path('api/pedidopost/', PedidoApiView.as_view(), name="pedidopost"),
     path('api/pedidopost/<int:pedido_id>/', PedidoIdApiView.as_view(), name="pedidoidpost"),
+    path('api/find/<int:id>/', OrderStatusApiView.as_view(), name="find"),
     # path('api/token/', include('apps.usuario.urls')),
     path('', TemplateView.as_view(template_name="index.html")),
     path('cobranza/', TemplateView.as_view(template_name="index.html")),

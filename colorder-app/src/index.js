@@ -53,6 +53,7 @@ root.render(
               element={<Sectores/>}
               />
               <Route path="tracking/" element={<RequireAuth><Tracking /></RequireAuth>}></Route>
+              <Route path="tracking/:id" element={<RequireAuth><Tracking /></RequireAuth>}></Route>
             </Route>
             <Route path="/login" element={<LoginPage />} ></Route>
           </Routes>

@@ -10,7 +10,6 @@ import getTotalCost from "../../tools/getTotalCost";
 import { formatTime } from "../../tools/formatTime";
 import { Toaster, toast } from "react-hot-toast"
 import { useParams } from "react-router-dom";
-import StepperPrueba from "./Stepper";
 const Tracking = () => {
     const { id: trackinAnchorID } = useParams()
     const [searchTracking, setSearchTracking] = useState(null)
@@ -121,6 +120,20 @@ const Tracking = () => {
                         </Step>
                     ))}
                 </Stepper>
+                <Box>
+                    <ul style={{color:'grey'}}>
+                        {pedido ? pedido.history_tracking.map((track, index) => {
+                            return (
+                                <li style={{display:'flex', gap:'30px'}} key={index}>
+                                    <span>{index}</span>
+                                    <span>{track.sector.name}</span>
+                                    <span>{track.created_at}</span>
+                                    <span>{track.tiempo}</span>
+                                </li>
+                            )
+                        }).reverse():<></>}
+                    </ul>
+                </Box>
             </Box>
             <Box sx={{ width: "100%", mt: 10 }}>
                 <h2>Pedido</h2>
@@ -162,7 +175,7 @@ const Tracking = () => {
                                                                     component="span"
                                                                     variant="body2"
                                                                     color="text.primary"
-                                                                >
+                                                                    >
                                                                     Precio: {item.producto.precio}
                                                                 </Typography>
                                                                 . - Cantidad: {item.cantidad}
@@ -193,7 +206,6 @@ const Tracking = () => {
 
                 }
             </Box>
-            <StepperPrueba></StepperPrueba>
         </Container >
     )
 }
