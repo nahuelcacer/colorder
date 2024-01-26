@@ -103,7 +103,7 @@ class PedidoApiView(APIView):
         suma_precios = sum(item['producto']['precio'] * item['cantidad'] for item in pedido_serialized['orderproduct'])
 
         pedido_serialized['totalDelPedido'] = suma_precios
-        pedido_serialized['horaRetiro'] = tramite_mas_grande.timeToFinish()
+        pedido_serialized['horaRetiro'] = tramite_mas_grande.calcularEntrega()
 
 
         template = loader.get_template('pedido.html')

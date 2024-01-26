@@ -1,9 +1,9 @@
 from django.db import models
-from apps.producto.models import Producto
+from apps.producto.models import Producto,Entrega
 from apps.cliente.models import Cliente
 from datetime import datetime, timedelta
-from django.utils import timezone
-from apps.pedido.tools import calcutaDay
+from apps.pedido.tools import sumar_dias_habiles
+
 # Create your models here.
 
 class Pedido(models.Model):
@@ -39,46 +39,26 @@ class OrderProduct(models.Model):
 
 
 
-    def whatDayIs(self, tiempo):
-        diadehoy = tiempo
-        tramite = 1 if self.producto.tramite <= 24 else self.producto.tramite / 24
+    
 
-        i = 0
-        diadehoy += timedelta(days=1)
-        while i < tramite:
-
-            print(f"FECHA: {diadehoy}  NUMERO DE DIA: {diadehoy.weekday()} TRAMITE: {tramite}")
-            if diadehoy.weekday() < 5:
-                diadehoy += timedelta(days=1)
-            else:
-                tramite += 1  # Increment tramite only on weekends
-                diadehoy += timedelta(days=1)
-
-            i += 1
-        
-        return diadehoy - timedelta(days=1)
-
-    def timeToFinish(self):
+    def calcularEntrega(self):
+        entrega = Entrega.objects.filter(producto__id=self.producto_id).first()
         tiempo = self.pedido.tiempo
-        tramite = self.producto.tramite
 
-        # Definir el rango de horas laborales
-        hora_inicio = 8
-        hora_fin = 18
-
-        # Sumar el tiempo estimado al tiempo actual
-        tiempo_final_1 = tiempo + timedelta(hours=tramite)
-
-        # Verificar si la hora estimada supera las 18 horas
-        if tiempo_final_1.day != tiempo.day:
-             # Ajustar el tiempo para el siguiente día
-            tiempo_final = tiempo.replace(hour=hora_inicio + 9, minute=0, second=0)
-            return self.whatDayIs(tiempo_final)
-      
-        elif tiempo_final_1.hour >= hora_fin:
-            tiempo_final = tiempo_final_1.replace(hour=hora_inicio + 2, minute=0, second=0) 
-            return tiempo_final
+        if entrega.dias_habiles == 0:
+            if tiempo.hour < entrega.hora_limite:
+                entrega_final = tiempo.replace(hour=entrega.entrega_pos_limite, minute=0, second=0)
+                print(entrega_final)
+            else:
+                entrega_final = sumar_dias_habiles(tiempo,1)
+                entrega_final = entrega_final.replace(hour=entrega.entrega_pre_limite, minute=0, second=0)
+                print(entrega_final)
         else:
-            return tiempo_final_1
-        # Devolver el tiempo estimado de finalización ajustado
+            entrega_final = sumar_dias_habiles(tiempo,entrega.dias_habiles)
+            entrega_final = entrega_final.replace(hour=entrega.entrega_pos_limite, minute=0, second=0)
+            print(entrega_final)
+
+
+        return entrega_final
+
         

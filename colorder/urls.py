@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from apps.pedido import views
 from apps.pedido.views import PedidoApiView, PedidoIdApiView
 from apps.cliente.views import ClienteView
-from apps.producto.views import ProductoView
+from apps.producto.views import ProductoView, EntregaView
 from apps.tracking.views import StepsView, SectorsViews, OrderStatusViews, OrderStatusApiView
 from rest_framework import routers
 # from rest_framework.authtoken import views
@@ -14,6 +14,7 @@ router.register(r'pedidos', views.PedidoView, 'pedido')
 router.register(r'orderproducts', views.OrderProductView, 'orderproducts' )
 router.register(r'clientes', ClienteView, 'clientes' )
 router.register(r'productos', ProductoView, 'productos' )
+router.register(r'entrega', EntregaView, 'entrega' )
 router.register(r'steps', StepsView, 'steps' )
 router.register(r'sectors', SectorsViews, 'sectors' )
 router.register(r'tracking', OrderStatusViews, 'tracking' )
