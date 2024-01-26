@@ -11,8 +11,8 @@ class Sectors(models.Model):
     step_id = models.ForeignKey(Steps, on_delete=models.CASCADE)
     
 class OrderStatus(models.Model):
-    sector_id = models.ForeignKey(Sectors, on_delete=models.CASCADE)
-    pedido_id = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    sector = models.ForeignKey(Sectors, on_delete=models.CASCADE)
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
     tiempo = models.TimeField(auto_now_add=True, null=True)
     

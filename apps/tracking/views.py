@@ -1,5 +1,10 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from apps.pedido.models import Pedido
+from apps.pedido.serializers import OrderSerializer
+
 from .serializers import StepsSerializers, SectorsSerializers, OrderStatusSerializers
 from .models import Steps,Sectors, OrderStatus
 from django_filters import rest_framework as filters
@@ -35,4 +40,21 @@ class OrderStatusViews(viewsets.ModelViewSet):
     queryset = OrderStatus.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_class = OrderStatusFilter
+
+
+class OrderStatusApiView(APIView):
+    def get(self, request, id):
+        queryset = OrderStatus.objects.filter(pedido=id)
+        if not queryset.exists():  # Verifica si la queryset está vacía
+            return Response({"message": f"No se encontro un pedido con el id:{id} proporcionado"}, status=status.HTTP_404_NOT_FOUND)
+        
+        order = Pedido.objects.get(id=id)
+        order_serializaer = OrderSerializer(order).data
+        
+        serializer = OrderStatusSerializers(queryset, many=True)
+        order_serializaer['last_tracking'] = serializer.data[-1]
+        order_serializaer['history_tracking'] = serializer.data
+
+        return Response(order_serializaer)
+
 

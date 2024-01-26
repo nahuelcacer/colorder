@@ -8,60 +8,68 @@ import Fingerprint from '@mui/icons-material/Fingerprint';
 import { formatDate } from "../../tools/formatedDate";
 import getTotalCost from "../../tools/getTotalCost";
 import { formatTime } from "../../tools/formatTime";
-import {Toaster, toast} from "react-hot-toast"
+import { Toaster, toast } from "react-hot-toast"
+import { useParams } from "react-router-dom";
+import StepperPrueba from "./Stepper";
 const Tracking = () => {
+    const { id: trackinAnchorID } = useParams()
     const [searchTracking, setSearchTracking] = useState(null)
     const [steps, setSteps] = useState([])
     const [activeStep, setActiveStep] = useState({ activeStep: null, sector: null })
     const [pedido, setPedido] = useState(null)
     const [tracking, setTracking] = useState(null)
-    useEffect(() => {
-        axios.get(`${localhost}api/steps`)
+
+
+    const searchOrderfromAnchor = (id) => {
+        axios.get(`${localhost}api/find/${id}`)
             .then(res => {
+                setActiveStep({ activeStep: res.data.last_tracking.sector.step_id.id, sector: res.data.last_tracking.sector.name })
+                setPedido(res.data)
                 console.log(res.data)
-                setSteps(res.data)
             })
-    }, [])
+            .catch(err => {
+                setPedido(null)
+                setTracking(null)
+                setActiveStep({ activeStep: null, sector: null, data: null })
+                toast.error(`No se encontró el pedido ${id}`)
+            })
+    }
     const searchOrder = (id) => {
         const newId = id.trim()
-        
+
         if (newId === "" || newId === "0") {
             setPedido(null)
             setTracking(null)
             setActiveStep({ activeStep: null, sector: null, data: null })
         }
         else {
+            searchOrderfromAnchor(newId)
 
-            axios.get(`${localhost}api/pedidos/${newId}`)
-            .then(res => {
-                console.log(res.data)
-                setPedido(res.data)
-                
-            })
-            .catch(err => {
-                setPedido(null)
-                setTracking(null)
-                setActiveStep({ activeStep: null, sector: null, data: null })
-                toast.error(`No se encontró el pedido ${newId}`)
-            })
-            axios.get(`${localhost}api/tracking?pedido_id=${newId}`)
-            .then(res => {
-                let last = res.data.length - 1 
-                setTracking(res.data[last])
-                let data = res.data[last]
-                axios.get(`${localhost}api/sectors/${res.data[last].sector_id}`)
-                .then(res => {
-                    console.log(res.data)
-                    setActiveStep({ activeStep: res.data.step_id.id - 1, sector: res.data.name, data: data })
-                })
-            })
         }
+    }
+    const getSteps = async () => {
+        try {
+            const response = await fetch(`${localhost}api/steps/`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setSteps(data);
+        } catch (error) {
+            console.error('Error fetching steps:', error);
         }
-        return (
+    };
+
+    useEffect(() => {
+        getSteps()
+        if (trackinAnchorID) { searchOrderfromAnchor(trackinAnchorID) }
+    }, [])
+
+    return (
         <Container >
             <Toaster
-            position="top-right"
-            reverseOrder={false}> 
+                position="top-right"
+                reverseOrder={false}>
             </Toaster>
             <Box sx={{ mt: 2 }}>
                 <h2>Seguimiento</h2>
@@ -88,33 +96,27 @@ const Tracking = () => {
                 </TextField>
             </Box>
 
-            {/* <Button variant="contained" onClick={() => { searchOrder(searchTracking) }}>Buscar</Button> */}
             <Box sx={{ width: '100%', mt: 10 }}>
                 <h2>Estado</h2>
-                <Stepper activeStep={activeStep.activeStep} alternativeLabel>
-                    {steps.map((label, index) => (
-                        <Step key={label.name}>
+                <Stepper sx={{ width: '500px' }} activeStep={activeStep.activeStep - 1 ?? 0} alternativeLabel>
+                    {steps.map((step, index) => (
+                        <Step key={step.name}>
                             <StepLabel>
-                                {label.name}
-                                <br></br>
-                                {
-                                    activeStep.activeStep === index
-                                        ?
-                                        <>
-                                            <Typography variant="body2" gutterBottom>
-                                                {activeStep.sector}
-                                            </Typography>
-                                            <Typography variant="caption" display="block" gutterBottom>
-                                                {formatDate(activeStep.data.created_at)}
-                                            </Typography>
-                                            <Typography variant="caption" display="block" gutterBottom>
-                                                {formatTime(tracking.tiempo)}
-
-                                            </Typography>
-                                        </>
-                                        :
-                                        <></>
-                                }
+                                {step.name}
+                                <br />
+                                {activeStep.activeStep -1 === index && (
+                                    <>
+                                        <p style={{fontSize:'12px', padding:'0px'}}>
+                                            {activeStep.sector}
+                                        </p>
+                                        <p style={{fontSize:'12px', padding:'0px'}}>
+                                            {formatDate(pedido.last_tracking.created_at)}
+                                        </p>
+                                        <p style={{fontSize:'12px', padding:'0px'}}>
+                                            {formatTime(pedido.last_tracking.tiempo)}
+                                        </p>
+                                    </>
+                                )}
                             </StepLabel>
                         </Step>
                     ))}
@@ -191,6 +193,7 @@ const Tracking = () => {
 
                 }
             </Box>
+            <StepperPrueba></StepperPrueba>
         </Container >
     )
 }

@@ -23,19 +23,28 @@ class SectorsSerializers(serializers.ModelSerializer):
 
 
 class OrderStatusSerializers(serializers.ModelSerializer):
-    sector_id = serializers.PrimaryKeyRelatedField(queryset=Sectors.objects.all())
-    pedido_id = serializers.PrimaryKeyRelatedField(queryset=Pedido.objects.all())
-
     class Meta:
         model = OrderStatus
-        fields = ('id', 'sector_id', 'pedido_id', 'created_at', 'tiempo')
+        fields = ('id', 'sector' , 'pedido', 'created_at', 'tiempo')
 
-    # def create(self, validated_data):
-    #     sector_id = validated_data.pop('sector_id')
-    #     pedido_id = validated_data.pop('pedido_id')
+    def to_representation(self,instance):
+        data = super().to_representation(instance)
+        data.pop('pedido')
+        # print(instance.values())
+        sector = instance.sector
+        # obj_sector = Sectors.objects.get(id=sector)
+        ser_sector = SectorsSerializers(sector).data
 
-    #     sector = Sectors.objects.get(**sector_id)
-    #     pedido = Sectors.objects.get(**pedido_id)
+        # pedido = instance.pedido
+        # obj_pedido = Pedido.objects.get(id=pedido)
+        # ser_pedido = OrderSerializer(pedido).data
 
-    #     orderstatus = OrderStatus.objects.create(sector_id=sector,pedido_id=pedido,**validated_data)
-    #     return orderstatus
+
+
+
+
+        data['sector'] = ser_sector
+        # data['pedido'] = ser_pedido
+
+        return data
+ 
