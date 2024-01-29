@@ -15,19 +15,14 @@ def sumar_dias_habiles(dia_hoy, dias_habiles_a_sumar):
             return dia_hoy
 
 
-def comparar_horas(tiempo, lista_entregas):
-    entrega_menor_limite = None
-    entrega_mayor_limite = None
+def comparar_horas(arr, tiempo):
+    # SI SOLO HAY UN ELEMENTO EN EL ARR DEVUELVE EL ELEMENTO Y YA
+        menor = min(arr, key=lambda x: x.hora_limite)
+        mayor = max(arr, key=lambda x: x.hora_limite)
 
-    for entrega in lista_entregas:
-        if tiempo.hour > entrega["hora_limite"]:
-            if entrega_menor_limite is None or entrega["hora_limite"] < entrega_menor_limite["hora_limite"]:
-                entrega_menor_limite = entrega
-        else:
-            if entrega_mayor_limite is None or entrega["hora_limite"] > entrega_mayor_limite["hora_limite"]:
-                entrega_mayor_limite = entrega
+        if menor.hora_limite > tiempo.hour:
+            return menor
+        else: 
+            return mayor
 
-    if entrega_menor_limite is not None:
-        return entrega_menor_limite
-    else:
-        return entrega_mayor_limite
+    

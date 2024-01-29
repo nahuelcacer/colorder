@@ -38,7 +38,7 @@ class PedidoView(viewsets.ModelViewSet):
 
 class PedidoApiView(APIView):
     def get(self, request, pedido_id=None):
-    
+        
         # Si no se proporciona un pedido_id, busca y devuelve todos los pedidos
         filterset = PedidosFilter(request.GET, queryset=Pedido.objects.all())
         filtered_pedidos = filterset.qs

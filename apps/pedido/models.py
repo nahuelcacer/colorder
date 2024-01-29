@@ -2,7 +2,7 @@ from django.db import models
 from apps.producto.models import Producto,Entrega
 from apps.cliente.models import Cliente
 from datetime import datetime, timedelta
-from apps.pedido.tools import sumar_dias_habiles
+from apps.pedido.tools import sumar_dias_habiles, comparar_horas
 
 # Create your models here.
 
@@ -42,22 +42,26 @@ class OrderProduct(models.Model):
     
 
     def calcularEntrega(self):
-        entrega = Entrega.objects.filter(producto__id=self.producto_id).first()
+        entrega = Entrega.objects.filter(producto__id=self.producto_id)
         tiempo = self.pedido.tiempo
+
+        if len(entrega) > 1:
+            entrega = comparar_horas(entrega, tiempo)
+
+        # entrega = Entrega.objects.filter(producto__id=self.producto_id).first()
 
         if entrega.dias_habiles == 0:
             if tiempo.hour < entrega.hora_limite:
-                entrega_final = tiempo.replace(hour=entrega.entrega_pos_limite, minute=0, second=0)
-                print(entrega_final)
+                entrega_final = tiempo.replace(hour=entrega.entrega_pre_limite, minute=0, second=0)
+                # print(entrega_final)
             else:
                 entrega_final = sumar_dias_habiles(tiempo,1)
-                entrega_final = entrega_final.replace(hour=entrega.entrega_pre_limite, minute=0, second=0)
-                print(entrega_final)
+                entrega_final = entrega_final.replace(hour=entrega.entrega_pos_limite, minute=0, second=0)
+                # print(entrega_final)
         else:
             entrega_final = sumar_dias_habiles(tiempo,entrega.dias_habiles)
             entrega_final = entrega_final.replace(hour=entrega.entrega_pos_limite, minute=0, second=0)
-            print(entrega_final)
-
+            # print(entrega_final)
 
         return entrega_final
 
